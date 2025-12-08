@@ -8,183 +8,190 @@
 <style>
   body {
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f0f2f5;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: #e9eef5;
     color: #222;
   }
 
-  /* Top Navbar */
+  /* NAVBAR */
   .navbar {
-    background: #1e3c72;
-    background: linear-gradient(to right, #1e3c72, #2a5298);
-    padding: 18px 30px;
-    color: #fff;
-    font-size: 22px;
-    font-weight: bold;
-    letter-spacing: 1px;
+    background: linear-gradient(135deg, #0d1b3d, #1a4ba3);
+    padding: 20px 40px;
+    color: white;
+    font-size: 24px;
+    font-weight: 700;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
   }
 
-  /* Hero Section */
+  /* HERO SECTION */
   .hero {
-    background: linear-gradient(to right, #2a5298, #1e3c72);
+    background: linear-gradient(115deg, #1a4ba3, #0d1b3d);
     color: white;
-    padding: 70px 20px;
+    padding: 100px 20px;
     text-align: center;
+    border-bottom-left-radius: 60px;
+    border-bottom-right-radius: 60px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
   }
+
   .hero h1 {
+    font-size: 48px;
     margin: 0;
-    font-size: 40px;
-    font-weight: 700;
+    font-weight: 800;
   }
+
   .hero p {
-    margin-top: 15px;
-    font-size: 20px;
+    margin-top: 18px;
+    font-size: 22px;
     opacity: 0.9;
   }
 
-  /* Card Container */
+  /* CONTAINER */
   .container {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 40px auto;
     padding: 10px;
   }
 
   .section-title {
-    font-size: 30px;
-    font-weight: 700;
-    margin-bottom: 15px;
+    font-size: 32px;
     text-align: center;
-    color: #1e3c72;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #0d1b3d;
   }
 
+  /* CARD GRID */
   .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-    margin-top: 20px;
+    gap: 30px;
   }
 
   .card {
-    background: white;
-    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.65);
     padding: 25px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    transition: 0.3s ease;
-  }
-  .card:hover {
-    transform: translateY(-5px);
+    border-radius: 18px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.4);
     box-shadow: 0 8px 18px rgba(0,0,0,0.12);
-  }
-  .card h3 {
-    color: #2a5298;
-    margin-bottom: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 
-  /* Footer */
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.18);
+  }
+
+  .card h3 {
+    margin-top: 0;
+    color: #1a4ba3;
+    font-size: 22px;
+  }
+
+  /* GALLERY */
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  .gallery img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+  }
+
+  .gallery img:hover {
+    transform: scale(1.04);
+  }
+
+  /* CONTACT BOX */
+  .contact-box {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 600px;
+    margin: 30px auto;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    text-align: center;
+  }
+
+  .contact-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #0d1b3d;
+  }
+
+  .contact-detail {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 10px 0;
+    color: #1a4ba3;
+  }
+
   footer {
     text-align: center;
     padding: 20px;
     margin-top: 40px;
-    font-size: 15px;
-    background: #f7f7f7;
-    color: #444;
-  }
-
-  /* Contact Box */
-  .contact-box {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    margin-top: 20px;
-  }
-
-  .email {
-    font-size: 18px;
-    font-weight: 600;
-    color: #1e3c72;
+    background: #f5f5f5;
+    font-size: 16px;
+    color: #333;
   }
 </style>
 </head>
 
 <body>
 
-<div class="navbar">
-  Railway Platform Safety Dashboard
-</div>
+<div class="navbar">Railway Safety Dashboard</div>
 
 <div class="hero">
   <h1>Platform Dead-End Intrusion Prevention System</h1>
-  <p>Smart protection that stops anyone from going too close to the danger zone</p>
+  <p>Smart, reliable protection that prevents unsafe entry to danger zones</p>
 </div>
 
 <div class="container">
-
   <h2 class="section-title">System Highlights</h2>
 
   <div class="cards">
     <div class="card">
       <h3>Laser Boundary Detection</h3>
-      <p>Triggers an alert when any person enters the restricted dead-end zone within 5 cm of the edge.</p>
+      <p>Detects entry near the dead-end zone within 5 cm and triggers instant alerts.</p>
     </div>
-
     <div class="card">
-      <h3>AI-Powered Zone Monitoring</h3>
-      <p>Camera-based detection continuously tracks human movement near the danger area.</p>
+      <h3>AI Zone Monitoring</h3>
+      <p>Camera-based AI ensures precise tracking even in crowded environments.</p>
     </div>
-
     <div class="card">
-      <h3>Instant Alerts</h3>
-      <p>Triggers buzzer, lights, and sends alert to station master or control room instantly.</p>
+      <h3>Real-Time Alerts</h3>
+      <p>Station Master receives hooter + LED + dashboard notification instantly.</p>
     </div>
-
     <div class="card">
-      <h3>Easy Installation</h3>
-      <p>Can be installed on any railway or metro platform without needing structural changes.</p>
-    </div>
-
-    <div class="card">
-      <h3>Low Cost</h3>
-      <p>Affordable, scalable, and suitable for large networks of stations.</p>
-    </div>
-
-    <div class="card">
-      <h3>Failure-Proof Logic</h3>
-      <p>Works even in crowd, low light, rain, smoke or extreme conditions.</p>
+      <h3>Cost Efficient Installation</h3>
+      <p>No civil work required. Can be installed on any rail or metro platform.</p>
     </div>
   </div>
 
-  <h2 class="section-title">How the System Works</h2>
+  <h2 class="section-title">Gallery</h2>
+  <p style="text-align:center;margin-bottom:20px;color:#444;">(Upload your project photos later — these are placeholders)</p>
 
-  <div class="cards">
-    <div class="card">
-      <h3>1. Laser creates virtual safety wall</h3>
-      <p>Invisible beam detects entry instantly.</p>
-    </div>
-
-    <div class="card">
-      <h3>2. AI verifies human presence</h3>
-      <p>Camera ensures accurate detection with almost zero false alarms.</p>
-    </div>
-
-    <div class="card">
-      <h3>3. Controller processes signal</h3>
-      <p>Microcontroller manages alert logic and system safety checks.</p>
-    </div>
-
-    <div class="card">
-      <h3>4. Alert is triggered</h3>
-      <p>Hooter + LED + message sent to monitoring cabin.</p>
-    </div>
+  <div class="gallery">
+    <img src="https://via.placeholder.com/600x400?text=Device+Setup" alt="Setup">
+    <img src="https://via.placeholder.com/600x400?text=Laser+Zone" alt="Laser Zone">
+    <img src="https://via.placeholder.com/600x400?text=AI+Detection" alt="AI Detection">
+    <img src="https://via.placeholder.com/600x400?text=Control+Unit" alt="Control Unit">
   </div>
-
-  <h2 class="section-title">Contact</h2>
 
   <div class="contact-box">
-    <p class="email">Email: your-email@example.com</p>
+    <div class="contact-title">Project Head: Soham Pal</div>
+    <div class="contact-detail">📞 Contact: 6290952326</div>
+    <div class="contact-detail">✉ Email: soham.pal2023@iem.edu.in</div>
+    <div class="contact-detail">📍 India</div>
   </div>
-
 </div>
 
 <footer>
