@@ -166,6 +166,18 @@ body {
   margin-bottom: 20px;
 }
 
+/* ------------------ CONTACT VISITOR BOX ------------------ */
+.contact-box {
+  background: rgba(255,255,255,0.07);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  max-width: 600px;
+  margin: 40px auto;
+  box-shadow: 0 0 35px rgba(140,110,255,0.3);
+}
+
 /* ------------------ FOOTER ------------------ */
 footer {
   text-align: center;
@@ -202,7 +214,7 @@ footer {
   <div class="card"><h3>Low Cost</h3><p>No civil work required.</p></div>
 </div>
 
-<!-- ⭐ AI SECTION HERE -->
+<!-- ⭐ AI SECTION -->
 <h2 class="section-title">AI-Based Violation Detection</h2>
 
 <div class="cards">
@@ -246,6 +258,30 @@ footer {
 
 <div class="video-container">
   <iframe src="https://www.youtube.com/embed/9XZerEaP8Lo" allowfullscreen></iframe>
+</div>
+
+<!-- CONTACT -->
+<h2 class="section-title">Contact</h2>
+
+<div class="contact-box">
+  <p style="font-size:20px; margin-bottom:10px;">
+    📞 <b>6290952326</b>
+  </p>
+
+  <p style="font-size:20px; margin-bottom:20px;">
+    ✉ <b>soham.pal2023@iem.edu.in</b>
+  </p>
+
+  <hr style="border:0; height:1px; background:rgba(255,255,255,0.2); margin:20px 0;">
+
+  <p style="font-size:18px; opacity:0.9;">
+    For a <b>free demo</b> of our AI + Laser Safety System,<br>
+    contact us directly via email.
+  </p>
+
+  <p style="margin-top:25px; font-size:20px; font-weight:600;">
+    👁‍🗨 Visitor Count: <span id="visitorCount">0</span>
+  </p>
 </div>
 
 <!-- LEADERSHIP -->
@@ -293,14 +329,14 @@ footer {
 <div class="leader-container">
 
   <div class="leader-card">
-    <img src="8.jpg" class="leader-photo">
+    <img src="8.jpeg" class="leader-photo">
     <h3>Priti Koner</h3>
     <p><b>Project Member</b></p>
     <p>B.Tech Electrical Engineering, 3rd Year<br>IEM Kolkata</p>
   </div>
 
   <div class="leader-card">
-    <img src="9.jpg" class="leader-photo">
+    <img src="9.jpeg" class="leader-photo">
     <h3>Souvik Sharkel</h3>
     <p><b>Project Member</b></p>
     <p>B.Tech Electrical Engineering, 3rd Year<br>IEM Kolkata</p>
@@ -317,6 +353,7 @@ footer {
 <script>
 document.getElementById("year").textContent = new Date().getFullYear();
 
+/* FULLSCREEN IMAGE VIEWER */
 const imgs = document.querySelectorAll('.gallery-img');
 const viewer = document.getElementById('fullscreenViewer');
 const viewerImg = document.getElementById('fullscreenImage');
@@ -329,10 +366,17 @@ imgs.forEach(img => {
 });
 
 document.querySelector('.close-btn').onclick = () => viewer.style.display = "none";
+viewer.onclick = (e) => { if (e.target !== viewerImg) viewer.style.display = "none"; };
 
-viewer.onclick = (e) => {
-  if (e.target !== viewerImg) viewer.style.display = "none";
-};
+/* VISITOR COUNTER */
+if (!localStorage.getItem("visited")) {
+    let count = localStorage.getItem("visitorCountGlobal") || 0;
+    count++;
+    localStorage.setItem("visitorCountGlobal", count);
+    localStorage.setItem("visited", "yes");
+}
+document.getElementById("visitorCount").innerText =
+  localStorage.getItem("visitorCountGlobal") || 1;
 </script>
 
 </body>
