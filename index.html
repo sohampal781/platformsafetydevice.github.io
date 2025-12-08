@@ -3,167 +3,195 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Railway Platform Dead-End Safety Device</title>
+<title>Railway Platform Dead-End Safety System</title>
 
 <style>
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    background: #e9eef5;
-    color: #222;
-  }
+/* ------------------ GLOBAL ------------------ */
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #1a1d4b, #0d0f25 60%);
+  color: #fff;
+  overflow-x: hidden;
+}
 
-  /* NAVBAR */
-  .navbar {
-    background: linear-gradient(135deg, #0d1b3d, #1a4ba3);
-    padding: 20px 40px;
-    color: white;
-    font-size: 24px;
-    font-weight: 700;
-  }
+/* ------------------ NAVBAR ------------------ */
+.navbar {
+  padding: 20px 40px;
+  font-size: 26px;
+  font-weight: 700;
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  text-shadow: 0 0 8px #6a5df0;
+}
 
-  /* HERO */
-  .hero {
-    background: linear-gradient(115deg, #1a4ba3, #0d1b3d);
-    color: white;
-    padding: 100px 20px;
-    text-align: center;
-    border-bottom-left-radius: 60px;
-    border-bottom-right-radius: 60px;
-  }
-  .hero h1 {
-    font-size: 48px;
-    margin: 0;
-    font-weight: 800;
-  }
+/* ------------------ HERO ------------------ */
+.hero {
+  padding: 100px 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #5c34ff 0%, #9126ff 50%, #2600ff 100%);
+  box-shadow: 0 0 40px rgba(140,110,255,0.5);
+  position: relative;
+}
 
-  .container {
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 10px;
-  }
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url('https://i.imgur.com/88dA9ZN.png') center/cover;
+  opacity: 0.08;
+}
 
-  .section-title {
-    font-size: 32px;
-    text-align: center;
-    font-weight: 700;
-    margin-bottom: 20px;
-    color: #0d1b3d;
-  }
+.hero h1 {
+  font-size: 50px;
+  font-weight: 800;
+  margin: 0;
+  animation: fadeDown 1s ease-out;
+}
 
-  /* CARDS */
-  .cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-  }
-  .card {
-    background: white;
-    padding: 25px;
-    border-radius: 18px;
-    box-shadow: 0 8px 18px rgba(0,0,0,0.12);
-  }
+.hero p {
+  font-size: 20px;
+  opacity: 0.95;
+  margin-top: 20px;
+  animation: fadeUp 1.2s ease-out;
+}
 
-  /* GALLERY */
-  .gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-  }
+/* ------------------ SECTION TITLE ------------------ */
+.section-title {
+  font-size: 36px;
+  text-align: center;
+  margin: 50px 0 25px;
+  font-weight: 700;
+  text-shadow: 0 0 12px #8a6bff;
+}
 
-  .gallery-img {
-    width: 100%;
-    aspect-ratio: 4/3;
-    object-fit: cover;
-    border-radius: 18px;
-    cursor: pointer;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-  }
+/* ------------------ SYSTEM CARDS ------------------ */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+  padding: 20px;
+}
 
-  /* FULLSCREEN */
-  .fullscreen-viewer {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.85);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  .fullscreen-viewer img {
-    max-width: 90%;
-    max-height: 90%;
-  }
-  .close-btn {
-    position: absolute;
-    top: 25px;
-    right: 40px;
-    font-size: 40px;
-    color: white;
-    cursor: pointer;
-  }
+.card {
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(12px);
+  padding: 25px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 0 20px rgba(120,80,255,0.2);
+  transition: 0.3s;
+}
 
-  /* VIDEO */
-  .video-container {
-    width: 100%;
-    max-width: 900px;
-    height: 500px;
-    margin: 20px auto;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-  }
-  .video-container iframe {
-    width: 100%;
-    height: 100%;
-  }
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 35px rgba(140,110,255,0.4);
+}
 
-  /* CONTACT */
-  .contact-box {
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    max-width: 600px;
-    margin: 30px auto;
-    text-align: center;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-  }
+/* ------------------ GALLERY ------------------ */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap: 20px;
+  padding: 10px;
+}
 
-  /* LEADERSHIP */
-  .leader-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 40px;
-    margin-top: 20px;
-  }
+.gallery-img {
+  width: 100%;
+  border-radius: 18px;
+  box-shadow: 0 0 20px rgba(140,110,255,0.3);
+  cursor: pointer;
+  transition: 0.3s;
+}
+.gallery-img:hover {
+  transform: scale(1.05);
+}
 
-  .leader-card {
-    background: white;
-    padding: 30px;
-    width: 320px;
-    border-radius: 22px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-  }
+/* ------------------ FULLSCREEN VIEWER ------------------ */
+.fullscreen-viewer {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
 
-  .leader-photo {
-    width: 260px;
-    height: 260px;
-    object-fit: cover;
-    border-radius: 20px;
-    margin-bottom: 20px;
-  }
+.fullscreen-viewer img {
+  max-width: 92%;
+  max-height: 92%;
+  border-radius: 20px;
+}
 
-  footer {
-    text-align: center;
-    padding: 20px;
-    background: #f5f5f5;
-    margin-top: 40px;
-  }
+.close-btn {
+  position: absolute;
+  top: 25px;
+  right: 40px;
+  font-size: 45px;
+  cursor: pointer;
+}
+
+/* ------------------ VIDEO ------------------ */
+.video-container {
+  width: 100%;
+  max-width: 900px;
+  height: 500px;
+  margin: 40px auto;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 0 40px rgba(140,110,255,0.4);
+}
+.video-container iframe {
+  width: 100%;
+  height: 100%;
+}
+
+/* ------------------ LEADERSHIP ------------------ */
+.leader-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 20px;
+}
+
+.leader-card {
+  width: 320px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 0 25px rgba(140,110,255,0.35);
+  transition: 0.3s;
+}
+.leader-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 45px rgba(140,110,255,0.6);
+}
+
+.leader-photo {
+  width: 260px;
+  height: 260px;
+  border-radius: 20px;
+  object-fit: cover;
+  box-shadow: 0 0 25px rgba(255,255,255,0.25);
+}
+
+/* ------------------ FOOTER ------------------ */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: rgba(255,255,255,0.05);
+  margin-top: 40px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* ------------------ ANIMATIONS ------------------ */
+@keyframes fadeDown { from {opacity:0; transform:translateY(-20px);} to {opacity:1;} }
+@keyframes fadeUp { from {opacity:0; transform:translateY(20px);} to {opacity:1;} }
+
 </style>
 </head>
 
@@ -173,87 +201,78 @@
 
 <div class="hero">
   <h1>Platform Dead-End Intrusion Prevention System</h1>
-  <p>Smart protection against unsafe entry into danger zones</p>
+  <p>AI + Laser Based Multi-Layered Platform Safety Technology</p>
 </div>
 
 <div class="container">
 
-  <!-- SYSTEM HIGHLIGHTS -->
-  <h2 class="section-title">System Highlights</h2>
-  <div class="cards">
-    <div class="card"><h3>Laser Boundary Detection</h3><p>Detects entry within 5 cm of danger zone.</p></div>
-    <div class="card"><h3>AI Zone Monitoring</h3><p>High-accuracy tracking using AI camera.</p></div>
-    <div class="card"><h3>Real-Time Alerts</h3><p>Buzzer + LED + dashboard notifications.</p></div>
-    <div class="card"><h3>Low-Cost Setup</h3><p>No civil work required.</p></div>
+<h2 class="section-title">System Highlights</h2>
+
+<div class="cards">
+  <div class="card"><h3>Laser Boundary Detection</h3><p>Detects entry within 5 cm.</p></div>
+  <div class="card"><h3>AI Monitoring</h3><p>High-accuracy intrusion tracking.</p></div>
+  <div class="card"><h3>Real-Time Alerts</h3><p>Buzzer, LED & dashboard warnings.</p></div>
+  <div class="card"><h3>Low Installation Cost</h3><p>No civil modifications needed.</p></div>
+</div>
+
+<h2 class="section-title">Gallery</h2>
+
+<div class="gallery">
+  <img src="1.jpg" class="gallery-img">
+  <img src="2.jpg" class="gallery-img">
+  <img src="3.jpg" class="gallery-img">
+</div>
+
+<div id="fullscreenViewer" class="fullscreen-viewer">
+  <span class="close-btn">&times;</span>
+  <img id="fullscreenImage">
+</div>
+
+<h2 class="section-title">Demo Video</h2>
+
+<div class="video-container">
+  <iframe src="https://www.youtube.com/embed/9XZerEaP8Lo" allowfullscreen></iframe>
+</div>
+
+<h2 class="section-title">Leadership Team</h2>
+
+<!-- ROW 1 -->
+<div class="leader-container">
+
+  <div class="leader-card">
+    <img src="4.jpg" class="leader-photo">
+    <h3>Soham Pal</h3>
+    <p><b>Project Head</b></p>
+    <p>B.Tech Electrical Engineering, 3rd Year<br>IEM Kolkata</p>
   </div>
 
-  <!-- GALLERY -->
-  <h2 class="section-title">Gallery</h2>
-  <div class="gallery">
-    <img src="1.jpg" class="gallery-img">
-    <img src="2.jpg" class="gallery-img">
-    <img src="3.jpg" class="gallery-img">
+  <div class="leader-card">
+    <img src="5.jpg" class="leader-photo">
+    <h3>Heerok Banerjee</h3>
+    <p><b>Project Supervisor</b></p>
+    <p>Assistant Professor, CSE (AIML) & CSBS<br>IEM Kolkata</p>
   </div>
 
-  <div id="fullscreenViewer" class="fullscreen-viewer">
-    <span class="close-btn">&times;</span>
-    <img id="fullscreenImage">
+</div>
+
+<!-- ROW 2 -->
+<div class="leader-container">
+
+  <div class="leader-card">
+    <img src="6.jpg" class="leader-photo">
+    <h3>Sougata Sengupta</h3>
+    <p><b>Head of Hardware Department</b></p>
+    <p>B.Tech Electrical Engineering, 3rd Year<br>IEM Kolkata</p>
   </div>
 
-  <!-- VIDEO -->
-  <h2 class="section-title">Demo Video</h2>
-  <div class="video-container">
-    <iframe src="https://www.youtube.com/embed/9XZerEaP8Lo" allowfullscreen></iframe>
+  <div class="leader-card">
+    <img src="7.jpg" class="leader-photo">
+    <h3>Satavisha Samanta</h3>
+    <p><b>Head of Software Department</b></p>
+    <p>B.Tech Electrical Engineering, 3rd Year<br>IEM Kolkata</p>
   </div>
 
-  <!-- CONTACT -->
-  <div class="contact-box">
-    <h2>Contact</h2>
-    <p>📞 6290952326</p>
-    <p>✉ soham.pal2023@iem.edu.in</p>
-    <p>📍 India</p>
-  </div>
-
-  <!-- LEADERSHIP -->
-  <h2 class="section-title">Leadership</h2>
-
-  <!-- ROW 1 (YOU + SUPERVISOR) -->
-  <div class="leader-container">
-
-    <div class="leader-card">
-      <img src="4.jpg" class="leader-photo">
-      <h3>Soham Pal</h3>
-      <p><b>Project Head</b></p>
-      <p>B.Tech Electrical Engineering, 3rd Year<br>IEM Kolkata</p>
-    </div>
-
-    <div class="leader-card">
-      <img src="5.jpg" class="leader-photo">
-      <h3>Heerok Banerjee</h3>
-      <p><b>Project Supervisor</b></p>
-      <p>Assistant Professor, CSE (AIML) & CSBS<br>IEM Kolkata</p>
-    </div>
-
-  </div>
-
-  <!-- ROW 2 (SOUGATA + SATAVISHA) -->
-  <div class="leader-container">
-
-    <div class="leader-card">
-      <img src="6.jpg" class="leader-photo">
-      <h3>Sougata Sengupta</h3>
-      <p><b>Head of Hardware Department</b></p>
-      <p>B.Tech Student<br>IEM Kolkata</p>
-    </div>
-
-    <div class="leader-card">
-      <img src="7.jpg" class="leader-photo">
-      <h3>Satavisha Samanta</h3>
-      <p><b>Head of Software Department</b></p>
-      <p>B.Tech Student<br>IEM Kolkata</p>
-    </div>
-
-  </div>
+</div>
 
 </div>
 
@@ -262,25 +281,24 @@
 </footer>
 
 <script>
-  document.getElementById("year").textContent = new Date().getFullYear();
+document.getElementById("year").textContent = new Date().getFullYear();
 
-  const imgs = document.querySelectorAll('.gallery-img');
-  const viewer = document.getElementById('fullscreenViewer');
-  const viewerImg = document.getElementById('fullscreenImage');
-  const closeBtn = document.querySelector('.close-btn');
+const imgs = document.querySelectorAll('.gallery-img');
+const viewer = document.getElementById('fullscreenViewer');
+const viewerImg = document.getElementById('fullscreenImage');
 
-  imgs.forEach(img => {
-    img.onclick = () => {
-      viewer.style.display = "flex";
-      viewerImg.src = img.src;
-    };
-  });
-
-  closeBtn.onclick = () => viewer.style.display = "none";
-
-  viewer.onclick = (e) => {
-    if (e.target !== viewerImg) viewer.style.display = "none";
+imgs.forEach(img => {
+  img.onclick = () => {
+    viewer.style.display = "flex";
+    viewerImg.src = img.src;
   };
+});
+
+document.querySelector('.close-btn').onclick = () => viewer.style.display = "none";
+
+viewer.onclick = (e) => {
+  if (e.target !== viewerImg) viewer.style.display = "none";
+};
 </script>
 
 </body>
