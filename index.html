@@ -23,7 +23,7 @@
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
   }
 
-  /* HERO */
+  /* HERO SECTION */
   .hero {
     background: linear-gradient(115deg, #1a4ba3, #0d1b3d);
     color: white;
@@ -50,6 +50,7 @@
     margin: 40px auto;
     padding: 10px;
   }
+
   .section-title {
     font-size: 32px;
     text-align: center;
@@ -90,26 +91,76 @@
     gap: 20px;
   }
 
-  .g-item {
-    opacity: 0;
-    transform: scale(0.85);
-    transition: all 0.6s ease;
-  }
-  .g-item.visible {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  .gallery img {
+  .gallery-img {
     width: 100%;
-    height: 220px;
+    aspect-ratio: 4/3;
     object-fit: cover;
     border-radius: 18px;
+    cursor: pointer;
     box-shadow: 0 6px 18px rgba(0,0,0,0.2);
     transition: transform 0.3s ease;
   }
-  .gallery img:hover {
+
+  .gallery-img:hover {
     transform: scale(1.05);
+  }
+
+  /* FULLSCREEN IMAGE VIEWER */
+  .fullscreen-viewer {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(6px);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  .fullscreen-viewer img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 25px;
+    right: 40px;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  /* VIDEO */
+  .video-title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #1a4ba3;
+  }
+
+  .video-container {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    height: 500px;
+    margin: 0 auto 40px auto;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  }
+
+  .video-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 20px;
   }
 
   /* CONTACT */
@@ -183,39 +234,29 @@
   </div>
 
 
-  <!-- AI VIOLATION + PENALTY SYSTEM -->
+  <!-- AI + PENALTY SYSTEM -->
   <h2 class="section-title">AI Violation Detection & Penalty System</h2>
 
   <div class="cards">
-
     <div class="card">
       <h3>Automatic Violation Logging</h3>
-      <p>
-        Every danger-zone entry is recorded with time, camera view, and event ID.
-      </p>
+      <p>Each danger-zone entry is recorded with timestamps and event data.</p>
     </div>
 
     <div class="card">
       <h3>Person Re-Identification</h3>
-      <p>
-        AI tracks repeated violators using appearance patterns — without storing identity.
-      </p>
+      <p>AI tracks repeat violators using appearance patterns — without storing identity.</p>
     </div>
 
     <div class="card">
       <h3>Penalty Trigger System</h3>
-      <p>
-        Multiple violations generate automatic penalty alerts for railway authorities.
-      </p>
+      <p>Multiple violations generate automatic penalty alerts for railway authorities.</p>
     </div>
 
     <div class="card">
-      <h3>Privacy Friendly</h3>
-      <p>
-        No facial identity stored. Only behavior signatures for safety enforcement.
-      </p>
+      <h3>Privacy Safe</h3>
+      <p>No facial identity saved. Only behavior-signature tracking for safety.</p>
     </div>
-
   </div>
 
 
@@ -223,9 +264,27 @@
   <h2 class="section-title">Gallery</h2>
 
   <div class="gallery">
-    <div class="g-item"><img src="1.jpg"></div>
-    <div class="g-item"><img src="2.jpg"></div>
-    <div class="g-item"><img src="3.jpg"></div>
+    <img src="1.jpg" class="gallery-img">
+    <img src="2.jpg" class="gallery-img">
+    <img src="3.jpg" class="gallery-img">
+  </div>
+
+  <!-- FULLSCREEN VIEWER -->
+  <div id="fullscreenViewer" class="fullscreen-viewer">
+    <span class="close-btn">&times;</span>
+    <img id="fullscreenImage">
+  </div>
+
+
+  <!-- VIDEO SECTION -->
+  <h2 class="section-title">Demo Video</h2>
+  <h3 class="video-title">Railway Platform Safety System – Dashboard Demo</h3>
+
+  <div class="video-container">
+    <iframe 
+      src="https://www.youtube.com/embed/9XZerEaP8Lo"
+      allowfullscreen>
+    </iframe>
   </div>
 
 
@@ -246,19 +305,28 @@
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  const items = document.querySelectorAll('.g-item');
+  // FULLSCREEN IMAGE LOGIC
+  const imgs = document.querySelectorAll('.gallery-img');
+  const viewer = document.getElementById('fullscreenViewer');
+  const viewerImg = document.getElementById('fullscreenImage');
+  const closeBtn = document.querySelector('.close-btn');
 
-  function checkVisibility() {
-    items.forEach(item => {
-      const rect = item.getBoundingClientRect();
-      if (rect.top < window.innerHeight - 50) {
-        item.classList.add('visible');
-      }
+  imgs.forEach(img => {
+    img.addEventListener('click', () => {
+      viewer.style.display = 'flex';
+      viewerImg.src = img.src;
     });
-  }
+  });
 
-  window.addEventListener('scroll', checkVisibility);
-  window.addEventListener('load', checkVisibility);
+  closeBtn.addEventListener('click', () => {
+    viewer.style.display = 'none';
+  });
+
+  viewer.addEventListener('click', (e) => {
+    if (e.target !== viewerImg) {
+      viewer.style.display = 'none';
+    }
+  });
 </script>
 
 </body>
