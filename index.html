@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Railway Platform Dead-End Safety System</title>
+<title>AI-Enabled Dead-End Platform Breach Prevention System</title>
 
 <style>
 /* ------------------ GLOBAL ------------------ */
@@ -44,16 +44,14 @@ body {
   font-size: 50px;
   font-weight: 800;
   margin: 0;
-  animation: fadeDown 1s ease-out;
 }
 .hero p {
   font-size: 20px;
   opacity: 0.95;
   margin-top: 20px;
-  animation: fadeUp 1.2s ease-out;
 }
 
-/* ------------------ TITLES ------------------ */
+/* ------------------ SECTION TITLES ------------------ */
 .section-title {
   font-size: 36px;
   text-align: center;
@@ -62,7 +60,7 @@ body {
   text-shadow: 0 0 12px #8a6bff;
 }
 
-/* ------------------ SYSTEM HIGHLIGHT CARDS ------------------ */
+/* ------------------ FEATURE CARDS ------------------ */
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -100,7 +98,7 @@ body {
   transform: scale(1.05);
 }
 
-/* ------------------ FULLSCREEN VIEWER ------------------ */
+/* FULLSCREEN VIEWER */
 .fullscreen-viewer {
   display: none;
   position: fixed;
@@ -127,8 +125,7 @@ body {
 .video-container {
   width: 100%;
   max-width: 900px;
-  height: 500px;
-  margin: 40px auto;
+  height: 300px;
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 0 40px rgba(140,110,255,0.4);
@@ -144,6 +141,10 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   gap: 40px;
+  margin-bottom: 50px;
+}
+.leader-container + .leader-container {
+  margin-top: 60px;
 }
 .leader-card {
   width: 320px;
@@ -166,7 +167,7 @@ body {
   margin-bottom: 20px;
 }
 
-/* ------------------ CONTACT VISITOR BOX ------------------ */
+/* ------------------ CONTACT ------------------ */
 .contact-box {
   background: rgba(255,255,255,0.07);
   backdrop-filter: blur(12px);
@@ -185,11 +186,6 @@ footer {
   background: rgba(255,255,255,0.05);
   border-top: 1px solid rgba(255,255,255,0.1);
 }
-
-/* ------------------ ANIMATIONS ------------------ */
-@keyframes fadeDown { from {opacity:0; transform:translateY(-20px);} to {opacity:1;} }
-@keyframes fadeUp { from {opacity:0; transform:translateY(20px);} to {opacity:1;} }
-
 </style>
 </head>
 
@@ -198,93 +194,111 @@ footer {
 <div class="navbar">Railway Safety Dashboard</div>
 
 <div class="hero">
-  <h1>Platform Dead-End Intrusion Prevention System</h1>
-  <p>AI + Laser Based Multi-Layered Platform Safety Technology</p>
+  <h1>AI-Enabled Dead-End Platform Breach Prevention System</h1>
+  <p>Advanced AI + Laser Safety Technology for Platform Dead-End Zones</p>
 </div>
 
 <div class="container">
 
 <!-- SYSTEM HIGHLIGHTS -->
 <h2 class="section-title">System Highlights</h2>
-
 <div class="cards">
-  <div class="card"><h3>Laser Boundary Detection</h3><p>Detects entry within 5 cm.</p></div>
-  <div class="card"><h3>AI Monitoring</h3><p>High-accuracy intrusion detection.</p></div>
-  <div class="card"><h3>Real-Time Alerts</h3><p>Buzzer, LED & dashboard warnings.</p></div>
-  <div class="card"><h3>Low Cost</h3><p>No civil work required.</p></div>
+  <div class="card"><h3>Laser Boundary Detection</h3><p>Detects entry within 5 cm of danger zone.</p></div>
+  <div class="card"><h3>AI Monitoring</h3><p>Real-time AI-based human detection.</p></div>
+  <div class="card"><h3>Instant Alerts</h3><p>Sirens, light alerts, dashboard warnings.</p></div>
+  <div class="card"><h3>Low Cost</h3><p>No civil construction required.</p></div>
 </div>
 
-<!-- ⭐ AI SECTION -->
+<!-- AI SECTION -->
 <h2 class="section-title">AI-Based Violation Detection</h2>
-
 <div class="cards">
-  <div class="card">
-    <h3>Real-Time Person Detection</h3>
-    <p>The AI camera continuously monitors the danger zone and identifies individuals entering restricted areas.</p>
-  </div>
-
-  <div class="card">
-    <h3>Boundary Violation Alerts</h3>
-    <p>If someone crosses the dead-end safety line, the system instantly triggers visual & audio alerts.</p>
-  </div>
-
-  <div class="card">
-    <h3>Behavior Monitoring</h3>
-    <p>AI detects abnormal movement patterns and reduces false alarms.</p>
-  </div>
-
-  <div class="card">
-    <h3>Violation Logging</h3>
-    <p>System captures violation frames for review. Optional face logging available.</p>
-  </div>
+  <div class="card"><h3>Real-Time Person Detection</h3><p>Monitors danger zone continuously using AI vision.</p></div>
+  <div class="card"><h3>Boundary Violation Alerts</h3><p>Instant audio-visual alerts when breach occurs.</p></div>
+  <div class="card"><h3>Behavior Analysis</h3><p>AI reduces false positives using advanced tracking.</p></div>
+  <div class="card"><h3>Violation Logging</h3><p>Captures evidence frames for review.</p></div>
 </div>
 
 <!-- GALLERY -->
 <h2 class="section-title">Gallery</h2>
-
 <div class="gallery">
   <img src="1.jpg" class="gallery-img">
   <img src="2.jpg" class="gallery-img">
   <img src="3.jpg" class="gallery-img">
 </div>
 
+<!-- FULLSCREEN VIEWER -->
 <div id="fullscreenViewer" class="fullscreen-viewer">
   <span class="close-btn">&times;</span>
   <img id="fullscreenImage">
 </div>
 
-<!-- VIDEO -->
-<h2 class="section-title">Demo Video</h2>
+<!-- ATTRACTIVE VIDEO SHOWCASE -->
+<h2 class="section-title">AI Video Demonstrations</h2>
 
-<div class="video-container">
-  <iframe src="https://www.youtube.com/embed/9XZerEaP8Lo" allowfullscreen></iframe>
+<div style="
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 40px;
+  padding: 20px;
+  margin-bottom: 40px;
+">
+
+  <!-- VIDEO 1 -->
+  <div style="
+    background: rgba(255,255,255,0.07);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 0 25px rgba(140,110,255,0.3);
+    transition: 0.3s;
+  " 
+  onmouseover="this.style.transform='scale(1.03)'"
+  onmouseout="this.style.transform='scale(1)'">
+
+    <h3 style="text-align:center; margin-bottom:15px;">
+      AI Camera Based Breach Detection – Demo Video
+    </h3>
+
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/9XZerEaP8Lo" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <!-- VIDEO 2 -->
+  <div style="
+    background: rgba(255,255,255,0.07);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 0 25px rgba(140,110,255,0.3);
+    transition: 0.3s;
+  "
+  onmouseover="this.style.transform='scale(1.03)'"
+  onmouseout="this.style.transform='scale(1)'">
+
+    <h3 style="text-align:center; margin-bottom:15px;">
+      Platform Danger Zone AI – Real-Time Violation Demo
+    </h3>
+
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/ljjpuWzw0DQ" allowfullscreen></iframe>
+    </div>
+  </div>
+
 </div>
 
 <!-- CONTACT -->
 <h2 class="section-title">Contact</h2>
-
 <div class="contact-box">
-
-  <p style="font-size:20px; margin-bottom:20px;">
-    ✉ <b>soham.pal2023@iem.edu.in</b>
-  </p>
-
+  <p style="font-size:20px;">✉ <b>soham.pal2023@iem.edu.in</b></p>
   <hr style="border:0; height:1px; background:rgba(255,255,255,0.2); margin:20px 0;">
-
-  <p style="font-size:18px; opacity:0.9;">
-    For a <b>free demo</b> of our AI + Laser Safety System,<br>
-    contact us directly via email.
-  </p>
-
- 
+  <p style="font-size:18px; opacity:0.9;">For a <b>free demo</b> of our AI + Laser Safety System, contact us via email.</p>
 </div>
 
-
-
-<!-- ROW 1 -->
+<!-- LEADERSHIP -->
 <h2 class="section-title">Project Leadership & Development Team</h2>
 
-<!-- ROW 1 (YOU + TWO SUPERVISORS) -->
+<!-- ROW 1 -->
 <div class="leader-container">
 
   <div class="leader-card">
@@ -302,7 +316,7 @@ footer {
   </div>
 
   <div class="leader-card">
-    <img src="10.jpg" class="leader-photo">
+    <img src="10.jpeg" class="leader-photo">
     <h3>Sujay Kumar Banerjee</h3>
     <p><b>Project Supervisor</b></p>
     <p>Senior Technical Assistant<br>EE Department, IEM Kolkata</p>
@@ -348,17 +362,16 @@ footer {
 
 </div>
 
-
 </div>
 
 <footer>
-  © <span id="year"></span> Railway Platform Safety Device
+  © <span id="year"></span> AI-Enabled Dead-End Platform Breach Prevention System
 </footer>
 
 <script>
 document.getElementById("year").textContent = new Date().getFullYear();
 
-/* FULLSCREEN IMAGE VIEWER */
+/* GALLERY FULLSCREEN */
 const imgs = document.querySelectorAll('.gallery-img');
 const viewer = document.getElementById('fullscreenViewer');
 const viewerImg = document.getElementById('fullscreenImage');
@@ -369,11 +382,9 @@ imgs.forEach(img => {
     viewerImg.src = img.src;
   };
 });
-
 document.querySelector('.close-btn').onclick = () => viewer.style.display = "none";
 viewer.onclick = (e) => { if (e.target !== viewerImg) viewer.style.display = "none"; };
-
-
+</script>
 
 </body>
 </html>
