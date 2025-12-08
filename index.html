@@ -89,24 +89,36 @@
     font-size: 22px;
   }
 
-  /* GALLERY */
+  /* GALLERY GRID */
   .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
   }
 
+  /* ANIMATED GALLERY */
+  .g-item {
+    opacity: 0;
+    transform: scale(0.85);
+    transition: all 0.6s ease;
+  }
+
+  .g-item.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
   .gallery img {
     width: 100%;
     height: 220px;
     object-fit: cover;
-    border-radius: 15px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-    transition: transform 0.2s;
+    border-radius: 18px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
   }
 
   .gallery img:hover {
-    transform: scale(1.04);
+    transform: scale(1.05);
   }
 
   /* CONTACT BOX */
@@ -155,6 +167,7 @@
 </div>
 
 <div class="container">
+
   <h2 class="section-title">System Highlights</h2>
 
   <div class="cards">
@@ -162,14 +175,17 @@
       <h3>Laser Boundary Detection</h3>
       <p>Detects entry near the dead-end zone within 5 cm and triggers instant alerts.</p>
     </div>
+
     <div class="card">
       <h3>AI Zone Monitoring</h3>
       <p>Camera-based AI ensures precise tracking even in crowded environments.</p>
     </div>
+
     <div class="card">
       <h3>Real-Time Alerts</h3>
       <p>Station Master receives hooter + LED + dashboard notification instantly.</p>
     </div>
+
     <div class="card">
       <h3>Cost Efficient Installation</h3>
       <p>No civil work required. Can be installed on any rail or metro platform.</p>
@@ -177,21 +193,21 @@
   </div>
 
   <h2 class="section-title">Gallery</h2>
-  <p style="text-align:center;margin-bottom:20px;color:#444;">(Upload your project photos later — these are placeholders)</p>
 
   <div class="gallery">
-    <img src="https://via.placeholder.com/600x400?text=Device+Setup" alt="Setup">
-    <img src="https://via.placeholder.com/600x400?text=Laser+Zone" alt="Laser Zone">
-    <img src="https://via.placeholder.com/600x400?text=AI+Detection" alt="AI Detection">
-    <img src="https://via.placeholder.com/600x400?text=Control+Unit" alt="Control Unit">
+    <div class="g-item"><img src="1.jpg"></div>
+    <div class="g-item"><img src="2.jpg"></div>
+    <div class="g-item"><img src="3.jpg"></div>
+    <div class="g-item"><img src="4.jpg"></div>
   </div>
 
   <div class="contact-box">
     <div class="contact-title">Project Head: Soham Pal</div>
-    <div class="contact-detail">📞 Contact: 6290952326</div>
-    <div class="contact-detail">✉ Email: soham.pal2023@iem.edu.in</div>
+    <div class="contact-detail">📞 6290952326</div>
+    <div class="contact-detail">✉ soham.pal2023@iem.edu.in</div>
     <div class="contact-detail">📍 India</div>
   </div>
+
 </div>
 
 <footer>
@@ -200,6 +216,21 @@
 
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
+
+  // SCROLL ANIMATION FOR GALLERY
+  const items = document.querySelectorAll('.g-item');
+
+  function checkVisibility() {
+    items.forEach(item => {
+      const rect = item.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 50) {
+        item.classList.add('visible');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', checkVisibility);
+  window.addEventListener('load', checkVisibility);
 </script>
 
 </body>
