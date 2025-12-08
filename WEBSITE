@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Railway Platform Dead-End Safety Device</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f2f5;
+    color: #222;
+  }
+
+  /* Top Navbar */
+  .navbar {
+    background: #1e3c72;
+    background: linear-gradient(to right, #1e3c72, #2a5298);
+    padding: 18px 30px;
+    color: #fff;
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+
+  /* Hero Section */
+  .hero {
+    background: linear-gradient(to right, #2a5298, #1e3c72);
+    color: white;
+    padding: 70px 20px;
+    text-align: center;
+  }
+  .hero h1 {
+    margin: 0;
+    font-size: 40px;
+    font-weight: 700;
+  }
+  .hero p {
+    margin-top: 15px;
+    font-size: 20px;
+    opacity: 0.9;
+  }
+
+  /* Card Container */
+  .container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 10px;
+  }
+
+  .section-title {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #1e3c72;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+  }
+
+  .card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: 0.3s ease;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+  }
+  .card h3 {
+    color: #2a5298;
+    margin-bottom: 12px;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    font-size: 15px;
+    background: #f7f7f7;
+    color: #444;
+  }
+
+  /* Contact Box */
+  .contact-box {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    margin-top: 20px;
+  }
+
+  .email {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1e3c72;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+  Railway Platform Safety Dashboard
+</div>
+
+<div class="hero">
+  <h1>Platform Dead-End Intrusion Prevention System</h1>
+  <p>Smart protection that stops anyone from going too close to the danger zone</p>
+</div>
+
+<div class="container">
+
+  <h2 class="section-title">System Highlights</h2>
+
+  <div class="cards">
+    <div class="card">
+      <h3>Laser Boundary Detection</h3>
+      <p>Triggers an alert when any person enters the restricted dead-end zone within 5 cm of the edge.</p>
+    </div>
+
+    <div class="card">
+      <h3>AI-Powered Zone Monitoring</h3>
+      <p>Camera-based detection continuously tracks human movement near the danger area.</p>
+    </div>
+
+    <div class="card">
+      <h3>Instant Alerts</h3>
+      <p>Triggers buzzer, lights, and sends alert to station master or control room instantly.</p>
+    </div>
+
+    <div class="card">
+      <h3>Easy Installation</h3>
+      <p>Can be installed on any railway or metro platform without needing structural changes.</p>
+    </div>
+
+    <div class="card">
+      <h3>Low Cost</h3>
+      <p>Affordable, scalable, and suitable for large networks of stations.</p>
+    </div>
+
+    <div class="card">
+      <h3>Failure-Proof Logic</h3>
+      <p>Works even in crowd, low light, rain, smoke or extreme conditions.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">How the System Works</h2>
+
+  <div class="cards">
+    <div class="card">
+      <h3>1. Laser creates virtual safety wall</h3>
+      <p>Invisible beam detects entry instantly.</p>
+    </div>
+
+    <div class="card">
+      <h3>2. AI verifies human presence</h3>
+      <p>Camera ensures accurate detection with almost zero false alarms.</p>
+    </div>
+
+    <div class="card">
+      <h3>3. Controller processes signal</h3>
+      <p>Microcontroller manages alert logic and system safety checks.</p>
+    </div>
+
+    <div class="card">
+      <h3>4. Alert is triggered</h3>
+      <p>Hooter + LED + message sent to monitoring cabin.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">Contact</h2>
+
+  <div class="contact-box">
+    <p class="email">Email: your-email@example.com</p>
+  </div>
+
+</div>
+
+<footer>
+  © <span id="year"></span> Railway Platform Safety Device
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
