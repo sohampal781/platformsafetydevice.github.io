@@ -186,6 +186,59 @@
     color: #1a4ba3;
   }
 
+  /* LEADERSHIP SECTION */
+  .leader-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 40px;
+  }
+
+  .leader-card {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 30px;
+    width: 320px;
+    border-radius: 22px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    transition: 0.3s ease;
+  }
+
+  .leader-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.22);
+  }
+
+  .leader-photo {
+    width: 260px;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    margin-bottom: 20px;
+  }
+
+  .leader-name {
+    font-size: 26px;
+    font-weight: 700;
+    color: #0d1b3d;
+    margin: 0;
+  }
+
+  .leader-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a4ba3;
+    margin-bottom: 15px;
+  }
+
+  .leader-desc {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #444;
+  }
+
   footer {
     text-align: center;
     padding: 20px;
@@ -212,57 +265,14 @@
   <h2 class="section-title">System Highlights</h2>
 
   <div class="cards">
-    <div class="card">
-      <h3>Laser Boundary Detection</h3>
-      <p>Detects entry near the dead-end zone within 5 cm and triggers instant alerts.</p>
-    </div>
-
-    <div class="card">
-      <h3>AI Zone Monitoring</h3>
-      <p>Camera-based AI ensures precise tracking even in crowded environments.</p>
-    </div>
-
-    <div class="card">
-      <h3>Real-Time Alerts</h3>
-      <p>Hooter + LED + dashboard warning sent instantly to the station master.</p>
-    </div>
-
-    <div class="card">
-      <h3>Cost Efficient Installation</h3>
-      <p>No civil work needed. Works on any railway or metro platform.</p>
-    </div>
+    <div class="card"><h3>Laser Boundary Detection</h3><p>Detects entry near the dead-end zone within 5 cm and triggers instant alerts.</p></div>
+    <div class="card"><h3>AI Zone Monitoring</h3><p>Camera-based AI ensures precise tracking even in crowded environments.</p></div>
+    <div class="card"><h3>Real-Time Alerts</h3><p>Hooter + LED + dashboard warning sent instantly to the station master.</p></div>
+    <div class="card"><h3>Cost Efficient Installation</h3><p>No civil work needed. Works on any railway or metro platform.</p></div>
   </div>
-
-
-  <!-- AI + PENALTY SYSTEM -->
-  <h2 class="section-title">AI Violation Detection & Penalty System</h2>
-
-  <div class="cards">
-    <div class="card">
-      <h3>Automatic Violation Logging</h3>
-      <p>Each danger-zone entry is recorded with timestamps and event data.</p>
-    </div>
-
-    <div class="card">
-      <h3>Person Re-Identification</h3>
-      <p>AI tracks repeat violators using appearance patterns — without storing identity.</p>
-    </div>
-
-    <div class="card">
-      <h3>Penalty Trigger System</h3>
-      <p>Multiple violations generate automatic penalty alerts for railway authorities.</p>
-    </div>
-
-    <div class="card">
-      <h3>Privacy Safe</h3>
-      <p>No facial identity saved. Only behavior-signature tracking for safety.</p>
-    </div>
-  </div>
-
 
   <!-- GALLERY -->
   <h2 class="section-title">Gallery</h2>
-
   <div class="gallery">
     <img src="1.jpg" class="gallery-img">
     <img src="2.jpg" class="gallery-img">
@@ -275,25 +285,51 @@
     <img id="fullscreenImage">
   </div>
 
-
   <!-- VIDEO SECTION -->
   <h2 class="section-title">Demo Video</h2>
   <h3 class="video-title">Railway Platform Safety System – Dashboard Demo</h3>
 
   <div class="video-container">
-    <iframe 
-      src="https://www.youtube.com/embed/9XZerEaP8Lo"
-      allowfullscreen>
-    </iframe>
+    <iframe src="https://www.youtube.com/embed/9XZerEaP8Lo" allowfullscreen></iframe>
   </div>
-
 
   <!-- CONTACT -->
   <div class="contact-box">
-    <div class="contact-title">Project Head: Soham Pal</div>
+    <div class="contact-title">Contact</div>
     <div class="contact-detail">📞 6290952326</div>
     <div class="contact-detail">✉ soham.pal2023@iem.edu.in</div>
     <div class="contact-detail">📍 India</div>
+  </div>
+
+  <!-- LEADERSHIP SECTION -->
+  <h2 class="section-title">Leadership</h2>
+
+  <div class="leader-container">
+
+    <!-- Project Head FIRST -->
+    <div class="leader-card">
+      <img src="5.jpg" class="leader-photo">
+      <h3 class="leader-name">Soham Pal</h3>
+      <p class="leader-title">Project Head</p>
+      <p class="leader-desc">
+        B.Tech Electrical Engineering (3rd Year). Lead developer of the Railway Platform Dead-End Safety System. 
+        Experience in Traction Power Control, Third Rail systems, and real-time electrical monitoring during training 
+        at Kolkata Metro Railway. Responsible for design, development, testing, and automation architecture.
+      </p>
+    </div>
+
+    <!-- Supervisor SECOND -->
+    <div class="leader-card">
+      <img src="4.jpg" class="leader-photo">
+      <h3 class="leader-name">Heerok Banerjee</h3>
+      <p class="leader-title">Project Supervisor</p>
+      <p class="leader-desc">
+        Assistant Professor, Dept. of CSE (AIML) & CSBS, IEM Kolkata. Specialist in LPWAN, Industrial IoT, network optimization, 
+        and connected systems. Former researcher at imec & Vrije Universiteit Brussel with major contributions to BLE Mesh 
+        energy reduction up to 86%. Provides research guidance and technical oversight.
+      </p>
+    </div>
+
   </div>
 
 </div>
@@ -305,7 +341,6 @@
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  // FULLSCREEN IMAGE LOGIC
   const imgs = document.querySelectorAll('.gallery-img');
   const viewer = document.getElementById('fullscreenViewer');
   const viewerImg = document.getElementById('fullscreenImage');
@@ -318,14 +353,10 @@
     });
   });
 
-  closeBtn.addEventListener('click', () => {
-    viewer.style.display = 'none';
-  });
+  closeBtn.addEventListener('click', () => viewer.style.display = 'none');
 
-  viewer.addEventListener('click', (e) => {
-    if (e.target !== viewerImg) {
-      viewer.style.display = 'none';
-    }
+  viewer.addEventListener('click', e => {
+    if (e.target !== viewerImg) viewer.style.display = 'none';
   });
 </script>
 
