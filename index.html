@@ -23,7 +23,7 @@
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
   }
 
-  /* HERO SECTION */
+  /* HERO */
   .hero {
     background: linear-gradient(115deg, #1a4ba3, #0d1b3d);
     color: white;
@@ -33,13 +33,11 @@
     border-bottom-right-radius: 60px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.2);
   }
-
   .hero h1 {
     font-size: 48px;
     margin: 0;
     font-weight: 800;
   }
-
   .hero p {
     margin-top: 18px;
     font-size: 22px;
@@ -52,7 +50,6 @@
     margin: 40px auto;
     padding: 10px;
   }
-
   .section-title {
     font-size: 32px;
     text-align: center;
@@ -61,48 +58,43 @@
     color: #0d1b3d;
   }
 
-  /* CARD GRID */
+  /* CARDS */
   .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
   }
-
   .card {
-    background: rgba(255, 255, 255, 0.65);
+    background: rgba(255,255,255,0.65);
     padding: 25px;
     border-radius: 18px;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255,255,255,0.4);
     box-shadow: 0 8px 18px rgba(0,0,0,0.12);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: 0.2s;
   }
-
   .card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 12px 25px rgba(0,0,0,0.18);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.18);
   }
-
   .card h3 {
     margin-top: 0;
     color: #1a4ba3;
     font-size: 22px;
   }
 
-  /* GALLERY GRID */
+  /* GALLERY */
   .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
   }
 
-  /* ANIMATED GALLERY */
   .g-item {
     opacity: 0;
     transform: scale(0.85);
     transition: all 0.6s ease;
   }
-
   .g-item.visible {
     opacity: 1;
     transform: scale(1);
@@ -116,12 +108,11 @@
     box-shadow: 0 6px 18px rgba(0,0,0,0.2);
     transition: transform 0.3s ease;
   }
-
   .gallery img:hover {
     transform: scale(1.05);
   }
 
-  /* CONTACT BOX */
+  /* CONTACT */
   .contact-box {
     background: white;
     padding: 30px;
@@ -131,14 +122,12 @@
     box-shadow: 0 6px 18px rgba(0,0,0,0.15);
     text-align: center;
   }
-
   .contact-title {
     font-size: 28px;
     font-weight: 700;
     margin-bottom: 12px;
     color: #0d1b3d;
   }
-
   .contact-detail {
     font-size: 20px;
     font-weight: 600;
@@ -168,6 +157,7 @@
 
 <div class="container">
 
+  <!-- SYSTEM HIGHLIGHTS -->
   <h2 class="section-title">System Highlights</h2>
 
   <div class="cards">
@@ -183,24 +173,63 @@
 
     <div class="card">
       <h3>Real-Time Alerts</h3>
-      <p>Station Master receives hooter + LED + dashboard notification instantly.</p>
+      <p>Hooter + LED + dashboard warning sent instantly to the station master.</p>
     </div>
 
     <div class="card">
       <h3>Cost Efficient Installation</h3>
-      <p>No civil work required. Can be installed on any rail or metro platform.</p>
+      <p>No civil work needed. Works on any railway or metro platform.</p>
     </div>
   </div>
 
+
+  <!-- AI VIOLATION + PENALTY SYSTEM -->
+  <h2 class="section-title">AI Violation Detection & Penalty System</h2>
+
+  <div class="cards">
+
+    <div class="card">
+      <h3>Automatic Violation Logging</h3>
+      <p>
+        Every danger-zone entry is recorded with time, camera view, and event ID.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Person Re-Identification</h3>
+      <p>
+        AI tracks repeated violators using appearance patterns — without storing identity.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Penalty Trigger System</h3>
+      <p>
+        Multiple violations generate automatic penalty alerts for railway authorities.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Privacy Friendly</h3>
+      <p>
+        No facial identity stored. Only behavior signatures for safety enforcement.
+      </p>
+    </div>
+
+  </div>
+
+
+  <!-- GALLERY -->
   <h2 class="section-title">Gallery</h2>
 
   <div class="gallery">
     <div class="g-item"><img src="1.jpg"></div>
     <div class="g-item"><img src="2.jpg"></div>
     <div class="g-item"><img src="3.jpg"></div>
-    <div class="g-item"><img src="4.jpg"></div>
   </div>
 
+
+  <!-- CONTACT -->
   <div class="contact-box">
     <div class="contact-title">Project Head: Soham Pal</div>
     <div class="contact-detail">📞 6290952326</div>
@@ -217,7 +246,6 @@
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  // SCROLL ANIMATION FOR GALLERY
   const items = document.querySelectorAll('.g-item');
 
   function checkVisibility() {
