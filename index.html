@@ -69,19 +69,7 @@
     background: rgba(255,255,255,0.65);
     padding: 25px;
     border-radius: 18px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.4);
     box-shadow: 0 8px 18px rgba(0,0,0,0.12);
-    transition: 0.2s;
-  }
-  .card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 28px rgba(0,0,0,0.18);
-  }
-  .card h3 {
-    margin-top: 0;
-    color: #1a4ba3;
-    font-size: 22px;
   }
 
   /* GALLERY */
@@ -90,7 +78,6 @@
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
   }
-
   .gallery-img {
     width: 100%;
     aspect-ratio: 4/3;
@@ -98,14 +85,9 @@
     border-radius: 18px;
     cursor: pointer;
     box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-    transition: transform 0.3s ease;
   }
 
-  .gallery-img:hover {
-    transform: scale(1.05);
-  }
-
-  /* FULLSCREEN IMAGE VIEWER */
+  /* FULLSCREEN VIEW */
   .fullscreen-viewer {
     display: none;
     position: fixed;
@@ -114,7 +96,6 @@
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.85);
-    backdrop-filter: blur(6px);
     justify-content: center;
     align-items: center;
     z-index: 1000;
@@ -122,10 +103,7 @@
   .fullscreen-viewer img {
     max-width: 90%;
     max-height: 90%;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   }
-
   .close-btn {
     position: absolute;
     top: 25px;
@@ -133,34 +111,17 @@
     color: white;
     font-size: 40px;
     cursor: pointer;
-    font-weight: bold;
   }
 
   /* VIDEO */
-  .video-title {
-    text-align: center;
-    font-size: 22px;
-    font-weight: 600;
-    margin-bottom: 15px;
-    color: #1a4ba3;
-  }
-
   .video-container {
-    position: relative;
     width: 100%;
     max-width: 900px;
     height: 500px;
-    margin: 0 auto 40px auto;
+    margin: 20px auto;
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-  }
-
-  .video-container iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    border-radius: 20px;
   }
 
   /* CONTACT */
@@ -170,82 +131,38 @@
     border-radius: 15px;
     max-width: 600px;
     margin: 30px auto;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
     text-align: center;
   }
-  .contact-title {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    color: #0d1b3d;
-  }
-  .contact-detail {
-    font-size: 20px;
-    font-weight: 600;
-    margin: 10px 0;
-    color: #1a4ba3;
-  }
 
-  /* LEADERSHIP SECTION */
+  /* LEADERSHIP */
   .leader-container {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 40px;
-    margin-top: 40px;
+    margin-top: 20px;
   }
-
   .leader-card {
-    background: rgba(255, 255, 255, 0.85);
+    background: white;
     padding: 30px;
     width: 320px;
     border-radius: 22px;
     text-align: center;
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    transition: 0.3s ease;
   }
-
-  .leader-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 16px 40px rgba(0,0,0,0.22);
-  }
-
   .leader-photo {
     width: 260px;
     height: 260px;
     object-fit: cover;
     border-radius: 20px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
     margin-bottom: 20px;
-  }
-
-  .leader-name {
-    font-size: 26px;
-    font-weight: 700;
-    color: #0d1b3d;
-    margin: 0;
-  }
-
-  .leader-title {
-    font-size: 18px;
-    font-weight: 600;
-    color: #1a4ba3;
-    margin-bottom: 15px;
-  }
-
-  .leader-desc {
-    font-size: 15px;
-    line-height: 1.5;
-    color: #444;
   }
 
   footer {
     text-align: center;
     padding: 20px;
-    margin-top: 40px;
     background: #f5f5f5;
-    font-size: 16px;
-    color: #333;
+    margin-top: 40px;
   }
 </style>
 </head>
@@ -263,12 +180,11 @@
 
   <!-- SYSTEM HIGHLIGHTS -->
   <h2 class="section-title">System Highlights</h2>
-
   <div class="cards">
-    <div class="card"><h3>Laser Boundary Detection</h3><p>Detects entry near the dead-end zone within 5 cm and triggers instant alerts.</p></div>
-    <div class="card"><h3>AI Zone Monitoring</h3><p>Camera-based AI ensures precise tracking even in crowded environments.</p></div>
-    <div class="card"><h3>Real-Time Alerts</h3><p>Hooter + LED + dashboard warning sent instantly to the station master.</p></div>
-    <div class="card"><h3>Cost Efficient Installation</h3><p>No civil work needed. Works on any railway or metro platform.</p></div>
+    <div class="card"><h3>Laser Boundary Detection</h3><p>Detects entry within 5 cm of danger zone.</p></div>
+    <div class="card"><h3>AI Zone Monitoring</h3><p>High-accuracy tracking using cameras.</p></div>
+    <div class="card"><h3>Real-Time Alerts</h3><p>Buzzer + LED + dashboard notifications.</p></div>
+    <div class="card"><h3>Low-Cost Setup</h3><p>No civil construction needed.</p></div>
   </div>
 
   <!-- GALLERY -->
@@ -279,62 +195,58 @@
     <img src="3.jpg" class="gallery-img">
   </div>
 
-  <!-- FULLSCREEN VIEWER -->
   <div id="fullscreenViewer" class="fullscreen-viewer">
     <span class="close-btn">&times;</span>
     <img id="fullscreenImage">
   </div>
 
-  <!-- VIDEO SECTION -->
+  <!-- VIDEO -->
   <h2 class="section-title">Demo Video</h2>
-  <h3 class="video-title">Railway Platform Safety System – Dashboard Demo</h3>
-
   <div class="video-container">
     <iframe src="https://www.youtube.com/embed/9XZerEaP8Lo" allowfullscreen></iframe>
   </div>
 
   <!-- CONTACT -->
   <div class="contact-box">
-    <div class="contact-title">Contact</div>
-    <div class="contact-detail">📞 6290952326</div>
-    <div class="contact-detail">✉ soham.pal2023@iem.edu.in</div>
-    <div class="contact-detail">📍 India</div>
+    <h2>Contact</h2>
+    <p>📞 6290952326</p>
+    <p>✉ soham.pal2023@iem.edu.in</p>
+    <p>📍 India</p>
   </div>
 
-  <!-- LEADERSHIP SECTION -->
+  <!-- LEADERSHIP -->
   <h2 class="section-title">Leadership</h2>
 
+  <!-- FIRST ROW: YOU + SUPERVISOR -->
   <div class="leader-container">
 
-    <!-- Project Head FIRST -->
-    <h2 class="section-title">Leadership</h2>
+    <div class="leader-card">
+      <img src="5.jpg" class="leader-photo">
+      <h3>Soham Pal</h3>
+      <p><b>Project Head</b></p>
+      <p>B.Tech EE, 3rd Year<br>IEM Kolkata</p>
+    </div>
 
-<div class="leader-container">
+    <div class="leader-card">
+      <img src="4.jpg" class="leader-photo">
+      <h3>Heerok Banerjee</h3>
+      <p><b>Project Supervisor</b></p>
+      <p>Assistant Professor, CSE (AIML) & CSBS<br>IEM Kolkata</p>
+    </div>
 
-  <!-- Project Head FIRST -->
-  <div class="leader-card">
-    <img src="4.jpg" class="leader-photo">
-    <h3 class="leader-name">Soham Pal</h3>
-    <p class="leader-title">Project Head</p>
-    <p class="leader-desc">
-      B.Tech Electrical Engineering, 3rd Year<br>
-      Institute of Engineering & Management (IEM), Kolkata
-    </p>
   </div>
 
-  <!-- Supervisor SECOND -->
-  <div class="leader-card">
-    <img src="5.jpg" class="leader-photo">
-    <h3 class="leader-name">Heerok Banerjee</h3>
-    <p class="leader-title">Project Supervisor</p>
-    <p class="leader-desc">
-      Assistant Professor, CSE (AIML) & CSBS<br>
-      Institute of Engineering & Management (IEM), Kolkata
-    </p>
+  <!-- SECOND ROW: SOUGATA -->
+  <div class="leader-container">
+
+    <div class="leader-card">
+      <img src="6.jpg" class="leader-photo">
+      <h3>Sougata Sengupta</h3>
+      <p><b>Head of Hardware Department</b></p>
+      <p>B.Tech Student<br>IEM Kolkata</p>
+    </div>
+
   </div>
-
-</div>
-
 
 </div>
 
@@ -351,17 +263,17 @@
   const closeBtn = document.querySelector('.close-btn');
 
   imgs.forEach(img => {
-    img.addEventListener('click', () => {
-      viewer.style.display = 'flex';
+    img.onclick = () => {
+      viewer.style.display = "flex";
       viewerImg.src = img.src;
-    });
+    };
   });
 
-  closeBtn.addEventListener('click', () => viewer.style.display = 'none');
+  closeBtn.onclick = () => viewer.style.display = "none";
 
-  viewer.addEventListener('click', e => {
-    if (e.target !== viewerImg) viewer.style.display = 'none';
-  });
+  viewer.onclick = (e) => {
+    if (e.target !== viewerImg) viewer.style.display = "none";
+  };
 </script>
 
 </body>
