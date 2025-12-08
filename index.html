@@ -279,15 +279,15 @@ footer {
     contact us directly via email.
   </p>
 
-  <p style="margin-top:25px; font-size:20px; font-weight:600;">
-    👁‍🗨 Visitor Count: <span id="visitorCount">0</span>
-  </p>
+ 
 </div>
 
-<!-- LEADERSHIP -->
-<h2 class="section-title">Leadership Team</h2>
+
 
 <!-- ROW 1 -->
+<h2 class="section-title">Leadership Team</h2>
+
+<!-- ROW 1 (YOU + TWO SUPERVISORS) -->
 <div class="leader-container">
 
   <div class="leader-card">
@@ -302,6 +302,13 @@ footer {
     <h3>Heerok Banerjee</h3>
     <p><b>Project Supervisor</b></p>
     <p>Assistant Professor, CSE (AIML) & CSBS<br>IEM Kolkata</p>
+  </div>
+
+  <div class="leader-card">
+    <img src="10.jpeg" class="leader-photo">
+    <h3>Sujay Kumar Banerjee</h3>
+    <p><b>Project Supervisor</b></p>
+    <p>Senior Technical Assistant<br>EE Department, IEM Kolkata</p>
   </div>
 
 </div>
@@ -344,6 +351,7 @@ footer {
 
 </div>
 
+
 </div>
 
 <footer>
@@ -368,16 +376,7 @@ imgs.forEach(img => {
 document.querySelector('.close-btn').onclick = () => viewer.style.display = "none";
 viewer.onclick = (e) => { if (e.target !== viewerImg) viewer.style.display = "none"; };
 
-/* VISITOR COUNTER */
-if (!localStorage.getItem("visited")) {
-    let count = localStorage.getItem("visitorCountGlobal") || 0;
-    count++;
-    localStorage.setItem("visitorCountGlobal", count);
-    localStorage.setItem("visited", "yes");
-}
-document.getElementById("visitorCount").innerText =
-  localStorage.getItem("visitorCountGlobal") || 1;
-</script>
+
 
 </body>
 </html>
