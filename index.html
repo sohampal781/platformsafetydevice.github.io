@@ -20,10 +20,9 @@
     color: white;
     font-size: 24px;
     font-weight: 700;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
   }
 
-  /* HERO SECTION */
+  /* HERO */
   .hero {
     background: linear-gradient(115deg, #1a4ba3, #0d1b3d);
     color: white;
@@ -31,20 +30,13 @@
     text-align: center;
     border-bottom-left-radius: 60px;
     border-bottom-right-radius: 60px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
   }
   .hero h1 {
     font-size: 48px;
     margin: 0;
     font-weight: 800;
   }
-  .hero p {
-    margin-top: 18px;
-    font-size: 22px;
-    opacity: 0.9;
-  }
 
-  /* CONTAINER */
   .container {
     max-width: 1200px;
     margin: 40px auto;
@@ -66,7 +58,7 @@
     gap: 30px;
   }
   .card {
-    background: rgba(255,255,255,0.65);
+    background: white;
     padding: 25px;
     border-radius: 18px;
     box-shadow: 0 8px 18px rgba(0,0,0,0.12);
@@ -78,6 +70,7 @@
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
   }
+
   .gallery-img {
     width: 100%;
     aspect-ratio: 4/3;
@@ -87,7 +80,7 @@
     box-shadow: 0 6px 18px rgba(0,0,0,0.2);
   }
 
-  /* FULLSCREEN VIEW */
+  /* FULLSCREEN */
   .fullscreen-viewer {
     display: none;
     position: fixed;
@@ -108,8 +101,8 @@
     position: absolute;
     top: 25px;
     right: 40px;
-    color: white;
     font-size: 40px;
+    color: white;
     cursor: pointer;
   }
 
@@ -121,7 +114,11 @@
     margin: 20px auto;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  }
+  .video-container iframe {
+    width: 100%;
+    height: 100%;
   }
 
   /* CONTACT */
@@ -132,6 +129,7 @@
     max-width: 600px;
     margin: 30px auto;
     text-align: center;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
   }
 
   /* LEADERSHIP */
@@ -142,6 +140,7 @@
     gap: 40px;
     margin-top: 20px;
   }
+
   .leader-card {
     background: white;
     padding: 30px;
@@ -150,6 +149,7 @@
     text-align: center;
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
   }
+
   .leader-photo {
     width: 260px;
     height: 260px;
@@ -173,7 +173,7 @@
 
 <div class="hero">
   <h1>Platform Dead-End Intrusion Prevention System</h1>
-  <p>Smart, reliable protection that prevents unsafe entry to danger zones</p>
+  <p>Smart protection against unsafe entry into danger zones</p>
 </div>
 
 <div class="container">
@@ -182,9 +182,9 @@
   <h2 class="section-title">System Highlights</h2>
   <div class="cards">
     <div class="card"><h3>Laser Boundary Detection</h3><p>Detects entry within 5 cm of danger zone.</p></div>
-    <div class="card"><h3>AI Zone Monitoring</h3><p>High-accuracy tracking using cameras.</p></div>
+    <div class="card"><h3>AI Zone Monitoring</h3><p>High-accuracy tracking using AI camera.</p></div>
     <div class="card"><h3>Real-Time Alerts</h3><p>Buzzer + LED + dashboard notifications.</p></div>
-    <div class="card"><h3>Low-Cost Setup</h3><p>No civil construction needed.</p></div>
+    <div class="card"><h3>Low-Cost Setup</h3><p>No civil work required.</p></div>
   </div>
 
   <!-- GALLERY -->
@@ -217,14 +217,14 @@
   <!-- LEADERSHIP -->
   <h2 class="section-title">Leadership</h2>
 
-  <!-- FIRST ROW: YOU + SUPERVISOR -->
+  <!-- ROW 1 (YOU + SUPERVISOR) -->
   <div class="leader-container">
 
     <div class="leader-card">
       <img src="4.jpg" class="leader-photo">
       <h3>Soham Pal</h3>
       <p><b>Project Head</b></p>
-      <p>B.Tech EE, 3rd Year<br>IEM Kolkata</p>
+      <p>B.Tech Electrical Engineering, 3rd Year<br>IEM Kolkata</p>
     </div>
 
     <div class="leader-card">
@@ -236,13 +236,20 @@
 
   </div>
 
-  <!-- SECOND ROW: SOUGATA -->
+  <!-- ROW 2 (SOUGATA + SATAVISHA) -->
   <div class="leader-container">
 
     <div class="leader-card">
       <img src="6.jpg" class="leader-photo">
       <h3>Sougata Sengupta</h3>
       <p><b>Head of Hardware Department</b></p>
+      <p>B.Tech Student<br>IEM Kolkata</p>
+    </div>
+
+    <div class="leader-card">
+      <img src="7.jpg" class="leader-photo">
+      <h3>Satavisha Samanta</h3>
+      <p><b>Head of Software Department</b></p>
       <p>B.Tech Student<br>IEM Kolkata</p>
     </div>
 
