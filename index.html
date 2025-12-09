@@ -6,7 +6,8 @@
 <title>AI-Enabled Dead-End Platform Breach Prevention System</title>
 
 <style>
-/* ------------------ GLOBAL ------------------ */
+
+/* GLOBAL */
 body {
   margin: 0;
   font-family: "Segoe UI", sans-serif;
@@ -15,7 +16,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ------------------ NAVBAR ------------------ */
+/* NAVBAR */
 .navbar {
   padding: 20px 40px;
   font-size: 26px;
@@ -25,7 +26,7 @@ body {
   text-shadow: 0 0 8px #6a5df0;
 }
 
-/* ------------------ HERO SECTION ------------------ */
+/* HERO */
 .hero {
   padding: 100px 20px;
   text-align: center;
@@ -51,7 +52,7 @@ body {
   margin-top: 20px;
 }
 
-/* ------------------ TITLES ------------------ */
+/* SECTION TITLE */
 .section-title {
   font-size: 36px;
   text-align: center;
@@ -60,7 +61,7 @@ body {
   text-shadow: 0 0 12px #8a6bff;
 }
 
-/* ------------------ FEATURE CARDS ------------------ */
+/* CARDS */
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -74,14 +75,20 @@ body {
   border-radius: 18px;
   border: 1px solid rgba(255,255,255,0.15);
   box-shadow: 0 0 20px rgba(120,80,255,0.2);
-  transition: 0.3s;
+  transition: 0.4s;
+  opacity: 0;
+  transform: translateY(30px);
+}
+.card.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 .card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 0 35px rgba(140,110,255,0.4);
+  transform: scale(1.05);
+  box-shadow: 0 0 45px rgba(140,110,255,0.6);
 }
 
-/* ------------------ GALLERY ------------------ */
+/* GALLERY */
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
@@ -121,7 +128,7 @@ body {
   cursor: pointer;
 }
 
-/* ------------------ VIDEO ------------------ */
+/* VIDEO */
 .video-container {
   width: 100%;
   height: 300px;
@@ -134,16 +141,13 @@ body {
   height: 100%;
 }
 
-/* ------------------ LEADERSHIP ------------------ */
+/* LEADERSHIP */
 .leader-container {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 40px;
   margin-bottom: 50px;
-}
-.leader-container + .leader-container {
-  margin-top: 60px;
 }
 .leader-card {
   width: 320px;
@@ -166,7 +170,7 @@ body {
   margin-bottom: 20px;
 }
 
-/* ------------------ CONTACT ------------------ */
+/* CONTACT */
 .contact-box {
   background: rgba(255,255,255,0.07);
   backdrop-filter: blur(12px);
@@ -178,13 +182,14 @@ body {
   box-shadow: 0 0 35px rgba(140,110,255,0.3);
 }
 
-/* ------------------ FOOTER ------------------ */
+/* FOOTER */
 footer {
   text-align: center;
   padding: 20px;
   background: rgba(255,255,255,0.05);
   border-top: 1px solid rgba(255,255,255,0.1);
 }
+
 </style>
 </head>
 
@@ -216,67 +221,26 @@ footer {
   <div class="card"><h3>Behavior Analysis</h3><p>AI reduces false alarms using motion intelligence.</p></div>
   <div class="card"><h3>Violation Logging</h3><p>Captures frames for post-analysis.</p></div>
 </div>
+
 <!-- PROJECT UPDATES -->
 <h2 class="section-title">Project Updates</h2>
-
 <div class="cards">
-  <div class="card">
-    <h3>Latest Status</h3>
-    <p>The system is fully functional with AI + Laser + Dashboard integration. Field demos have been successfully recorded and validated.</p>
-  </div>
-
-  <div class="card">
-    <h3>AI Layer</h3>
-    <p>Real-time human detection, danger zone monitoring, behavior filtering, and automated breach alerts are operational with high accuracy.</p>
-  </div>
-
-  <div class="card">
-    <h3>Hardware Layer</h3>
-    <p>Dual laser modules tested with precise 5 cm detection accuracy. Arduino modules optimized for rapid alert response.</p>
-  </div>
-
-  <div class="card">
-    <h3>Dashboard</h3>
-    <p>Live preview, laser status indicators, AI event logs, and multi-camera monitoring supported in the unified dashboard.</p>
-  </div>
+  <div class="card"><h3>Latest Status</h3><p>The system is fully functional with AI + Laser + Dashboard integration. Field demos recorded and validated.</p></div>
+  <div class="card"><h3>AI Layer</h3><p>Real-time detection stable with enhanced model accuracy.</p></div>
+  <div class="card"><h3>Hardware Layer</h3><p>Dual laser sensing calibrated to 5 cm precision.</p></div>
+  <div class="card"><h3>Dashboard</h3><p>Supports live monitoring and multi-camera layouts.</p></div>
 </div>
 
-
-<!-- PROJECT TIMELINE -->
+<!-- ANIMATED CARD TIMELINE -->
 <h2 class="section-title">Project Timeline</h2>
-
-<div class="cards">
-  <div class="card">
-    <h3>Phase 1</h3>
-    <p>Concept & Research<br><b>(Jan 2024 – Apr 2024)</b></p>
-  </div>
-
-  <div class="card">
-    <h3>Phase 2</h3>
-    <p>Hardware Development<br><b>(May 2024 – Sep 2024)</b></p>
-  </div>
-
-  <div class="card">
-    <h3>Phase 3</h3>
-    <p>AI Development<br><b>(Sep 2024 – Feb 2025)</b></p>
-  </div>
-
-  <div class="card">
-    <h3>Phase 4</h3>
-    <p>Dashboard Integration<br><b>(Feb 2025 – May 2025)</b></p>
-  </div>
-
-  <div class="card">
-    <h3>Phase 5</h3>
-    <p>Field Testing & Optimization<br><b>(Jun 2025 – Present)</b></p>
-  </div>
-
-  <div class="card">
-    <h3>Phase 6</h3>
-    <p>Final Deployment Preparation<br><b>(Upcoming)</b></p>
-  </div>
+<div class="cards timeline-cards">
+  <div class="card timeline-item"><h3>Phase 1</h3><p>Concept & Research<br><b>(Jan 2024 – Apr 2024)</b></p></div>
+  <div class="card timeline-item"><h3>Phase 2</h3><p>Hardware Development<br><b>(May 2024 – Sep 2024)</b></p></div>
+  <div class="card timeline-item"><h3>Phase 3</h3><p>AI Development<br><b>(Sep 2024 – Feb 2025)</b></p></div>
+  <div class="card timeline-item"><h3>Phase 4</h3><p>Dashboard Integration<br><b>(Feb 2025 – May 2025)</b></p></div>
+  <div class="card timeline-item"><h3>Phase 5</h3><p>Field Testing<br><b>(Jun 2025 – Present)</b></p></div>
+  <div class="card timeline-item"><h3>Phase 6</h3><p>Deployment Prep<br><b>(Upcoming)</b></p></div>
 </div>
-  
 
 <!-- GALLERY -->
 <h2 class="section-title">Gallery</h2>
@@ -286,63 +250,28 @@ footer {
   <img src="3.jpg" class="gallery-img">
 </div>
 
-<!-- FULLSCREEN VIEWER -->
 <div id="fullscreenViewer" class="fullscreen-viewer">
   <span class="close-btn">&times;</span>
   <img id="fullscreenImage">
 </div>
 
-<!-- ATTRACTIVE VIDEO SHOWCASE -->
+<!-- VIDEOS -->
 <h2 class="section-title">AI Video Demonstrations</h2>
 
-<div style="
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-  gap: 40px;
-  padding: 20px;
-  margin-bottom: 40px;
-">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:40px;padding:20px;margin-bottom:40px">
 
-  <!-- VIDEO 1 -->
-  <div style="
-    background: rgba(255,255,255,0.07);
-    backdrop-filter: blur(12px);
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 0 0 25px rgba(140,110,255,0.3);
-    transition: 0.3s;
-  " 
-  onmouseover="this.style.transform='scale(1.03)'"
-  onmouseout="this.style.transform='scale(1)'">
-
-    <h3 style="text-align:center; margin-bottom:15px;">
-      Dashboard Demo Video: Railway Platform Safety Device
-    </h3>
-
-    <div class="video-container">
-      <iframe src="https://www.youtube.com/embed/9XZerEaP8Lo" allowfullscreen></iframe>
-    </div>
+  <div style="background:rgba(255,255,255,0.07);backdrop-filter:blur(12px);border-radius:20px;padding:20px;box-shadow:0 0 25px rgba(140,110,255,0.3);transition:0.3s"
+    onmouseover="this.style.transform='scale(1.03)'"
+    onmouseout="this.style.transform='scale(1)'">
+    <h3 style="text-align:center;margin-bottom:15px">Dashboard Demo Video: Railway Platform Safety Device</h3>
+    <div class="video-container"><iframe src="https://www.youtube.com/embed/9XZerEaP8Lo" allowfullscreen></iframe></div>
   </div>
 
-  <!-- VIDEO 2 -->
-  <div style="
-    background: rgba(255,255,255,0.07);
-    backdrop-filter: blur(12px);
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 0 0 25px rgba(140,110,255,0.3);
-    transition: 0.3s;
-  "
-  onmouseover="this.style.transform='scale(1.03)'"
-  onmouseout="this.style.transform='scale(1)'">
-
-    <h3 style="text-align:center; margin-bottom:15px;">
-      Platform Danger Zone AI – Real-Time Violation Demo
-    </h3>
-
-    <div class="video-container">
-      <iframe src="https://www.youtube.com/embed/ljjpuWzw0DQ" allowfullscreen></iframe>
-    </div>
+  <div style="background:rgba(255,255,255,0.07);backdrop-filter:blur(12px);border-radius:20px;padding:20px;box-shadow:0 0 25px rgba(140,110,255,0.3);transition:0.3s"
+    onmouseover="this.style.transform='scale(1.03)'"
+    onmouseout="this.style.transform='scale(1)'">
+    <h3 style="text-align:center;margin-bottom:15px">Platform Danger Zone AI – Real-Time Violation Demo</h3>
+    <div class="video-container"><iframe src="https://www.youtube.com/embed/ljjpuWzw0DQ" allowfullscreen></iframe></div>
   </div>
 
 </div>
@@ -351,79 +280,27 @@ footer {
 <h2 class="section-title">Contact</h2>
 <div class="contact-box">
   <p style="font-size:20px;">✉ <b>soham.pal2023@iem.edu.in</b></p>
-  <hr style="border:0; height:1px; background:rgba(255,255,255,0.2); margin:20px 0;">
-  <p style="font-size:18px; opacity:0.9;">
-    For a <b>free demo</b> of our AI + Laser Safety System, contact us via email.
-  </p>
+  <hr style="border:0;height:1px;background:rgba(255,255,255,0.2);margin:20px 0;">
+  <p style="font-size:18px;opacity:0.9;">For a <b>free demo</b>, contact us via email.</p>
 </div>
 
-<!-- LEADERSHIP -->
+<!-- TEAM -->
 <h2 class="section-title">Project Leadership & Development Team</h2>
 
-<!-- ROW 1 -->
 <div class="leader-container">
-
-  <div class="leader-card">
-    <img src="4.jpg" class="leader-photo">
-    <h3>Soham Pal</h3>
-    <p><b>Project Head</b></p>
-    <p>B.Tech Electrical Engineering, 3rd Year<br>IEM Kolkata</p>
-  </div>
-
-  <div class="leader-card">
-    <img src="5.jpg" class="leader-photo">
-    <h3>Heerok Banerjee</h3>
-    <p><b>Project Supervisor</b></p>
-    <p>Assistant Professor, CSE (AIML) & CSBS<br>IEM Kolkata</p>
-  </div>
-
-  <div class="leader-card">
-    <img src="10.jpg" class="leader-photo">
-    <h3>Sujay Kumar Banerjee</h3>
-    <p><b>Project Supervisor</b></p>
-    <p>Senior Technical Assistant<br>EE Department, IEM Kolkata</p>
-  </div>
-
+  <div class="leader-card"><img src="4.jpg" class="leader-photo"><h3>Soham Pal</h3><p><b>Project Head</b></p><p>B.Tech EE, 3rd Year<br>IEM Kolkata</p></div>
+  <div class="leader-card"><img src="5.jpg" class="leader-photo"><h3>Heerok Banerjee</h3><p><b>Project Supervisor</b></p><p>Assistant Professor, CSE(AIML)<br>IEM Kolkata</p></div>
+  <div class="leader-card"><img src="10.jpg" class="leader-photo"><h3>Sujay Kumar Banerjee</h3><p><b>Project Supervisor</b></p><p>Senior Technical Assistant<br>EE Dept, IEM Kolkata</p></div>
 </div>
 
-<!-- ROW 2 -->
 <div class="leader-container">
-
-  <div class="leader-card">
-    <img src="6.jpg" class="leader-photo">
-    <h3>Sougata Sengupta</h3>
-    <p><b>Head of Hardware Department</b></p>
-    <p>B.Tech Electrical Engineering, 3rd Year<br>IEM Kolkata</p>
-  </div>
-
-  <div class="leader-card">
-    <img src="7.jpg" class="leader-photo">
-    <h3>Satavisha Samanta</h3>
-    <p><b>Head of Software Department</b></p>
-    <p>B.Tech Electrical Engineering, 3rd Year<br>IEM Kolkata</p>
-  </div>
-
+  <div class="leader-card"><img src="6.jpg" class="leader-photo"><h3>Sougata Sengupta</h3><p><b>Head of Hardware Dept</b></p><p>B.Tech EE, 3rd Year<br>IEM Kolkata</p></div>
+  <div class="leader-card"><img src="7.jpg" class="leader-photo"><h3>Satavisha Samanta</h3><p><b>Head of Software Dept</b></p><p>B.Tech EE, 3rd Year<br>IEM Kolkata</p></div>
 </div>
 
-<!-- ROW 3 -->
 <div class="leader-container">
-
-  <div class="leader-card">
-    <img src="8.jpeg" class="leader-photo">
-    <h3>Priti Koner</h3>
-    <p><b>Project Member</b></p>
-    <p>B.Tech Electrical Engineering, 3rd Year<br>IEM Kolkata</p>
-  </div>
-
-  <div class="leader-card">
-    <img src="9.jpeg" class="leader-photo">
-    <h3>Souvik Sharkel</h3>
-    <p><b>Project Member</b></p>
-    <p>B.Tech Electrical Engineering, 3rd Year<br>IEM Kolkata</p>
-  </div>
-
-</div>
-
+  <div class="leader-card"><img src="8.jpeg" class="leader-photo"><h3>Priti Koner</h3><p><b>Project Member</b></p><p>B.Tech EE, 3rd Year<br>IEM Kolkata</p></div>
+  <div class="leader-card"><img src="9.jpeg" class="leader-photo"><h3>Souvik Sharkel</h3><p><b>Project Member</b></p><p>B.Tech EE, 3rd Year<br>IEM Kolkata</p></div>
 </div>
 
 <footer>
@@ -431,6 +308,8 @@ footer {
 </footer>
 
 <script>
+
+/* FOOTER YEAR */
 document.getElementById("year").textContent = new Date().getFullYear();
 
 /* GALLERY FULLSCREEN */
@@ -444,8 +323,23 @@ imgs.forEach(img => {
     viewerImg.src = img.src;
   };
 });
+
 document.querySelector('.close-btn').onclick = () => viewer.style.display = "none";
 viewer.onclick = (e) => { if (e.target !== viewerImg) viewer.style.display = "none"; };
+
+/* CARD FADE-IN ANIMATION */
+const cards = document.querySelectorAll('.card');
+function showCards() {
+  cards.forEach(card => {
+    const rect = card.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 50) {
+      card.classList.add('show');
+    }
+  });
+}
+window.addEventListener('scroll', showCards);
+showCards();
+
 </script>
 
 </body>
