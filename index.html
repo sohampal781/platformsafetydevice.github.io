@@ -2,14 +2,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Virtual Yellow Line Monitor</title>
+<title>Metro Platform Safety System</title>
 
 <style>
 body{
     background:#111;
     color:white;
-    text-align:center;
     font-family:Arial;
+    text-align:center;
 }
 
 #cameraContainer{
@@ -25,17 +25,30 @@ video, canvas{
     left:0;
 }
 
-canvas{
-    pointer-events:none;
-}
+canvas{ pointer-events:none; }
 
-input{margin:5px;}
+button{ padding:8px 12px; margin:5px; }
+
+.statusSafe{ color:lightgreen; }
+.statusBreach{ color:red; font-weight:bold; }
+
+#fineTab{ display:none; }
+.record{
+    border:2px solid red;
+    margin:10px;
+    padding:10px;
+}
 </style>
 </head>
 
 <body>
 
-<h2>Metro Virtual Yellow Line</h2>
+<h2>Metro Virtual Yellow Line Monitoring</h2>
+
+<button onclick="showTab('monitor')">Monitoring</button>
+<button onclick="showTab('fine')">Fine Tab</button>
+
+<div id="monitorTab">
 
 <div id="cameraContainer">
     <video id="video" width="640" height="480" autoplay muted></video>
@@ -50,18 +63,53 @@ input{margin:5px;}
 
 <div id="sliders"></div>
 
+<br>
+
+<label>Safe Side:</label>
+<select id="safeSide">
+    <option value="left">Left Safe</option>
+    <option value="right">Right Safe</option>
+</select>
+
+<button onclick="lockSystem()">LOCK & START</button>
+
+<h3 id="status" class="statusSafe">Configuration Mode</h3>
+
+</div>
+
+<div id="fineTab">
+    <h2>Violation Records</h2>
+    <div id="fineContainer"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils"></script>
+
 <script>
 window.onload = function(){
 
 const video = document.getElementById("video");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
+const statusText = document.getElementById("status");
 
 let curvePoints = [];
+let monitoring = false;
+let cooldown = false;
 
-// Start Camera
+// Start camera
 navigator.mediaDevices.getUserMedia({video:true})
 .then(stream => video.srcObject = stream);
+
+// Tab switch
+window.showTab = function(tab){
+    document.getElementById("monitorTab").style.display =
+        tab==="monitor" ? "block" : "none";
+    document.getElementById("fineTab").style.display =
+        tab==="fine" ? "block" : "none";
+}
+
+// Create sliders
 window.createSliders = function(){
 
     curvePoints = [];
@@ -74,48 +122,47 @@ window.createSliders = function(){
 
         let container = document.createElement("div");
 
-        // Label
         let label = document.createElement("span");
-        label.innerText = "Point " + (i+1) + " X ";
+        label.innerText = "Point "+(i+1)+" X ";
         container.appendChild(label);
 
-        // X Slider
         let x = document.createElement("input");
-        x.type = "range";
-        x.min = 0;
-        x.max = 640;
-        x.value = 100 + i*100;
+        x.type="range"; x.min=0; x.max=640;
+        x.value=100+i*100;
         x.addEventListener("input", drawOverlay);
         container.appendChild(x);
 
-        // Y Label
         let labelY = document.createElement("span");
-        labelY.innerText = " Y ";
+        labelY.innerText=" Y ";
         container.appendChild(labelY);
 
-        // Y Slider
         let y = document.createElement("input");
-        y.type = "range";
-        y.min = 0;
-        y.max = 480;
-        y.value = 250;
+        y.type="range"; y.min=0; y.max=480;
+        y.value=250;
         y.addEventListener("input", drawOverlay);
         container.appendChild(y);
 
         slidersDiv.appendChild(container);
-
         curvePoints.push({x,y});
     }
 
     drawOverlay();
 };
 
-// Draw Overlay
+// Lock system
+window.lockSystem = function(){
+    monitoring = true;
+    document.querySelectorAll("input").forEach(el=>el.disabled=true);
+    document.getElementById("safeSide").disabled=true;
+    statusText.innerText="Monitoring Active";
+}
+
+// Draw curve
 function drawOverlay(){
 
     ctx.clearRect(0,0,640,480);
 
-    if(curvePoints.length < 2) return;
+    if(curvePoints.length<2) return;
 
     ctx.beginPath();
     ctx.strokeStyle="yellow";
@@ -130,19 +177,120 @@ function drawOverlay(){
     }
 
     ctx.stroke();
-
-    // Draw control points
-    for(let p of curvePoints){
-        ctx.beginPath();
-        ctx.arc(p.x.value, p.y.value, 6, 0, 2*Math.PI);
-        ctx.fillStyle="red";
-        ctx.fill();
-    }
 }
 
+// Unsafe detection
+function isUnsafe(px,py){
+
+    let safeSide=document.getElementById("safeSide").value;
+
+    for(let i=0;i<curvePoints.length-1;i++){
+
+        let x1=parseInt(curvePoints[i].x.value);
+        let y1=parseInt(curvePoints[i].y.value);
+        let x2=parseInt(curvePoints[i+1].x.value);
+        let y2=parseInt(curvePoints[i+1].y.value);
+
+        if(py>=Math.min(y1,y2) && py<=Math.max(y1,y2)){
+
+            let slope=(x2-x1)/(y2-y1);
+            let xLine=x1+slope*(py-y1);
+
+            if(safeSide==="left" && px>xLine) return true;
+            if(safeSide==="right" && px<xLine) return true;
+        }
+    }
+    return false;
+}
+
+// Capture violation
+function captureViolation(){
+
+    if(cooldown) return;
+    cooldown=true;
+
+    let snapCanvas=document.createElement("canvas");
+    snapCanvas.width=640;
+    snapCanvas.height=480;
+
+    let snapCtx=snapCanvas.getContext("2d");
+    snapCtx.drawImage(video,0,0,640,480);
+
+    let imgData=snapCanvas.toDataURL("image/png");
+
+    let record=document.createElement("div");
+    record.className="record";
+
+    let img=document.createElement("img");
+    img.src=imgData;
+    img.width=200;
+
+    let time=document.createElement("p");
+    time.innerText="Time: "+new Date().toLocaleString();
+
+    record.appendChild(img);
+    record.appendChild(time);
+
+    document.getElementById("fineContainer").prepend(record);
+
+    showTab("fine");
+
+    setTimeout(()=>cooldown=false,5000);
+}
+
+// Pose detection
+const pose = new Pose.Pose({
+    locateFile: file =>
+    `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`
+});
+
+pose.setOptions({
+    modelComplexity:0,
+    minDetectionConfidence:0.5,
+    minTrackingConfidence:0.5
+});
+
+pose.onResults(results=>{
+
+    drawOverlay();
+
+    if(!monitoring) return;
+
+    if(results.poseLandmarks){
+
+        const ankle=results.poseLandmarks[27];
+
+        let px=ankle.x*640;
+        let py=ankle.y*480;
+
+        ctx.beginPath();
+        ctx.arc(px,py,8,0,2*Math.PI);
+        ctx.fillStyle="cyan";
+        ctx.fill();
+
+        if(isUnsafe(px,py)){
+            statusText.innerText="BREACH DETECTED";
+            statusText.className="statusBreach";
+            captureViolation();
+        } else {
+            statusText.innerText="Monitoring Active";
+            statusText.className="statusSafe";
+        }
+    }
+});
+
+const camera = new Camera(video,{
+    onFrame: async()=>{
+        await pose.send({image:video});
+    },
+    width:640,
+    height:480
+});
+
+camera.start();
 createSliders();
 
-};
+}
 </script>
 
 </body>
