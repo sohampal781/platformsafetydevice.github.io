@@ -1,25 +1,73 @@
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose"></script>
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils"></script>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Virtual Yellow Line Monitor</title>
+
+<style>
+body{
+    background:#111;
+    color:white;
+    text-align:center;
+    font-family:Arial;
+}
+
+#cameraContainer{
+    position:relative;
+    width:640px;
+    height:480px;
+    margin:auto;
+}
+
+video, canvas{
+    position:absolute;
+    top:0;
+    left:0;
+}
+
+canvas{
+    pointer-events:none;
+}
+
+input{margin:5px;}
+</style>
+</head>
+
+<body>
+
+<h2>Metro Virtual Yellow Line</h2>
+
+<div id="cameraContainer">
+    <video id="video" width="640" height="480" autoplay muted></video>
+    <canvas id="canvas" width="640" height="480"></canvas>
+</div>
+
+<br>
+
+<label>Number of Curve Points:</label>
+<input type="number" id="numPoints" min="2" max="10" value="3">
+<button onclick="createSliders()">Create Points</button>
+
+<div id="sliders"></div>
 
 <script>
+window.onload = function(){
 
 const video = document.getElementById("video");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 let curvePoints = [];
-let monitoring = false;
 
 // Start Camera
-navigator.mediaDevices.getUserMedia({ video: true })
+navigator.mediaDevices.getUserMedia({video:true})
 .then(stream => video.srcObject = stream);
 
-// -------- CREATE SLIDERS --------
-function createSliders(){
+// Create Sliders
+window.createSliders = function(){
 
     curvePoints = [];
-    const slidersDiv = document.getElementById("sliders");
-    slidersDiv.innerHTML = "";
+    document.getElementById("sliders").innerHTML = "";
 
     let n = parseInt(document.getElementById("numPoints").value);
 
@@ -35,34 +83,32 @@ function createSliders(){
         y.type="range"; y.min=0; y.max=480;
         y.value=250;
 
-        // 🔥 IMPORTANT: redraw when slider moves
         x.oninput = drawOverlay;
         y.oninput = drawOverlay;
 
-        container.innerHTML = "Point "+(i+1)+" X ";
+        container.innerHTML="Point "+(i+1)+" X ";
         container.appendChild(x);
-        container.innerHTML += " Y ";
+        container.innerHTML+=" Y ";
         container.appendChild(y);
 
-        slidersDiv.appendChild(container);
+        document.getElementById("sliders").appendChild(container);
 
         curvePoints.push({x,y});
     }
 
-    drawOverlay(); // draw immediately
-}
+    drawOverlay();
+};
 
-// -------- DRAW FUNCTION --------
+// Draw Overlay
 function drawOverlay(){
 
     ctx.clearRect(0,0,640,480);
 
     if(curvePoints.length < 2) return;
 
-    // Draw curve
     ctx.beginPath();
-    ctx.strokeStyle = "yellow";
-    ctx.lineWidth = 4;
+    ctx.strokeStyle="yellow";
+    ctx.lineWidth=4;
 
     ctx.moveTo(curvePoints[0].x.value,
                curvePoints[0].y.value);
@@ -78,20 +124,15 @@ function drawOverlay(){
     for(let p of curvePoints){
         ctx.beginPath();
         ctx.arc(p.x.value, p.y.value, 6, 0, 2*Math.PI);
-        ctx.fillStyle = "red";
+        ctx.fillStyle="red";
         ctx.fill();
     }
 }
 
-// -------- CONTINUOUS REFRESH LOOP --------
-function animate(){
-    ctx.clearRect(0,0,640,480);
-    drawOverlay();
-    requestAnimationFrame(animate);
-}
-
-animate();
-
 createSliders();
 
+};
 </script>
+
+</body>
+</html>
