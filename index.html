@@ -224,38 +224,74 @@ function pointInPolygon(point, vs) {
 
     return inside;
 }
-
-// Capture violation
 function captureViolation(){
 
     if(cooldown) return;
     cooldown = true;
 
-    let snapCanvas=document.createElement("canvas");
-    snapCanvas.width=640;
-    snapCanvas.height=480;
+    let snapCanvas = document.createElement("canvas");
+    snapCanvas.width = 640;
+    snapCanvas.height = 480;
 
-    let snapCtx=snapCanvas.getContext("2d");
-    snapCtx.drawImage(video,0,0,640,480);
+    let snapCtx = snapCanvas.getContext("2d");
 
-    let imgData=snapCanvas.toDataURL("image/png");
+    // Draw video
+    snapCtx.drawImage(video, 0, 0, 640, 480);
 
-    let record=document.createElement("div");
-    record.className="record";
+    // Draw overlay line
+    if(curvePoints.length >= 2){
 
-    let img=document.createElement("img");
-    img.src=imgData;
-    img.width=200;
+        snapCtx.beginPath();
+        snapCtx.strokeStyle = "yellow";
+        snapCtx.lineWidth = 4;
+
+        snapCtx.moveTo(curvePoints[0].x.value,
+                       curvePoints[0].y.value);
+
+        for(let i=1;i<curvePoints.length;i++){
+            snapCtx.lineTo(curvePoints[i].x.value,
+                           curvePoints[i].y.value);
+        }
+
+        snapCtx.stroke();
+    }
+
+    let imgData = snapCanvas.toDataURL("image/png");
+
+    setTimeout(()=>cooldown=false,3000);
+}
+function addFineRecord(imgData){
+
+    let container = document.getElementById("fineContainer");
+
+    let record = document.createElement("div");
+    record.className = "record";
+
+    let img = document.createElement("img");
+    img.src = imgData;
+    img.width = 200;
+
+    let time = document.createElement("p");
+    time.innerText = "Time: " + new Date().toLocaleString();
+
+    let deleteBtn = document.createElement("button");
+    deleteBtn.innerText = "Delete";
+    deleteBtn.style.background = "darkred";
+    deleteBtn.style.color = "white";
+
+    deleteBtn.onclick = function(){
+        record.remove();
+    };
 
     record.appendChild(img);
+    record.appendChild(time);
+    record.appendChild(deleteBtn);
 
-    document.getElementById("fineContainer")
-            .prepend(record);
+    container.prepend(record);
 
     showTab("fine");
-
-    setTimeout(()=>cooldown=false,5000);
 }
+
 // -------- POSE SETUP --------
 const pose = new Pose({
     locateFile: (file) =>
