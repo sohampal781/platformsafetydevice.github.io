@@ -1,70 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Metro Virtual Line Monitoring</title>
-
-<style>
-body{
-    background:#111;
-    color:white;
-    text-align:center;
-    font-family:Arial;
-}
-
-#cameraContainer{
-    position:relative;
-    width:640px;
-    height:480px;
-    margin:auto;
-}
-
-video, canvas{
-    position:absolute;
-    top:0;
-    left:0;
-}
-
-canvas{
-    pointer-events:none;
-}
-
-button{margin:5px;padding:8px 12px;}
-
-.statusSafe{color:lightgreen;}
-.statusBreach{color:red;font-weight:bold;}
-</style>
-</head>
-
-<body>
-
-<h2>Metro Virtual Yellow Line Breach Detection</h2>
-
-<div id="cameraContainer">
-    <video id="video" width="640" height="480" autoplay muted></video>
-    <canvas id="canvas" width="640" height="480"></canvas>
-</div>
-
-<br>
-
-<label>Number of Curve Points:</label>
-<input type="number" id="numPoints" min="2" max="10" value="3">
-<button onclick="createSliders()">Create Points</button>
-
-<div id="sliders"></div>
-
-<br>
-
-<label>Safe Side:</label>
-<select id="safeSide">
-    <option value="left">Left Safe</option>
-    <option value="right">Right Safe</option>
-</select>
-
-<button onclick="lockSystem()">LOCK & START</button>
-
-<h3 id="status" class="statusSafe">Config Mode</h3>
-
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose"></script>
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils"></script>
 
@@ -73,62 +6,63 @@ button{margin:5px;padding:8px 12px;}
 const video = document.getElementById("video");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-const statusText = document.getElementById("status");
 
 let curvePoints = [];
 let monitoring = false;
 
-// CAMERA
-navigator.mediaDevices.getUserMedia({video:true})
+// Start Camera
+navigator.mediaDevices.getUserMedia({ video: true })
 .then(stream => video.srcObject = stream);
 
-// CREATE SLIDERS
+// -------- CREATE SLIDERS --------
 function createSliders(){
-    curvePoints=[];
-    document.getElementById("sliders").innerHTML="";
 
-    let n=parseInt(document.getElementById("numPoints").value);
+    curvePoints = [];
+    const slidersDiv = document.getElementById("sliders");
+    slidersDiv.innerHTML = "";
+
+    let n = parseInt(document.getElementById("numPoints").value);
 
     for(let i=0;i<n;i++){
 
-        let div=document.createElement("div");
+        let container = document.createElement("div");
 
-        let x=document.createElement("input");
+        let x = document.createElement("input");
         x.type="range"; x.min=0; x.max=640;
         x.value=100+i*100;
 
-        let y=document.createElement("input");
+        let y = document.createElement("input");
         y.type="range"; y.min=0; y.max=480;
         y.value=250;
 
-        div.innerHTML="Point "+(i+1)+" X ";
-        div.appendChild(x);
-        div.innerHTML+=" Y ";
-        div.appendChild(y);
+        // 🔥 IMPORTANT: redraw when slider moves
+        x.oninput = drawOverlay;
+        y.oninput = drawOverlay;
 
-        document.getElementById("sliders").appendChild(div);
+        container.innerHTML = "Point "+(i+1)+" X ";
+        container.appendChild(x);
+        container.innerHTML += " Y ";
+        container.appendChild(y);
+
+        slidersDiv.appendChild(container);
 
         curvePoints.push({x,y});
     }
+
+    drawOverlay(); // draw immediately
 }
 
-// LOCK
-function lockSystem(){
-    monitoring=true;
-    document.querySelectorAll("input").forEach(el=>el.disabled=true);
-    document.getElementById("safeSide").disabled=true;
-    statusText.innerText="Monitoring Active";
-}
-
-// DRAW
+// -------- DRAW FUNCTION --------
 function drawOverlay(){
+
     ctx.clearRect(0,0,640,480);
 
-    if(curvePoints.length<2) return;
+    if(curvePoints.length < 2) return;
 
+    // Draw curve
     ctx.beginPath();
-    ctx.strokeStyle="yellow";
-    ctx.lineWidth=3;
+    ctx.strokeStyle = "yellow";
+    ctx.lineWidth = 4;
 
     ctx.moveTo(curvePoints[0].x.value,
                curvePoints[0].y.value);
@@ -139,84 +73,25 @@ function drawOverlay(){
     }
 
     ctx.stroke();
-}
 
-// SIDE CHECK
-function isUnsafe(px,py){
-
-    let safeSide=document.getElementById("safeSide").value;
-
-    for(let i=0;i<curvePoints.length-1;i++){
-
-        let x1=parseInt(curvePoints[i].x.value);
-        let y1=parseInt(curvePoints[i].y.value);
-        let x2=parseInt(curvePoints[i+1].x.value);
-        let y2=parseInt(curvePoints[i+1].y.value);
-
-        if(py>=Math.min(y1,y2) && py<=Math.max(y1,y2)){
-
-            let slope=(x2-x1)/(y2-y1);
-            let xLine=x1+slope*(py-y1);
-
-            if(safeSide==="left" && px>xLine) return true;
-            if(safeSide==="right" && px<xLine) return true;
-        }
-    }
-    return false;
-}
-
-// POSE
-const pose = new Pose.Pose({
-    locateFile: file => 
-    `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`
-});
-
-pose.setOptions({
-    modelComplexity:0,
-    minDetectionConfidence:0.5,
-    minTrackingConfidence:0.5
-});
-
-pose.onResults(results=>{
-
-    drawOverlay();
-
-    if(!monitoring) return;
-
-    if(results.poseLandmarks){
-
-        const ankle = results.poseLandmarks[27];
-        let px = ankle.x * 640;
-        let py = ankle.y * 480;
-
-        // Draw ankle point
+    // Draw control points
+    for(let p of curvePoints){
         ctx.beginPath();
-        ctx.arc(px,py,8,0,2*Math.PI);
-        ctx.fillStyle="cyan";
+        ctx.arc(p.x.value, p.y.value, 6, 0, 2*Math.PI);
+        ctx.fillStyle = "red";
         ctx.fill();
-
-        if(isUnsafe(px,py)){
-            statusText.innerText="BREACH DETECTED";
-            statusText.className="statusBreach";
-        } else {
-            statusText.innerText="Monitoring Active";
-            statusText.className="statusSafe";
-        }
     }
-});
+}
 
-const camera = new Camera(video,{
-    onFrame: async ()=>{
-        await pose.send({image:video});
-    },
-    width:640,
-    height:480
-});
+// -------- CONTINUOUS REFRESH LOOP --------
+function animate(){
+    ctx.clearRect(0,0,640,480);
+    drawOverlay();
+    requestAnimationFrame(animate);
+}
 
-camera.start();
+animate();
+
 createSliders();
 
 </script>
-
-</body>
-</html>
