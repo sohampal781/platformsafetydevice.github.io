@@ -309,16 +309,6 @@ const camera = new Camera(video, {
 });
 
 camera.start();
-
-const camera = new Camera(video,{
-    onFrame: async()=>{
-        await pose.send({image:video});
-    },
-    width:640,
-    height:480
-});
-
-camera.start();
 createSliders();
 
 }
