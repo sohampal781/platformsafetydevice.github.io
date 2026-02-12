@@ -256,19 +256,20 @@ function captureViolation(){
 
     setTimeout(()=>cooldown=false,5000);
 }
-
-// Pose detection
-const pose = new Pose.Pose({
-    locateFile: file =>
-    `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`
+// -------- POSE SETUP --------
+const pose = new Pose({
+    locateFile: (file) =>
+        `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`
 });
 
 pose.setOptions({
-    modelComplexity:0,
-    minDetectionConfidence:0.5,
-    minTrackingConfidence:0.5
+    modelComplexity: 0,
+    smoothLandmarks: true,
+    minDetectionConfidence: 0.5,
+    minTrackingConfidence: 0.5
 });
-pose.onResults(results=>{
+
+pose.onResults(results => {
 
     drawOverlay();
 
@@ -282,25 +283,32 @@ pose.onResults(results=>{
         let px = ((leftHip.x + rightHip.x) / 2) * 640;
         let py = ((leftHip.y + rightHip.y) / 2) * 480;
 
-        // Draw detection point
         ctx.beginPath();
         ctx.arc(px, py, 10, 0, 2*Math.PI);
-        ctx.fillStyle="cyan";
+        ctx.fillStyle = "cyan";
         ctx.fill();
 
-        let unsafe = isUnsafe(px, py);
-
-        if(unsafe){
-            statusText.innerText="BREACH DETECTED";
-            statusText.className="statusBreach";
+        if(isUnsafe(px, py)){
+            statusText.innerText = "BREACH DETECTED";
+            statusText.className = "statusBreach";
             captureViolation();
-        }
-        else{
-            statusText.innerText="SAFE";
-            statusText.className="statusSafe";
+        } else {
+            statusText.innerText = "SAFE";
+            statusText.className = "statusSafe";
         }
     }
 });
+
+// Attach camera to pose
+const camera = new Camera(video, {
+    onFrame: async () => {
+        await pose.send({ image: video });
+    },
+    width: 640,
+    height: 480
+});
+
+camera.start();
 
 const camera = new Camera(video,{
     onFrame: async()=>{
