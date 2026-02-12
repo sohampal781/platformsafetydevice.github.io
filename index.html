@@ -178,36 +178,58 @@ function drawOverlay(){
 
     ctx.stroke();
 }
+function isUnsafe(px, py){
 
-// Unsafe detection
-function isUnsafe(px,py){
+    if(curvePoints.length < 2) return false;
 
-    let safeSide=document.getElementById("safeSide").value;
+    let safeSide = document.getElementById("safeSide").value;
 
-    for(let i=0;i<curvePoints.length-1;i++){
+    // Build polygon from curve + screen edge
+    let polygon = [];
 
-        let x1=parseInt(curvePoints[i].x.value);
-        let y1=parseInt(curvePoints[i].y.value);
-        let x2=parseInt(curvePoints[i+1].x.value);
-        let y2=parseInt(curvePoints[i+1].y.value);
-
-        if(py>=Math.min(y1,y2) && py<=Math.max(y1,y2)){
-
-            let slope=(x2-x1)/(y2-y1);
-            let xLine=x1+slope*(py-y1);
-
-            if(safeSide==="left" && px>xLine) return true;
-            if(safeSide==="right" && px<xLine) return true;
-        }
+    // Add curve points
+    for(let p of curvePoints){
+        polygon.push([
+            parseInt(p.x.value),
+            parseInt(p.y.value)
+        ]);
     }
-    return false;
+
+    if(safeSide === "left"){
+        polygon.push([0,480]);
+        polygon.push([0,0]);
+    } else {
+        polygon.push([640,480]);
+        polygon.push([640,0]);
+    }
+
+    return pointInPolygon([px,py], polygon);
+}
+function pointInPolygon(point, vs) {
+
+    let x = point[0], y = point[1];
+    let inside = false;
+
+    for (let i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+
+        let xi = vs[i][0], yi = vs[i][1];
+        let xj = vs[j][0], yj = vs[j][1];
+
+        let intersect =
+            ((yi > y) != (yj > y)) &&
+            (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+
+        if (intersect) inside = !inside;
+    }
+
+    return inside;
 }
 
 // Capture violation
 function captureViolation(){
 
     if(cooldown) return;
-    cooldown=true;
+    cooldown = true;
 
     let snapCanvas=document.createElement("canvas");
     snapCanvas.width=640;
@@ -225,13 +247,10 @@ function captureViolation(){
     img.src=imgData;
     img.width=200;
 
-    let time=document.createElement("p");
-    time.innerText="Time: "+new Date().toLocaleString();
-
     record.appendChild(img);
-    record.appendChild(time);
 
-    document.getElementById("fineContainer").prepend(record);
+    document.getElementById("fineContainer")
+            .prepend(record);
 
     showTab("fine");
 
@@ -249,7 +268,6 @@ pose.setOptions({
     minDetectionConfidence:0.5,
     minTrackingConfidence:0.5
 });
-
 pose.onResults(results=>{
 
     drawOverlay();
@@ -258,22 +276,27 @@ pose.onResults(results=>{
 
     if(results.poseLandmarks){
 
-        const ankle=results.poseLandmarks[27];
+        const ankle = results.poseLandmarks[27];
 
-        let px=ankle.x*640;
-        let py=ankle.y*480;
+        let px = ankle.x * 640;
+        let py = ankle.y * 480;
 
+        // Draw ankle
         ctx.beginPath();
         ctx.arc(px,py,8,0,2*Math.PI);
         ctx.fillStyle="cyan";
         ctx.fill();
 
-        if(isUnsafe(px,py)){
+        let unsafe = isUnsafe(px,py);
+
+        if(unsafe){
             statusText.innerText="BREACH DETECTED";
             statusText.className="statusBreach";
-            captureViolation();
-        } else {
-            statusText.innerText="Monitoring Active";
+
+            captureViolation();   // Will now trigger properly
+        }
+        else{
+            statusText.innerText="SAFE";
             statusText.className="statusSafe";
         }
     }
