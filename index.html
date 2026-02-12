@@ -96,6 +96,8 @@ const statusText = document.getElementById("status");
 let curvePoints = [];
 let monitoring = false;
 let cooldown = false;
+let presenceStart = null;
+let requiredStayTime = 1500; // 1.5 seconds
 
 // Start camera
 navigator.mediaDevices.getUserMedia({video:true})
@@ -304,7 +306,6 @@ pose.setOptions({
     minDetectionConfidence: 0.5,
     minTrackingConfidence: 0.5
 });
-
 pose.onResults(results => {
 
     drawOverlay();
@@ -324,13 +325,29 @@ pose.onResults(results => {
         ctx.fillStyle = "cyan";
         ctx.fill();
 
-        if(isUnsafe(px, py)){
-            statusText.innerText = "BREACH DETECTED";
+        let unsafe = isUnsafe(px, py);
+
+        if(unsafe){
+
+            statusText.innerText = "UNSAFE AREA OCCUPIED";
             statusText.className = "statusBreach";
-            captureViolation();
+
+            if(presenceStart === null){
+                presenceStart = Date.now();
+            }
+
+            // If stayed long enough → capture
+            if(Date.now() - presenceStart > requiredStayTime){
+                captureViolation();
+                presenceStart = null; // reset after capture
+            }
+
         } else {
+
             statusText.innerText = "SAFE";
             statusText.className = "statusSafe";
+
+            presenceStart = null; // reset if person leaves area
         }
     }
 });
