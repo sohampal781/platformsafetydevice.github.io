@@ -257,7 +257,7 @@ function captureViolation(){
     }
 
     let imgData = snapCanvas.toDataURL("image/png");
-
+    addFineRecord(imgData);
     setTimeout(()=>cooldown=false,3000);
 }
 function addFineRecord(imgData){
