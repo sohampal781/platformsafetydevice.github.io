@@ -2,28 +2,37 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Metro Yellow Line Breach System</title>
+<title>Metro Virtual Line Monitoring</title>
 
 <style>
-body {
+body{
     background:#111;
     color:white;
-    font-family:Arial;
     text-align:center;
+    font-family:Arial;
 }
-canvas, video {
-    border:2px solid yellow;
+
+#cameraContainer{
+    position:relative;
+    width:640px;
+    height:480px;
+    margin:auto;
 }
-button {
-    margin:5px;
-    padding:8px 15px;
+
+video, canvas{
+    position:absolute;
+    top:0;
+    left:0;
 }
-#fineTab { display:none; }
-.record {
-    border:2px solid red;
-    margin:10px;
-    padding:10px;
+
+canvas{
+    pointer-events:none;
 }
+
+button{margin:5px;padding:8px 12px;}
+
+.statusSafe{color:lightgreen;}
+.statusBreach{color:red;font-weight:bold;}
 </style>
 </head>
 
@@ -31,120 +40,89 @@ button {
 
 <h2>Metro Virtual Yellow Line Breach Detection</h2>
 
-<div>
-    <button onclick="showTab('monitor')">Monitoring</button>
-    <button onclick="showTab('fine')">Fine Tab</button>
-</div>
-
-<!-- MONITOR TAB -->
-<div id="monitorTab">
-
+<div id="cameraContainer">
     <video id="video" width="640" height="480" autoplay muted></video>
     <canvas id="canvas" width="640" height="480"></canvas>
-
-    <div>
-        <label>Number of Curve Points:</label>
-        <input type="number" id="numPoints" min="2" max="10" value="3">
-        <button onclick="createSliders()">Create Points</button>
-    </div>
-
-    <div id="sliders"></div>
-
-    <div>
-        <label>Safe Side:</label>
-        <select id="safeSide">
-            <option value="left">Left Side Safe</option>
-            <option value="right">Right Side Safe</option>
-        </select>
-    </div>
-
-    <button onclick="lockSystem()">LOCK & START MONITORING</button>
-
-    <h3 id="status">Status: Config Mode</h3>
-
 </div>
 
-<!-- FINE TAB -->
-<div id="fineTab">
-    <h2>Violation Records</h2>
-    <div id="fineContainer"></div>
-</div>
+<br>
+
+<label>Number of Curve Points:</label>
+<input type="number" id="numPoints" min="2" max="10" value="3">
+<button onclick="createSliders()">Create Points</button>
+
+<div id="sliders"></div>
+
+<br>
+
+<label>Safe Side:</label>
+<select id="safeSide">
+    <option value="left">Left Safe</option>
+    <option value="right">Right Safe</option>
+</select>
+
+<button onclick="lockSystem()">LOCK & START</button>
+
+<h3 id="status" class="statusSafe">Config Mode</h3>
 
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose"></script>
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils"></script>
 
 <script>
 
-const video = document.getElementById('video');
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
-const statusText = document.getElementById('status');
+const video = document.getElementById("video");
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+const statusText = document.getElementById("status");
 
 let curvePoints = [];
 let monitoring = false;
-let violationCooldown = false;
 
 // CAMERA
-navigator.mediaDevices.getUserMedia({ video: true })
+navigator.mediaDevices.getUserMedia({video:true})
 .then(stream => video.srcObject = stream);
-
-// TAB SWITCH
-function showTab(tabName){
-    document.getElementById("monitorTab").style.display =
-        tabName === "monitor" ? "block" : "none";
-
-    document.getElementById("fineTab").style.display =
-        tabName === "fine" ? "block" : "none";
-}
 
 // CREATE SLIDERS
 function createSliders(){
-    curvePoints = [];
-    document.getElementById("sliders").innerHTML = "";
+    curvePoints=[];
+    document.getElementById("sliders").innerHTML="";
 
-    let n = parseInt(document.getElementById("numPoints").value);
+    let n=parseInt(document.getElementById("numPoints").value);
 
     for(let i=0;i<n;i++){
 
-        let container = document.createElement("div");
+        let div=document.createElement("div");
 
-        let xSlider = document.createElement("input");
-        xSlider.type="range";
-        xSlider.min=0;
-        xSlider.max=640;
-        xSlider.value=100+i*100;
+        let x=document.createElement("input");
+        x.type="range"; x.min=0; x.max=640;
+        x.value=100+i*100;
 
-        let ySlider = document.createElement("input");
-        ySlider.type="range";
-        ySlider.min=0;
-        ySlider.max=480;
-        ySlider.value=250;
+        let y=document.createElement("input");
+        y.type="range"; y.min=0; y.max=480;
+        y.value=250;
 
-        container.innerHTML = "Point "+(i+1)+" X ";
-        container.appendChild(xSlider);
-        container.innerHTML += " Y ";
-        container.appendChild(ySlider);
+        div.innerHTML="Point "+(i+1)+" X ";
+        div.appendChild(x);
+        div.innerHTML+=" Y ";
+        div.appendChild(y);
 
-        document.getElementById("sliders").appendChild(container);
+        document.getElementById("sliders").appendChild(div);
 
-        curvePoints.push({xSlider,ySlider});
+        curvePoints.push({x,y});
     }
 }
 
-// LOCK SYSTEM
+// LOCK
 function lockSystem(){
-    monitoring = true;
-
-    document.querySelectorAll("input").forEach(el => el.disabled=true);
+    monitoring=true;
+    document.querySelectorAll("input").forEach(el=>el.disabled=true);
     document.getElementById("safeSide").disabled=true;
-
-    statusText.innerText="Monitoring Started";
+    statusText.innerText="Monitoring Active";
 }
 
-// DRAW CURVE
-function drawCurve(){
+// DRAW
+function drawOverlay(){
     ctx.clearRect(0,0,640,480);
-    ctx.drawImage(video,0,0,640,480);
 
     if(curvePoints.length<2) return;
 
@@ -152,88 +130,45 @@ function drawCurve(){
     ctx.strokeStyle="yellow";
     ctx.lineWidth=3;
 
-    ctx.moveTo(curvePoints[0].xSlider.value,
-               curvePoints[0].ySlider.value);
+    ctx.moveTo(curvePoints[0].x.value,
+               curvePoints[0].y.value);
 
     for(let i=1;i<curvePoints.length;i++){
-        ctx.lineTo(curvePoints[i].xSlider.value,
-                   curvePoints[i].ySlider.value);
+        ctx.lineTo(curvePoints[i].x.value,
+                   curvePoints[i].y.value);
     }
 
     ctx.stroke();
 }
 
-// CHECK SIDE
-function isUnsafe(x,y){
-
-    if(curvePoints.length<2) return false;
+// SIDE CHECK
+function isUnsafe(px,py){
 
     let safeSide=document.getElementById("safeSide").value;
 
     for(let i=0;i<curvePoints.length-1;i++){
 
-        let x1=parseInt(curvePoints[i].xSlider.value);
-        let y1=parseInt(curvePoints[i].ySlider.value);
-        let x2=parseInt(curvePoints[i+1].xSlider.value);
-        let y2=parseInt(curvePoints[i+1].ySlider.value);
+        let x1=parseInt(curvePoints[i].x.value);
+        let y1=parseInt(curvePoints[i].y.value);
+        let x2=parseInt(curvePoints[i+1].x.value);
+        let y2=parseInt(curvePoints[i+1].y.value);
 
-        if(y>=Math.min(y1,y2)&&y<=Math.max(y1,y2)){
+        if(py>=Math.min(y1,y2) && py<=Math.max(y1,y2)){
 
             let slope=(x2-x1)/(y2-y1);
-            let xLine=x1+slope*(y-y1);
+            let xLine=x1+slope*(py-y1);
 
-            if(safeSide==="left" && x>xLine) return true;
-            if(safeSide==="right" && x<xLine) return true;
+            if(safeSide==="left" && px>xLine) return true;
+            if(safeSide==="right" && px<xLine) return true;
         }
     }
     return false;
 }
 
-// SNAPSHOT + FINE RECORD
-function captureViolation(){
-
-    if(violationCooldown) return;
-
-    violationCooldown=true;
-
-    let snapCanvas=document.createElement("canvas");
-    snapCanvas.width=640;
-    snapCanvas.height=480;
-
-    let snapCtx=snapCanvas.getContext("2d");
-    snapCtx.drawImage(video,0,0,640,480);
-
-    let imgData=snapCanvas.toDataURL("image/png");
-
-    let container=document.getElementById("fineContainer");
-
-    let record=document.createElement("div");
-    record.className="record";
-
-    let img=document.createElement("img");
-    img.src=imgData;
-    img.width=200;
-
-    let time=document.createElement("p");
-    time.innerText="Time: "+new Date().toLocaleString();
-
-    let fine=document.createElement("p");
-    fine.innerText="Fine: ₹500";
-
-    record.appendChild(img);
-    record.appendChild(time);
-    record.appendChild(fine);
-
-    container.prepend(record);
-
-    showTab("fine");
-
-    setTimeout(()=> violationCooldown=false,5000);
-}
-
-// POSE DETECTION
+// POSE
 const pose = new Pose.Pose({
-    locateFile: file => `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`
+    locateFile: file => 
+    `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`
 });
 
 pose.setOptions({
@@ -243,30 +178,35 @@ pose.setOptions({
 });
 
 pose.onResults(results=>{
-    drawCurve();
+
+    drawOverlay();
 
     if(!monitoring) return;
 
     if(results.poseLandmarks){
 
-        const ankle=results.poseLandmarks[27];
+        const ankle = results.poseLandmarks[27];
+        let px = ankle.x * 640;
+        let py = ankle.y * 480;
 
-        let x=ankle.x*640;
-        let y=ankle.y*480;
+        // Draw ankle point
+        ctx.beginPath();
+        ctx.arc(px,py,8,0,2*Math.PI);
+        ctx.fillStyle="cyan";
+        ctx.fill();
 
-        if(isUnsafe(x,y)){
+        if(isUnsafe(px,py)){
             statusText.innerText="BREACH DETECTED";
-            statusText.style.color="red";
-            captureViolation();
+            statusText.className="statusBreach";
         } else {
             statusText.innerText="Monitoring Active";
-            statusText.style.color="lightgreen";
+            statusText.className="statusSafe";
         }
     }
 });
 
 const camera = new Camera(video,{
-    onFrame: async()=>{
+    onFrame: async ()=>{
         await pose.send({image:video});
     },
     width:640,
@@ -274,7 +214,6 @@ const camera = new Camera(video,{
 });
 
 camera.start();
-
 createSliders();
 
 </script>
