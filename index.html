@@ -1,383 +1,151 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI-Enabled Platform Dead-End Breach Prevention System</title>
-
+<title>Metro Virtual Yellow Line Detection</title>
 <style>
-body {
-  margin: 0;
-  font-family: "Segoe UI", sans-serif;
-  background: radial-gradient(circle at top, #1a1d4b, #0d0f25 60%);
-  color: #fff;
-  overflow-x: hidden;
-}
-.navbar {
-  padding: 20px 40px;
-  font-size: 26px;
-  font-weight: 700;
-  background: rgba(255,255,255,0.04);
-  backdrop-filter: blur(10px);
-  text-shadow: 0 0 8px #6a5df0;
-}
-.hero {
-  padding: 100px 20px;
-  text-align: center;
-  background: linear-gradient(135deg, #5c34ff 0%, #9126ff 50%, #2600ff 100%);
-  box-shadow: 0 0 40px rgba(140,110,255,0.5);
-  position: relative;
-}
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: url('https://i.imgur.com/88dA9ZN.png') center/cover;
-  opacity: 0.08;
-}
-.hero h1 {
-  font-size: 50px;
-  font-weight: 800;
-  margin: 0;
-}
-.hero p {
-  font-size: 20px;
-  opacity: 0.95;
-  margin-top: 20px;
-}
-.section-title {
-  font-size: 36px;
-  text-align: center;
-  margin: 50px 0 25px;
-  font-weight: 700;
-  text-shadow: 0 0 12px #8a6bff;
-}
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 30px;
-  padding: 20px;
-}
-.card {
-  background: rgba(255,255,255,0.06);
-  backdrop-filter: blur(12px);
-  padding: 25px;
-  border-radius: 18px;
-  border: 1px solid rgba(255,255,255,0.15);
-  box-shadow: 0 0 20px rgba(120,80,255,0.2);
-  transition: 0.4s;
-  opacity: 0;
-  transform: translateY(30px);
-}
-.card.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-.card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 45px rgba(140,110,255,0.6);
-}
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-  gap: 20px;
-}
-.gallery-img {
-  width: 100%;
-  border-radius: 18px;
-  box-shadow: 0 0 20px rgba(140,110,255,0.3);
-  cursor: pointer;
-  transition: 0.3s;
-}
-.gallery-img:hover {
-  transform: scale(1.05);
-}
-.fullscreen-viewer {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.9);
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
-.fullscreen-viewer img {
-  max-width: 92%;
-  max-height: 92%;
-  border-radius: 20px;
-}
-.close-btn {
-  position: absolute;
-  top: 25px;
-  right: 40px;
-  font-size: 45px;
-  cursor: pointer;
-}
-.video-container {
-  width: 100%;
-  height: 300px;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 0 40px rgba(140,110,255,0.4);
-}
-.video-container iframe {
-  width: 100%;
-  height: 100%;
-}
-.leader-container {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 40px;
-  margin-bottom: 50px;
-}
-.leader-card {
-  width: 320px;
-  background: rgba(255,255,255,0.07);
-  border-radius: 20px;
-  padding: 30px;
-  text-align: center;
-  box-shadow: 0 0 25px rgba(140,110,255,0.35);
-  transition: 0.3s;
-}
-.leader-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 0 45px rgba(140,110,255,0.6);
-}
-.leader-photo {
-  width: 260px;
-  height: 260px;
-  border-radius: 20px;
-  object-fit: cover;
-  margin-bottom: 20px;
-}
-.contact-box {
-  background: rgba(255,255,255,0.07);
-  backdrop-filter: blur(12px);
-  border-radius: 20px;
-  padding: 30px;
-  text-align: center;
-  max-width: 600px;
-  margin: 40px auto;
-  box-shadow: 0 0 35px rgba(140,110,255,0.3);
-}
-footer {
-  text-align: center;
-  padding: 20px;
-  background: rgba(255,255,255,0.05);
-  border-top: 1px solid rgba(255,255,255,0.1);
-}
+body { font-family: Arial; background: #111; color: white; text-align: center; }
+canvas { border: 2px solid yellow; }
+.controls { margin-top: 15px; }
+.slider-container { margin: 5px; }
 </style>
 </head>
-
 <body>
 
-<div class="navbar">Railway Safety Dashboard</div>
+<h2>Metro Virtual Yellow Line Breach Detection</h2>
 
-<div class="hero">
-  <h1>AI-Enabled Platform Dead-End Breach Prevention System</h1>
-  <p>Advanced AI + Active Infrared Triple-Beam Safety Technology for Platform Dead-End Zones</p>
+<video id="video" width="640" height="480" autoplay muted></video>
+<canvas id="canvas" width="640" height="480"></canvas>
+
+<div class="controls">
+    <label>Number of Curve Points:</label>
+    <input type="number" id="numPoints" min="2" max="10" value="3">
+    <button onclick="createSliders()">Create Points</button>
+    <div id="sliders"></div>
 </div>
 
-<h2 class="section-title">System Highlights</h2>
-<div class="cards">
-  <div class="card"><h3>Active Infrared Boundary Detection</h3><p>Triple-beam photoelectric infrared sensors detect human intrusion at platform dead-end zones.</p></div>
-  <div class="card"><h3>AI Monitoring</h3><p>AI processes camera input triggered by infrared beam interruption events.</p></div>
-  <div class="card"><h3>Instant Alerts</h3><p>Sirens, visual indicators, and dashboard alerts generated in real time.</p></div>
-  <div class="card"><h3>Multi-Beam Reliability</h3><p>Violation is confirmed only when multiple infrared beams are interrupted, reducing false alarms.</p></div>
-</div>
+<h3 id="status">Status: Safe</h3>
 
-<h2 class="section-title">AI-Based Violation Detection</h2>
-<div class="cards">
-  <div class="card"><h3>Real-Time Person Detection</h3><p>AI vision validates human presence after infrared breach detection.</p></div>
-  <div class="card"><h3>Boundary Violation Alerts</h3><p>Immediate alerts are generated when dead-end zones are breached.</p></div>
-  <div class="card"><h3>Behavior Analysis</h3><p>AI logic minimizes false alarms caused by non-human disturbances.</p></div>
-  <div class="card"><h3>Violation Logging</h3><p>Events and frames are recorded for analysis and audit purposes.</p></div>
-</div>
-
-<h2 class="section-title">Project Updates</h2>
-<div class="cards">
-  <div class="card"><h3>Latest Status</h3><p>The system is fully functional with AI, active infrared sensors, and dashboard integration.</p></div>
-  <div class="card"><h3>AI Layer</h3><p>Real-time detection stabilized with enhanced accuracy and validation logic.</p></div>
-  <div class="card"><h3>Hardware Layer</h3><p>Triple-beam active infrared photoelectric sensors calibrated for outdoor station conditions.</p></div>
-  <div class="card"><h3>Dashboard</h3><p>Supports live monitoring, alerts, and multi-camera visualization.</p></div>
-</div>
-
-<h2 class="section-title">Project Timeline</h2>
-<div class="cards">
-  <div class="card"><h3>Phase 1</h3><p>Concept & Research<br><b>(Mar 2025 – Jul 2025)</b></p></div>
-  <div class="card"><h3>Phase 2</h3><p>Hardware Development<br><b>(Aug 2025 – Sep 2025)</b></p></div>
-  <div class="card"><h3>Phase 3</h3><p>AI Development<br><b>(Oct 2025 – Nov 2025)</b></p></div>
-  <div class="card"><h3>Phase 4</h3><p>Dashboard Integration<br><b>(Nov 2025 – Dec 2025)</b></p></div>
-  <div class="card"><h3>Phase 5</h3><p>Field Testing<br><b>(Ongoing)</b></p></div>
-  <div class="card"><h3>Phase 6</h3><p>Deployment Preparation<br><b>(Upcoming)</b></p></div>
-</div>
-
-  <!-- GALLERY -->
-<h2 class="section-title">Gallery</h2>
-<div class="gallery" style="padding:20px">
-  <img src="1.jpg" class="gallery-img">
-  <img src="2.jpg" class="gallery-img">
-  <img src="3.jpg" class="gallery-img">
-</div>
-
-<!-- FULLSCREEN VIEWER -->
-<div id="fullscreenViewer" class="fullscreen-viewer">
-  <span class="close-btn">&times;</span>
-  <img id="fullscreenImage">
-</div>
-
-<!-- VIDEO DEMONSTRATIONS -->
-<h2 class="section-title">Video Demonstrations</h2>
-
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:40px;padding:20px;margin-bottom:40px">
-
-  <div class="card">
-    <h3 style="text-align:center;margin-bottom:15px">
-      Dashboard Demo – Railway Platform Safety System
-    </h3>
-    <div class="video-container">
-      <iframe src="https://www.youtube.com/embed/9XZerEaP8Lo" allowfullscreen></iframe>
-    </div>
-  </div>
-
-  <div class="card">
-    <h3 style="text-align:center;margin-bottom:15px">
-      AI-Camera Based Breach Detection – Live Test
-    </h3>
-    <div class="video-container">
-      <iframe src="https://www.youtube.com/embed/ljjpuWzw0DQ" allowfullscreen></iframe>
-    </div>
-  </div>
-    <div class="card">
-    <h3 style="text-align:center;margin-bottom:15px">
-      Platform Safety Announcement System – Live Demonstration
-    </h3>
-    <div class="video-container">
-      <iframe 
-        src="https://www.youtube.com/embed/Yh16liaSU74" 
-        allowfullscreen>
-      </iframe>
-    </div>
-  </div>
-
-</div>
-
-<!-- CONTACT -->
-<h2 class="section-title">Contact</h2>
-<div class="contact-box">
-  <p style="font-size:20px;">
-    ✉ <b>soham.pal2023@iem.edu.in</b>
-  </p>
-  <hr style="border:0;height:1px;background:rgba(255,255,255,0.2);margin:20px 0;">
-  <p style="font-size:18px;opacity:0.9;">
-    For demo requests, technical discussions, and project collaboration
-  </p>
-</div>
-
-<!-- PROJECT PRESENTATION -->
-<h2 class="section-title">Project Presentation</h2>
-
-<div style="
-  max-width: 900px;
-  margin: 0 auto 60px;
-  background: rgba(255,255,255,0.07);
-  padding: 20px;
-  border-radius: 20px;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 0 35px rgba(140,110,255,0.3);
-  text-align:center;
-">
-  <iframe 
-    src="https://view.officeapps.live.com/op/embed.aspx?src=https://raw.githubusercontent.com/sohampal781/platformsafetydevice.github.io/main/metro%20-%20Copy.pptx"
-    width="100%" 
-    height="520" 
-    frameborder="0"
-    style="border-radius:15px;">
-  </iframe>
-</div>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils"></script>
 
 <script>
-/* GALLERY FULLSCREEN LOGIC */
-const imgs = document.querySelectorAll('.gallery-img');
-const viewer = document.getElementById('fullscreenViewer');
-const viewerImg = document.getElementById('fullscreenImage');
+const video = document.getElementById('video');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const statusText = document.getElementById('status');
+const slidersDiv = document.getElementById('sliders');
 
-imgs.forEach(img => {
-  img.onclick = () => {
-    viewer.style.display = "flex";
-    viewerImg.src = img.src;
-  };
+let curvePoints = [];
+
+// Start Camera
+navigator.mediaDevices.getUserMedia({ video: true })
+.then(stream => video.srcObject = stream);
+
+// Create Sliders
+function createSliders() {
+    slidersDiv.innerHTML = "";
+    curvePoints = [];
+    const n = parseInt(document.getElementById('numPoints').value);
+
+    for(let i=0;i<n;i++){
+        const container = document.createElement("div");
+        container.className = "slider-container";
+
+        const xSlider = document.createElement("input");
+        xSlider.type = "range";
+        xSlider.min = 0;
+        xSlider.max = 640;
+        xSlider.value = 100 + i*100;
+
+        const ySlider = document.createElement("input");
+        ySlider.type = "range";
+        ySlider.min = 0;
+        ySlider.max = 480;
+        ySlider.value = 300;
+
+        container.appendChild(document.createTextNode("Point "+(i+1)+" X "));
+        container.appendChild(xSlider);
+        container.appendChild(document.createTextNode(" Y "));
+        container.appendChild(ySlider);
+
+        slidersDiv.appendChild(container);
+
+        curvePoints.push({xSlider, ySlider});
+    }
+}
+
+// Draw everything
+function drawCurve() {
+    ctx.clearRect(0,0,640,480);
+    ctx.drawImage(video,0,0,640,480);
+
+    if(curvePoints.length < 2) return;
+
+    ctx.beginPath();
+    ctx.strokeStyle = "yellow";
+    ctx.lineWidth = 3;
+
+    ctx.moveTo(curvePoints[0].xSlider.value,
+               curvePoints[0].ySlider.value);
+
+    for(let i=1;i<curvePoints.length;i++){
+        ctx.lineTo(curvePoints[i].xSlider.value,
+                   curvePoints[i].ySlider.value);
+    }
+    ctx.stroke();
+}
+
+// Simple crossing detection (based on ankle position)
+function checkBreach(landmarks){
+    if(curvePoints.length < 2) return;
+
+    const leftAnkle = landmarks[27];
+    const x = leftAnkle.x * 640;
+    const y = leftAnkle.y * 480;
+
+    // Simple logic: if ankle below lowest curve Y → breach
+    let minY = Math.min(...curvePoints.map(p => parseInt(p.ySlider.value)));
+
+    if(y > minY){
+        statusText.innerText = "⚠ BREACH DETECTED";
+        statusText.style.color = "red";
+    } else {
+        statusText.innerText = "Status: Safe";
+        statusText.style.color = "lightgreen";
+    }
+}
+
+// MediaPipe Pose Setup
+const pose = new Pose.Pose({
+    locateFile: file => `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`
 });
 
-document.querySelector('.close-btn').onclick = () => viewer.style.display = "none";
-viewer.onclick = (e) => { if (e.target !== viewerImg) viewer.style.display = "none"; };
-</script>
+pose.setOptions({
+    modelComplexity: 0,
+    smoothLandmarks: true,
+    enableSegmentation: false,
+    minDetectionConfidence: 0.5,
+    minTrackingConfidence: 0.5
+});
 
+pose.onResults(results => {
+    drawCurve();
+    if(results.poseLandmarks){
+        checkBreach(results.poseLandmarks);
+    }
+});
 
-<!-- TEAM -->
-<h2 class="section-title">Project Leadership & Development Team</h2>
+// Attach Camera to MediaPipe
+const camera = new Camera(video, {
+    onFrame: async () => {
+        await pose.send({image: video});
+    },
+    width: 640,
+    height: 480
+});
+camera.start();
 
-<div class="leader-container">
-  <div class="leader-card">
-    <img src="4.jpg" class="leader-photo">
-    <h3>Soham Pal</h3><p><b>Principal Investigator(PI)</b></p><p>B.Tech EE, 3rd Year<br>IEM Kolkata</p>
-  </div>
-
-  <div class="leader-card">
-    <img src="5.jpg" class="leader-photo">
-    <h3>Heerok Banerjee</h3><p><b>Associate Principal Investigator (CO-PI)<br>& Head of AI Dept.</b></p><p>Assistant Professor, CSE (AIML)<br>IEM Kolkata</p>
-  </div>
-
-  <div class="leader-card">
-    <img src="10.jpg" class="leader-photo">
-    <h3>Sujay Kumar Banerjee</h3><p><b>Associate Principal Investigator (CO-PI)</b></p><p>Senior Technical Assistant<br>EE Dept, IEM Kolkata</p>
-  </div>
-
-  <div class="leader-card">
-    <img src="11.png" class="leader-photo">
-    <h3>Arijita Das</h3><p><b>Faculty Advisor</b></p><p>Assistant Professor<br>IEM Kolkata</p>
-  </div>
-</div>
-
-<div class="leader-container">
-  <div class="leader-card">
-    <img src="6.jpg" class="leader-photo">
-    <h3>Sougata Sengupta</h3><p><b>Head of Hardware Dept.</b></p><p>B.Tech EE, 3rd Year<br>IEM Kolkata</p>
-  </div>
-  <div class="leader-card">
-    <img src="7.jpg" class="leader-photo">
-    <h3>Satavisha Samanta</h3><p><b>Head of Software Dept.</b></p><p>B.Tech EE, 3rd Year<br>IEM Kolkata</p>
-  </div>
-  <div class="leader-container">
-  <div class="leader-card">
-    <img src="8.jpeg" class="leader-photo">
-    <h3>Priti Koner</h3><p><b>Chief of Safety Department</b></p><p>B.Tech EE, 3rd Year<br>IEM Kolkata</p>
-  </div>
-</div>
-
-
-  <div class="leader-card">
-    <img src="9.jpeg" class="leader-photo">
-    <h3>Souvik Sharkel</h3><p><b>Project Member</b></p><p>B.Tech EE, 3rd Year<br>IEM Kolkata</p>
-  </div>
-</div>
-
-<footer>
-  © <span id="year"></span> AI-Enabled Platform Dead-End Breach Prevention System
-</footer>
-
-<script>
-document.getElementById("year").textContent = new Date().getFullYear();
-const cards = document.querySelectorAll('.card');
-function showCards() {
-  cards.forEach(card => {
-    const rect = card.getBoundingClientRect();
-    if (rect.top < window.innerHeight - 50) card.classList.add('show');
-  });
-}
-window.addEventListener('scroll', showCards);
-showCards();
+createSliders();
 </script>
 
 </body>
