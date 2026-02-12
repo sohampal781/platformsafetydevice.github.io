@@ -1,89 +1,156 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Metro Virtual Yellow Line Detection</title>
+<meta charset="UTF-8">
+<title>Metro Yellow Line Breach System</title>
+
 <style>
-body { font-family: Arial; background: #111; color: white; text-align: center; }
-canvas { border: 2px solid yellow; }
-.controls { margin-top: 15px; }
-.slider-container { margin: 5px; }
+body {
+    background:#111;
+    color:white;
+    font-family:Arial;
+    text-align:center;
+}
+canvas, video {
+    border:2px solid yellow;
+}
+button {
+    margin:5px;
+    padding:8px 15px;
+}
+#fineTab { display:none; }
+.record {
+    border:2px solid red;
+    margin:10px;
+    padding:10px;
+}
 </style>
 </head>
+
 <body>
 
 <h2>Metro Virtual Yellow Line Breach Detection</h2>
 
-<video id="video" width="640" height="480" autoplay muted></video>
-<canvas id="canvas" width="640" height="480"></canvas>
-
-<div class="controls">
-    <label>Number of Curve Points:</label>
-    <input type="number" id="numPoints" min="2" max="10" value="3">
-    <button onclick="createSliders()">Create Points</button>
-    <div id="sliders"></div>
+<div>
+    <button onclick="showTab('monitor')">Monitoring</button>
+    <button onclick="showTab('fine')">Fine Tab</button>
 </div>
 
-<h3 id="status">Status: Safe</h3>
+<!-- MONITOR TAB -->
+<div id="monitorTab">
+
+    <video id="video" width="640" height="480" autoplay muted></video>
+    <canvas id="canvas" width="640" height="480"></canvas>
+
+    <div>
+        <label>Number of Curve Points:</label>
+        <input type="number" id="numPoints" min="2" max="10" value="3">
+        <button onclick="createSliders()">Create Points</button>
+    </div>
+
+    <div id="sliders"></div>
+
+    <div>
+        <label>Safe Side:</label>
+        <select id="safeSide">
+            <option value="left">Left Side Safe</option>
+            <option value="right">Right Side Safe</option>
+        </select>
+    </div>
+
+    <button onclick="lockSystem()">LOCK & START MONITORING</button>
+
+    <h3 id="status">Status: Config Mode</h3>
+
+</div>
+
+<!-- FINE TAB -->
+<div id="fineTab">
+    <h2>Violation Records</h2>
+    <div id="fineContainer"></div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose"></script>
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils"></script>
 
 <script>
+
 const video = document.getElementById('video');
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 const statusText = document.getElementById('status');
-const slidersDiv = document.getElementById('sliders');
 
 let curvePoints = [];
+let monitoring = false;
+let violationCooldown = false;
 
-// Start Camera
+// CAMERA
 navigator.mediaDevices.getUserMedia({ video: true })
 .then(stream => video.srcObject = stream);
 
-// Create Sliders
-function createSliders() {
-    slidersDiv.innerHTML = "";
+// TAB SWITCH
+function showTab(tabName){
+    document.getElementById("monitorTab").style.display =
+        tabName === "monitor" ? "block" : "none";
+
+    document.getElementById("fineTab").style.display =
+        tabName === "fine" ? "block" : "none";
+}
+
+// CREATE SLIDERS
+function createSliders(){
     curvePoints = [];
-    const n = parseInt(document.getElementById('numPoints').value);
+    document.getElementById("sliders").innerHTML = "";
+
+    let n = parseInt(document.getElementById("numPoints").value);
 
     for(let i=0;i<n;i++){
-        const container = document.createElement("div");
-        container.className = "slider-container";
 
-        const xSlider = document.createElement("input");
-        xSlider.type = "range";
-        xSlider.min = 0;
-        xSlider.max = 640;
-        xSlider.value = 100 + i*100;
+        let container = document.createElement("div");
 
-        const ySlider = document.createElement("input");
-        ySlider.type = "range";
-        ySlider.min = 0;
-        ySlider.max = 480;
-        ySlider.value = 300;
+        let xSlider = document.createElement("input");
+        xSlider.type="range";
+        xSlider.min=0;
+        xSlider.max=640;
+        xSlider.value=100+i*100;
 
-        container.appendChild(document.createTextNode("Point "+(i+1)+" X "));
+        let ySlider = document.createElement("input");
+        ySlider.type="range";
+        ySlider.min=0;
+        ySlider.max=480;
+        ySlider.value=250;
+
+        container.innerHTML = "Point "+(i+1)+" X ";
         container.appendChild(xSlider);
-        container.appendChild(document.createTextNode(" Y "));
+        container.innerHTML += " Y ";
         container.appendChild(ySlider);
 
-        slidersDiv.appendChild(container);
+        document.getElementById("sliders").appendChild(container);
 
-        curvePoints.push({xSlider, ySlider});
+        curvePoints.push({xSlider,ySlider});
     }
 }
 
-// Draw everything
-function drawCurve() {
+// LOCK SYSTEM
+function lockSystem(){
+    monitoring = true;
+
+    document.querySelectorAll("input").forEach(el => el.disabled=true);
+    document.getElementById("safeSide").disabled=true;
+
+    statusText.innerText="Monitoring Started";
+}
+
+// DRAW CURVE
+function drawCurve(){
     ctx.clearRect(0,0,640,480);
     ctx.drawImage(video,0,0,640,480);
 
-    if(curvePoints.length < 2) return;
+    if(curvePoints.length<2) return;
 
     ctx.beginPath();
-    ctx.strokeStyle = "yellow";
-    ctx.lineWidth = 3;
+    ctx.strokeStyle="yellow";
+    ctx.lineWidth=3;
 
     ctx.moveTo(curvePoints[0].xSlider.value,
                curvePoints[0].ySlider.value);
@@ -92,60 +159,124 @@ function drawCurve() {
         ctx.lineTo(curvePoints[i].xSlider.value,
                    curvePoints[i].ySlider.value);
     }
+
     ctx.stroke();
 }
 
-// Simple crossing detection (based on ankle position)
-function checkBreach(landmarks){
-    if(curvePoints.length < 2) return;
+// CHECK SIDE
+function isUnsafe(x,y){
 
-    const leftAnkle = landmarks[27];
-    const x = leftAnkle.x * 640;
-    const y = leftAnkle.y * 480;
+    if(curvePoints.length<2) return false;
 
-    // Simple logic: if ankle below lowest curve Y → breach
-    let minY = Math.min(...curvePoints.map(p => parseInt(p.ySlider.value)));
+    let safeSide=document.getElementById("safeSide").value;
 
-    if(y > minY){
-        statusText.innerText = "⚠ BREACH DETECTED";
-        statusText.style.color = "red";
-    } else {
-        statusText.innerText = "Status: Safe";
-        statusText.style.color = "lightgreen";
+    for(let i=0;i<curvePoints.length-1;i++){
+
+        let x1=parseInt(curvePoints[i].xSlider.value);
+        let y1=parseInt(curvePoints[i].ySlider.value);
+        let x2=parseInt(curvePoints[i+1].xSlider.value);
+        let y2=parseInt(curvePoints[i+1].ySlider.value);
+
+        if(y>=Math.min(y1,y2)&&y<=Math.max(y1,y2)){
+
+            let slope=(x2-x1)/(y2-y1);
+            let xLine=x1+slope*(y-y1);
+
+            if(safeSide==="left" && x>xLine) return true;
+            if(safeSide==="right" && x<xLine) return true;
+        }
     }
+    return false;
 }
 
-// MediaPipe Pose Setup
+// SNAPSHOT + FINE RECORD
+function captureViolation(){
+
+    if(violationCooldown) return;
+
+    violationCooldown=true;
+
+    let snapCanvas=document.createElement("canvas");
+    snapCanvas.width=640;
+    snapCanvas.height=480;
+
+    let snapCtx=snapCanvas.getContext("2d");
+    snapCtx.drawImage(video,0,0,640,480);
+
+    let imgData=snapCanvas.toDataURL("image/png");
+
+    let container=document.getElementById("fineContainer");
+
+    let record=document.createElement("div");
+    record.className="record";
+
+    let img=document.createElement("img");
+    img.src=imgData;
+    img.width=200;
+
+    let time=document.createElement("p");
+    time.innerText="Time: "+new Date().toLocaleString();
+
+    let fine=document.createElement("p");
+    fine.innerText="Fine: ₹500";
+
+    record.appendChild(img);
+    record.appendChild(time);
+    record.appendChild(fine);
+
+    container.prepend(record);
+
+    showTab("fine");
+
+    setTimeout(()=> violationCooldown=false,5000);
+}
+
+// POSE DETECTION
 const pose = new Pose.Pose({
     locateFile: file => `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`
 });
 
 pose.setOptions({
-    modelComplexity: 0,
-    smoothLandmarks: true,
-    enableSegmentation: false,
-    minDetectionConfidence: 0.5,
-    minTrackingConfidence: 0.5
+    modelComplexity:0,
+    minDetectionConfidence:0.5,
+    minTrackingConfidence:0.5
 });
 
-pose.onResults(results => {
+pose.onResults(results=>{
     drawCurve();
+
+    if(!monitoring) return;
+
     if(results.poseLandmarks){
-        checkBreach(results.poseLandmarks);
+
+        const ankle=results.poseLandmarks[27];
+
+        let x=ankle.x*640;
+        let y=ankle.y*480;
+
+        if(isUnsafe(x,y)){
+            statusText.innerText="BREACH DETECTED";
+            statusText.style.color="red";
+            captureViolation();
+        } else {
+            statusText.innerText="Monitoring Active";
+            statusText.style.color="lightgreen";
+        }
     }
 });
 
-// Attach Camera to MediaPipe
-const camera = new Camera(video, {
-    onFrame: async () => {
-        await pose.send({image: video});
+const camera = new Camera(video,{
+    onFrame: async()=>{
+        await pose.send({image:video});
     },
-    width: 640,
-    height: 480
+    width:640,
+    height:480
 });
+
 camera.start();
 
 createSliders();
+
 </script>
 
 </body>
