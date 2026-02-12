@@ -276,24 +276,24 @@ pose.onResults(results=>{
 
     if(results.poseLandmarks){
 
-        const ankle = results.poseLandmarks[27];
+        let leftHip = results.poseLandmarks[23];
+        let rightHip = results.poseLandmarks[24];
 
-        let px = ankle.x * 640;
-        let py = ankle.y * 480;
+        let px = ((leftHip.x + rightHip.x) / 2) * 640;
+        let py = ((leftHip.y + rightHip.y) / 2) * 480;
 
-        // Draw ankle
+        // Draw detection point
         ctx.beginPath();
-        ctx.arc(px,py,8,0,2*Math.PI);
+        ctx.arc(px, py, 10, 0, 2*Math.PI);
         ctx.fillStyle="cyan";
         ctx.fill();
 
-        let unsafe = isUnsafe(px,py);
+        let unsafe = isUnsafe(px, py);
 
         if(unsafe){
             statusText.innerText="BREACH DETECTED";
             statusText.className="statusBreach";
-
-            captureViolation();   // Will now trigger properly
+            captureViolation();
         }
         else{
             statusText.innerText="SAFE";
