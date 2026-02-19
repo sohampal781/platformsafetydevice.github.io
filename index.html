@@ -3,63 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RailGuard | Future of Transit Safety</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <title>RailGuard | Safety Innovation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --glass: rgba(255, 255, 255, 0.02);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --primary: #6366f1; /* Electric Indigo */
-            --accent: #f59e0b; /* Safety Amber */
-            --success: #10b981; /* Precision Emerald */
+            --primary: #6366f1;
+            --success: #10b981;
             --bg: #020617;
-            --text: #f8fafc;
-            --card-hover: rgba(99, 102, 241, 0.1);
+            --glass: rgba(255, 255, 255, 0.02);
+            --border: rgba(255, 255, 255, 0.1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg);
-            color: var(--text);
+            color: #fff;
             overflow-x: hidden;
-            line-height: 1.6;
         }
 
-        /* High-End Background Effects */
-        .bg-glow {
+        /* Full Screen Left-to-Right Animated Glow */
+        .glow-overlay {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
-                #020617;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                rgba(99, 102, 241, 0.15) 0%, 
+                rgba(16, 185, 129, 0.1) 50%, 
+                rgba(99, 102, 241, 0.15) 100%);
             z-index: -1;
+            animation: sweep 10s linear infinite;
         }
 
-        /* Glassmorphism Navigation */
-        nav {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 1200px;
-            padding: 15px 30px;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 100px;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        @keyframes sweep {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0%); }
         }
 
-        .logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.4rem; letter-spacing: -1px; }
-
-        /* Hero Section */
         header {
             height: 100vh;
             display: flex;
@@ -67,83 +50,53 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 0 20px;
-            position: relative;
+            padding: 0 5%;
         }
 
-        .hero-badge {
-            background: linear-gradient(90deg, rgba(99, 102, 241, 0.2), rgba(16, 185, 129, 0.2));
-            color: var(--text);
-            padding: 10px 25px;
-            border-radius: 100px;
-            font-weight: 600;
-            font-size: 0.8rem;
-            margin-bottom: 30px;
-            border: 1px solid var(--glass-border);
-            text-transform: uppercase;
-            letter-spacing: 4px;
-        }
-
-        h1 {
+        .hero-title {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            font-weight: 700;
-            max-width: 1000px;
-            line-height: 0.95;
-            letter-spacing: -3px;
-            background: linear-gradient(180deg, #fff 0%, #64748b 100%);
+            font-size: clamp(2.5rem, 7vw, 5.5rem);
+            line-height: 0.9;
+            letter-spacing: -4px;
+            background: linear-gradient(to bottom, #fff 40%, rgba(255,255,255,0.4));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            margin-bottom: 30px;
         }
 
-        /* Bento Grid Sections */
-        .container { max-width: 1300px; margin: -100px auto 100px; padding: 0 20px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
         .section-card {
             background: var(--glass);
             backdrop-filter: blur(40px);
-            border: 1px solid var(--glass-border);
+            border: 1px solid var(--border);
             padding: 80px 60px;
-            border-radius: 48px;
-            margin-bottom: 60px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border-radius: 50px;
+            margin-bottom: 80px;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.5);
         }
 
-        h2 { font-family: 'Space Grotesk', sans-serif; font-size: 3rem; margin-bottom: 50px; color: #fff; letter-spacing: -2px; }
+        h2 { font-family: 'Space Grotesk', sans-serif; font-size: 3.5rem; letter-spacing: -2px; margin-bottom: 40px; color: var(--primary); }
 
-        /* Innovative Feature Cards */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        /* Innovative Grid */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 30px; }
 
         .feature-box {
-            background: rgba(255, 255, 255, 0.015);
+            background: rgba(255, 255, 255, 0.01);
             padding: 40px;
-            border-radius: 32px;
-            border: 1px solid var(--glass-border);
-            position: relative;
-            overflow: hidden;
+            border-radius: 35px;
+            border: 1px solid var(--border);
+            transition: 0.5s cubic-bezier(0.2, 1, 0.3, 1);
         }
 
         .feature-box:hover {
-            background: var(--card-hover);
+            background: rgba(99, 102, 241, 0.1);
             border-color: var(--primary);
-            transform: translateY(-15px) scale(1.02);
+            transform: translateY(-20px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
         }
 
-        .feature-box h3 { margin-bottom: 15px; font-size: 1.5rem; font-weight: 700; color: #fff; }
-        .feature-box p { color: #94a3b8; font-size: 1.05rem; font-weight: 300; }
-
-        /* Video Showcase */
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            border-radius: 40px;
-            overflow: hidden;
-            border: 1px solid var(--glass-border);
-            background: #000;
-            box-shadow: 0 0 40px rgba(99, 102, 241, 0.2);
-        }
-
-        /* Timeline Evolution */
+        /* Timeline with Glow */
         .timeline { position: relative; padding-left: 60px; }
         .timeline::before { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 2px; background: linear-gradient(to bottom, var(--primary), var(--success)); }
 
@@ -159,55 +112,44 @@
             z-index: 10;
         }
 
-        .t-active::before { border-color: var(--success); box-shadow: 0 0 30px var(--success); animation: pulseGlow 2s infinite; }
+        .t-active::before { border-color: var(--success); box-shadow: 0 0 40px var(--success); animation: pulse 2s infinite; }
 
-        @keyframes pulseGlow { 0% { box-shadow: 0 0 0 0 var(--success); } 70% { box-shadow: 0 0 0 20px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 var(--success); } 70% { box-shadow: 0 0 0 20px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
 
-        .t-date { color: var(--primary); font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; display: block; }
+        /* Team Image Styling */
+        .team-img { 
+            width: 150px; height: 150px; border-radius: 50%; 
+            border: 4px solid var(--border); margin-bottom: 25px; 
+            object-fit: cover; transition: 0.8s; filter: grayscale(100%);
+        }
+        .feature-box:hover .team-img { filter: grayscale(0%); transform: rotate(10deg); border-color: var(--primary); }
 
-        /* Interactive Team Grid */
-        .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-        .member-card { text-align: center; padding: 40px 20px; }
-        .member-img { width: 140px; height: 140px; border-radius: 50%; border: 4px solid var(--glass-border); margin-bottom: 25px; object-fit: cover; transition: 0.7s; filter: grayscale(1); }
-        .member-card:hover .member-img { border-color: var(--primary); transform: scale(1.1) rotate(5deg); filter: grayscale(0); }
-
-        /* High-Impact CTA */
-        .cta-section {
-            background: linear-gradient(135deg, #4f46e5 0%, #1e1b4b 100%);
+        .cta-box {
+            background: linear-gradient(135deg, var(--primary), #1e1b4b);
             padding: 100px 40px;
             border-radius: 60px;
             text-align: center;
-            position: relative;
-            overflow: hidden;
+            margin: 100px 0;
         }
 
-        .email-btn {
-            display: inline-block;
-            margin-top: 40px;
-            padding: 25px 70px;
-            background: #fff;
-            color: #000;
-            text-decoration: none;
-            font-weight: 800;
-            border-radius: 100px;
-            font-size: 1.3rem;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        .email-link {
+            font-size: 1.8rem; font-weight: 800; color: #fff; text-decoration: none;
+            display: inline-block; margin-top: 30px;
         }
 
-        .email-btn:hover { transform: scale(1.1); box-shadow: 0 20px 60px rgba(255, 255, 255, 0.4); }
+        .email-link:hover { color: var(--accent); transform: scale(1.1); }
 
-        footer { text-align: center; color: #475569; padding: 80px 0; font-size: 0.9rem; letter-spacing: 2px; }
+        footer { text-align: center; padding: 100px 0; color: #475569; letter-spacing: 5px; font-weight: 800; }
 
-        @media (max-width: 900px) {
-            .team-grid { grid-template-columns: 1fr; }
-            .section-card { padding: 40px 25px; border-radius: 32px; }
-            h1 { font-size: 2.5rem; }
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .section-card { padding: 40px 20px; }
         }
     </style>
 </head>
 <body>
 
-<div class="bg-glow"></div>
+<div class="glow-overlay"></div>
 
 <header>
     <div class="hero-badge">Future of Transit Safety</div>
