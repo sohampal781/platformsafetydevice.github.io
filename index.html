@@ -3,194 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RailGuard | Hardware-Based Metro Safety</title>
+    <title>RailGuard | Metro Platform Safety System</title>
     <style>
         :root {
             --primary: #1e3c72;
             --secondary: #2a5298;
             --accent: #f39c12;
             --danger: #e74c3c;
-            --light: #f8f9fa;
+            --light: #f4f7f6;
             --dark: #2c3e50;
         }
 
         * { box-sizing: border-box; }
         body {
             margin: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: var(--dark);
-            background: var(--light);
+            background-color: var(--light);
         }
 
-        /* Header & Navigation */
+        /* Hero Section */
         header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
-            padding: 60px 20px;
+            padding: 80px 20px;
             text-align: center;
         }
 
-        .project-title { font-size: 2.5rem; margin: 0; font-weight: 800; }
-        .subtitle { font-size: 1.2rem; opacity: 0.9; margin-top: 10px; }
+        .project-name { font-size: 2.8rem; margin: 0; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        .tagline { font-size: 1.3rem; margin-top: 15px; opacity: 0.9; font-weight: 300; }
+        .institution { margin-top: 20px; font-size: 1rem; color: #ffca28; font-weight: 600; }
 
-        /* Container */
         .container { max-width: 1100px; margin: auto; padding: 20px; }
 
-        /* Section Styling */
-        section { margin: 40px 0; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        h2 { color: var(--primary); border-bottom: 3px solid var(--accent); display: inline-block; margin-bottom: 25px; padding-bottom: 5px; }
+        section { margin: 40px 0; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        h2 { color: var(--primary); border-left: 5px solid var(--accent); padding-left: 15px; margin-bottom: 30px; }
 
-        /* Grid for Features/Why Use */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .card { padding: 20px; border-radius: 8px; border-left: 5px solid var(--primary); background: #fff; }
-        .card h3 { margin-top: 0; color: var(--secondary); }
+        /* Why Use This / Features Grid */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .card { padding: 25px; border-radius: 10px; background: #fff; border: 1px solid #eee; transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); border-color: var(--accent); }
+        .card h3 { margin-top: 0; color: var(--secondary); font-size: 1.4rem; }
 
-        /* Tech Specs Table */
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        /* Hardware Table */
+        .table-container { overflow-x: auto; margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; }
         th { background: var(--primary); color: white; }
 
-        /* Impact Section */
-        .impact-box { background: #eef2f7; border-radius: 10px; padding: 20px; margin-top: 20px; }
+        /* Visual Diagram Placeholder */
+        .diagram-box { 
+            background: #f0f4f8; 
+            padding: 40px; 
+            text-align: center; 
+            border: 2px dashed #cbd5e0; 
+            border-radius: 10px;
+            margin: 20px 0;
+        }
 
         /* Contact Section */
-        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        .contact-card { background: #fff; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        .contact-flex { display: flex; gap: 20px; flex-wrap: wrap; }
+        .contact-item { flex: 1; min-width: 280px; background: #f9f9f9; padding: 20px; border-radius: 10px; }
+        .contact-item strong { display: block; color: var(--primary); margin-bottom: 5px; }
 
-        footer { text-align: center; padding: 20px; background: var(--dark); color: white; margin-top: 50px; }
-
-        @media (max-width: 768px) {
-            .contact-grid { grid-template-columns: 1fr; }
-            .project-title { font-size: 1.8rem; }
-        }
+        footer { text-align: center; padding: 30px; background: var(--dark); color: white; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="project-title">RailGuard Safety System</div>
-    <div class="subtitle">Hardware-Based Yellow Line Breach Detection for Metro Rail Stations</div>
-    <p style="margin-top:20px; font-style: italic;">Developed at Institute Of Engineering & Management, Kolkata</p>
+    <div class="project-name">RailGuard</div>
+    <div class="tagline">Hardware-Based Yellow Line Breach Detection & Platform End Safety System</div>
+    <div class="institution">Institute Of Engineering & Management, Kolkata</div>
 </header>
 
 <div class="container">
 
-    <section id="why-use">
-        <h2>Why Use This System?</h2>
-        <p>Current Metro systems often rely on reactive CCTV monitoring or manual supervision. <strong>RailGuard</strong> provides a proactive, real-time solution to prevent accidents before they happen.</p>
+    <section>
+        <h2>The Innovation: Why This Matters?</h2>
+        <p>Current Metro stations rely on manual supervision and reactive CCTV. This system introduces a proactive, automated safety layer to prevent track intrusions and platform edge accidents.</p>
         <div class="grid">
             <div class="card">
-                <h3>Eliminate Human Error</h3>
-                <p>Removes the dependency on human response time by using deterministic hardware logic for instant detection[cite: 82, 15].</p>
+                <h3>Real-Time Protection</h3>
+                <p>Unlike human observation, the hardware-based detection works continuously with zero downtime or distraction.</p>
             </div>
             <div class="card">
-                <h3>Cost-Effective Safety</h3>
-                <p>Significant cost savings through lower manpower requirements and low power consumption[cite: 52].</p>
+                <h3>Non-Intrusive Design</h3>
+                <p>Requires no drilling, welding, or civil modifications to the platform floor or track area.</p>
             </div>
             <div class="card">
-                <h3>Zero Civil Modification</h3>
-                <p>Installs using mechanical clamps on existing railings—no drilling or floor modification required[cite: 57, 61].</p>
+                <h3>Intelligent Operation</h3>
+                <p>System automatically pauses during train boarding and resumes once the train departs, eliminating false alarms.</p>
             </div>
         </div>
     </section>
 
-    <section id="features">
-        <h2>System Features</h2>
+    <section>
+        <h2>How It Works</h2>
+        <div class="diagram-box">
+            
+            <p><strong>Optical Intrusion Detection:</strong> Active IR through-beam sensors form a virtual wall parallel to the safety line.</p>
+        </div>
         <div class="grid">
-            <div class="card">
+            <div class="card" style="border-left: 4px solid #4CAF50;">
                 <h3>Sensing Layer</h3>
-                <p>Active IR through-beam sensors form a fixed virtual wall parallel to the yellow line[cite: 17].</p>
+                <p>Uses 4 Ultrasonic sensors for train movement measurement and IR sets for line breach detection.</p>
             </div>
-            <div class="card">
-                <h3>Intelligent Logic</h3>
-                <p>Ultrasonic sensors monitor train movement to automatically deactivate the system during boarding and reactivate after departure[cite: 18, 29].</p>
+            <div class="card" style="border-left: 4px solid #2196F3;">
+                <h3>Control Logic</h3>
+                <p>Processed via Raspberry Pi 4 and Arduino Uno using debounce logic to filter out transient disturbances.</p>
             </div>
-            <div class="card">
-                <h3>Fail-Safe Actuation</h3>
-                <p>Relay outputs default to a fail-safe state in case of power loss, ensuring continuous safety[cite: 38].</p>
-            </div>
-            <div class="card">
-                <h3>Real-Time Alerts</h3>
-                <p>Immediate Audio-Visual triggers (Buzzer + LED) and external system logging[cite: 36, 44].</p>
+            <div class="card" style="border-left: 4px solid #f44336;">
+                <h3>Instant Actuation</h3>
+                <p>Triggers isolated relay modules for audio alarms and control room notifications.</p>
             </div>
         </div>
     </section>
 
-    <section style="text-align:center;">
-        <h2>Operational Principle</h2>
-        <p>The system uses an IR transmitter/receiver pair to monitor obstructions in the restricted zone.</p>
-                <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">Fig 1: Detection Logic during Normal vs. Obstructed Operation [cite: 30, 32]</p>
-    </section>
-
-    <section id="specs">
+    <section>
         <h2>Technical Specifications</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Component</th>
-                    <th>Description</th>
-                    <th>Qty</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Primary Controller</td>
-                    <td>Raspberry Pi 4 (8 GB RAM) </td>
-                    <td>2</td>
-                </tr>
-                <tr>
-                    <td>Logic Controller</td>
-                    <td>Arduino Uno </td>
-                    <td>3</td>
-                </tr>
-                <tr>
-                    <td>Intrusion Sensors</td>
-                    <td>Industrial IR Through-Beam Sets </td>
-                    <td>2</td>
-                </tr>
-                <tr>
-                    <td>Proximity Sensors</td>
-                    <td>Ultrasonic Sensors (Train detection) </td>
-                    <td>4</td>
-                </tr>
-                <tr>
-                    <td>Isolation</td>
-                    <td>Opto-isolated Relay Modules </td>
-                    <td>10</td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="impact-box">
-            <strong>Approximate Implementation Cost:</strong> ₹80,600 - ₹85,000 per platform[cite: 107, 106].
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Item Description</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Control</td><td>Raspberry Pi 4 (8 GB RAM)</td><td>2</td></tr>
+                    <tr><td>Logic</td><td>Arduino Uno</td><td>3</td></tr>
+                    <tr><td>Sensing</td><td>Industrial IR Through-Beam Sensor Set</td><td>2</td></tr>
+                    <tr><td>Sensing</td><td>Ultrasonic Sensors</td><td>4</td></tr>
+                    <tr><td>Actuation</td><td>Opto-isolated Relay Modules</td><td>10</td></tr>
+                    <tr><td>Interface</td><td>Industrial Emergency Stop & Switches</td><td>Set</td></tr>
+                </tbody>
+            </table>
         </div>
+        <p style="margin-top: 20px; font-weight: bold; color: var(--secondary);">Implementation Estimate: ₹80,600 - ₹85,000 per platform.</p>
     </section>
 
     <section id="contact">
-        <h2>Get In Touch</h2>
-        <div class="contact-grid">
-            <div class="contact-card">
-                <h3>Soham Pal (PI)</h3>
-                <p>Student, Dept. of Electrical Engineering [cite: 93, 94]</p>
-                <p><strong>Email:</strong> soham.pal2023@iem.edu.in [cite: 96]</p>
-                <p><strong>Mobile:</strong> +91 6290952326 [cite: 95]</p>
+        <h2>Contact for Implementation</h2>
+        <div class="contact-flex">
+            <div class="contact-item">
+                <strong>Soham Pal (Project Lead)</strong>
+                Student, Dept. of Electrical Engineering<br>
+                Email: soham.pal2023@iem.edu.in<br>
+                Phone: +91 6290952326
             </div>
-            <div class="contact-card">
-                <h3>Prof. Heerok Banerjee (CO-PI)</h3>
-                <p>Professor, Dept. of CSE (AIML), CSBS [cite: 98, 99]</p>
-                <p><strong>Email:</strong> heerok.banerjee@iem.edu.in [cite: 101]</p>
-                <p><strong>Mobile:</strong> +91 8420966029 [cite: 100]</p>
+            <div class="contact-item">
+                <strong>Prof. Heerok Banerjee (Co-PI)</strong>
+                Professor, Dept. of CSE (AIML), CSBS<br>
+                Email: heerok.banerjee@iem.edu.in<br>
+                Phone: +91 8420966029
             </div>
         </div>
-        <p style="text-align: center; margin-top: 30px; font-weight: bold; color: var(--primary);">
-            Institute Of Engineering & Management, Saltlake Sector V, Kolkata [cite: 5, 6]
+        <p style="margin-top: 20px; font-size: 0.9rem; color: #777;">
+            Management House, Saltlake Sector V, Kolkata.
         </p>
     </section>
 
 </div>
 
 <footer>
-    <p>&copy; <span id="year"></span> RailGuard Safety Innovation Project. All Rights Reserved.</p>
+    <p>&copy; <span id="year"></span> RailGuard Safety Innovation Project | IEM Kolkata</p>
 </footer>
 
 <script>
