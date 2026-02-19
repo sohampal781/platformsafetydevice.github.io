@@ -3,159 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RailGuard | Field-Proven Safety Systems</title>
+    <title>Metro Safety | Hardware-Based Detection System</title>
     <style>
         :root {
-            --primary: #0f172a;
-            --secondary: #334155;
-            --accent: #2563eb;
-            --success: #059669;
-            --bg-light: #f8fafc;
-            --white: #ffffff;
+            --primary: #1e3c72;
+            --secondary: #2a5298;
+            --accent: #f39c12;
+            --success: #27ae60;
+            --bg: #f4f7f6;
+            --text: #333;
         }
 
-        * { box-sizing: border-box; }
         body {
             margin: 0;
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-light);
-            color: var(--primary);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
             line-height: 1.6;
         }
 
-        header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: var(--white);
-            padding: 80px 20px;
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 60px 20px;
             text-align: center;
         }
 
-        .hero h1 { font-size: 2.5rem; margin: 0; font-weight: 800; }
-        .hero p { font-size: 1.1rem; opacity: 0.9; margin-top: 15px; }
+        .hero h1 {
+            font-size: 2.2rem;
+            margin: 0 auto;
+            max-width: 900px;
+            line-height: 1.3;
+            text-transform: uppercase;
+        }
 
-        .container { max-width: 1000px; margin: -40px auto 40px; padding: 0 20px; }
-        section { background: var(--white); border-radius: 12px; padding: 35px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        h2 { color: var(--primary); border-bottom: 3px solid var(--accent); display: inline-block; padding-bottom: 5px; margin-bottom: 30px; }
+        .hero p {
+            font-size: 1.1rem;
+            margin-top: 15px;
+            opacity: 0.9;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: -30px auto 40px;
+            padding: 0 20px;
+        }
+
+        .section-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+        }
+
+        h2 {
+            color: var(--primary);
+            border-left: 5px solid var(--accent);
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
 
         /* Timeline Styling */
-        .timeline { border-left: 3px solid #e2e8f0; margin-left: 20px; padding-left: 30px; position: relative; }
-        .timeline-item { margin-bottom: 30px; position: relative; }
-        .timeline-item::before {
+        .timeline {
+            border-left: 3px solid #ddd;
+            margin-left: 20px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .t-item {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .t-item::before {
             content: '';
             width: 16px;
             height: 16px;
             background: var(--accent);
-            border: 4px solid var(--white);
+            border: 3px solid white;
             border-radius: 50%;
             position: absolute;
             left: -39.5px;
             top: 5px;
-            box-shadow: 0 0 0 3px #e2e8f0;
+            box-shadow: 0 0 0 2px #ddd;
         }
-        .timeline-date { font-weight: 800; color: var(--accent); font-size: 0.9rem; text-transform: uppercase; }
-        .timeline-title { font-weight: 700; margin: 5px 0; font-size: 1.2rem; }
-        .timeline-desc { color: #64748b; font-size: 1rem; }
-        
-        /* Highlight for Ongoing Status */
-        .status-active::before { background: var(--success); box-shadow: 0 0 0 3px #d1fae5; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0px #05966966; } 70% { box-shadow: 0 0 0 10px #05966900; } 100% { box-shadow: 0 0 0 0px #05966900; } }
 
-        /* Grid for Specs */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .card-inner { padding: 20px; background: #f1f5f9; border-radius: 8px; }
+        .t-date {
+            font-weight: bold;
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
 
-        .contact-box { background: var(--primary); color: white; padding: 40px; border-radius: 12px; text-align: center; }
-        .btn { display: inline-block; background: var(--accent); color: white; padding: 12px 30px; border-radius: 6px; text-decoration: none; margin-top: 20px; font-weight: 600; }
+        .t-active::before {
+            background: var(--success);
+            box-shadow: 0 0 0 2px #ddd, 0 0 10px rgba(39, 174, 96, 0.5);
+            animation: pulse 2s infinite;
+        }
 
-        footer { text-align: center; padding: 30px; color: #64748b; font-size: 0.9rem; }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-box {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            border-top: 4px solid var(--secondary);
+        }
+
+        .contact-footer {
+            background: var(--primary);
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+            font-size: 0.85rem;
+        }
     </style>
 </head>
 <body>
 
 <header class="hero">
-    <h1>Autonomous Perimeter Safety Architecture</h1>
-    <p>Field-Proven Hardware-Based Detection for Metro Transit Infrastructure</p>
+    <h1>Hardware-Based Yellow Line Breach Detection and Platform End Safety System for Metro Rail Stations</h1>
+    <p>Advanced Infrastructure Safety & Real-Time Intrusion Prevention</p>
 </header>
 
 <div class="container">
 
-    <section>
+    <section class="section-card">
         <h2>Project Implementation Journey</h2>
         <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-date">October 2024</div>
-                <div class="timeline-title">Project Conception & R&D</div>
-                <div class="timeline-desc">Initiated research into non-intrusive safety layers for metro platforms. Developed core logic for deterministic intrusion detection.</div>
+            <div class="t-item">
+                <div class="t-date">OCTOBER 2024</div>
+                <strong>Project Conception & Design</strong>
+                <p>Development of the continuous intrusion detection architecture using deterministic logic processing.</p>
             </div>
-
-            <div class="timeline-item">
-                <div class="timeline-date">November - December 2024</div>
-                <div class="timeline-title">Hardware Prototyping</div>
-                <div class="timeline-desc">Integration of distributed spatial sensors and dual-controller architecture. Successful internal testing of fail-safe relay actuation.</div>
+            <div class="t-item">
+                <div class="t-date">NOVEMBER - DECEMBER 2024</div>
+                <strong>Prototype Development</strong>
+                <p>Integration of distributed sensing layers and fail-safe actuation logic for metro platforms.</p>
             </div>
-
-            <div class="timeline-item">
-                <div class="timeline-date">January 2025</div>
-                <div class="timeline-title">System Refinement</div>
-                <div class="timeline-desc">Optimization of debounce logic and environmental noise filters to ensure zero-gap monitoring under high-density passenger flow.</div>
-            </div>
-
-            <div class="timeline-item status-active">
-                <div class="timeline-date" style="color:var(--success)">Currently Ongoing</div>
-                <div class="timeline-title">Live Field Testing: Kolkata Metro</div>
-                <div class="timeline-desc">Deploying the pilot system within active station zones to validate performance under real-world transit conditions. Monitoring system reliability and situational awareness improvements.</div>
+            <div class="t-item t-active">
+                <div class="t-date" style="color:var(--success)">ONGOING FIELD TESTING</div>
+                <strong>Kolkata Metro Deployment</strong>
+                <p>Currently conducting real-time validation and situational awareness testing under active metro station conditions.</p>
             </div>
         </div>
     </section>
 
-    <section>
-        <h2>Why Infrastructure Authorities Choose Us</h2>
+    <section class="section-card">
+        <h2>System Characteristics</h2>
         <div class="grid">
-            <div class="card-inner">
-                <h3>Scalable Zone Architecture</h3>
-                <p>Designed for rapid deployment across diverse station geometries with minimal setup time[cite: 48].</p>
+            <div class="feature-box">
+                <h3>Scalable Architecture</h3>
+                <p>Designed for rapid deployment across large networks with a modular zone-specific configuration[cite: 48].</p>
             </div>
-            <div class="card-inner">
+            <div class="feature-box">
                 <h3>Non-Intrusive Integration</h3>
-                <p>Mechanical clamping ensures zero modification to platform civil structures or track beds[cite: 46, 61].</p>
+                <p>Mechanical clamping interface allows for installation without any civil modifications to the platform structure[cite: 46, 61].</p>
             </div>
-            <div class="card-inner">
-                <h3>Real-Time Response</h3>
-                <p>Deterministic hardware logic provides immediate alerts, eliminating the latency of manual observation[cite: 44, 82].</p>
+            <div class="feature-box">
+                <h3>Fail-Safe Reliability</h3>
+                <p>System logic defaults to a secure condition in the event of power loss or component fault[cite: 38].</p>
             </div>
         </div>
     </section>
 
-    <section>
-        <h2>Technical Summary</h2>
-        <p>The system utilizes an electrically isolated actuation stage to trigger alerts while maintaining an independent sensing and logic domain[cite: 15, 35, 41].</p>
-        
-        
+    
 
+    <section class="section-card">
+        <h2>Project Impact</h2>
+        <p>The system offers a significant improvement in passenger and staff safety while reducing service disruptions caused by track intrusions[cite: 51].</p>
         <div class="grid">
-            <div class="card-inner">
-                <strong>Sensing Subsystem:</strong><br>
-                High-frequency boundary monitoring paired with proximity-based state management[cite: 17, 18].
+            <div class="feature-box">
+                <strong>Safety Optimization:</strong><br>
+                Proactive detection reduces the risk of accidental falls and intentional track entry[cite: 12, 51].
             </div>
-            <div class="card-inner">
-                <strong>Logic Engine:</strong><br>
-                Rule-based priority mapping with temporal validation to eliminate false positives[cite: 23, 26].
+            <div class="feature-box">
+                <strong>Resource Efficiency:</strong><br>
+                Lower operational requirements and power consumption compared to traditional manual monitoring[cite: 52].
             </div>
         </div>
-        <p style="margin-top:20px; font-weight: 600;">Current Phase: Active deployment validation in high-traffic metro environments.</p>
     </section>
 
-    <section class="contact-box">
-        <h2>Inquire for Deployment</h2>
-        <p>Seeking technical partnership or deployment guidelines for large-scale transit networks?</p>
-        <p><strong>Contact:</strong> project.inquiry@email.com</p>
-        <a href="mailto:project.inquiry@email.com" class="btn">Request Technical Summary</a>
+    <section class="contact-footer">
+        <h2>Technical Inquiry</h2>
+        <p>For deployment guidelines, technical whitepapers, or field test data, please contact the implementation team.</p>
+        <p><strong>Email:</strong> technical.inquiry@example.com</p>
     </section>
 
 </div>
 
 <footer>
-    <p>&copy; 2024-2026 RailGuard Safety Initiative. All rights reserved.</p>
+    &copy; 2024 - 2026 Platform Safety Initiative. All technical concepts based on validated metro safety requirements.
 </footer>
 
 </body>
