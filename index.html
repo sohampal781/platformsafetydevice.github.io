@@ -26,7 +26,6 @@
             line-height: 1.6;
         }
 
-        /* Animated Background Glow */
         .bg-glow {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -34,7 +33,6 @@
             z-index: -1;
         }
 
-        /* Hero Section */
         header {
             height: 100vh;
             display: flex;
@@ -77,12 +75,10 @@
             padding: 60px;
             border-radius: 40px;
             margin-bottom: 50px;
-            position: relative;
         }
 
         h2 { font-size: 2.2rem; margin-bottom: 40px; color: var(--primary); letter-spacing: -1px; }
 
-        /* Modern Grid */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
 
         .feature-box {
@@ -90,19 +86,47 @@
             padding: 35px;
             border-radius: 24px;
             border: 1px solid var(--glass-border);
-            height: 100%;
         }
 
         .feature-box:hover {
             background: rgba(99, 102, 241, 0.08);
             border-color: var(--primary);
-            transform: translateY(-12px) scale(1.02);
+            transform: translateY(-12px);
         }
 
-        .feature-box h3 { margin-bottom: 15px; font-size: 1.3rem; color: #fff; font-weight: 700; }
-        .feature-box p { color: #94a3b8; font-size: 0.95rem; }
+        /* Video Section Styling */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
 
-        /* Innovative Timeline */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            background: var(--glass);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-container:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 25px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Timeline Styling */
         .timeline { position: relative; padding-left: 45px; }
         .timeline::before { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 2px; background: var(--glass-border); }
 
@@ -115,7 +139,6 @@
             background: var(--bg);
             border: 3px solid var(--primary);
             border-radius: 50%;
-            z-index: 2;
         }
 
         .t-active::before { 
@@ -128,7 +151,6 @@
 
         .t-date { color: var(--primary); font-weight: 800; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 10px; display: block; }
 
-        /* Contact Glass Box */
         .cta-section {
             background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(30, 27, 75, 0.2) 100%);
             border: 1px solid rgba(99, 102, 241, 0.3);
@@ -136,7 +158,6 @@
             border-radius: 40px;
             text-align: center;
             margin-top: 100px;
-            backdrop-filter: blur(10px);
         }
 
         .email-btn {
@@ -152,16 +173,10 @@
             box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
         }
 
-        .email-btn:hover {
-            transform: scale(1.05);
-            background: #4f46e5;
-            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.6);
-        }
-
         footer { text-align: center; color: #475569; padding: 60px 0; font-size: 0.9rem; }
 
         @media (max-width: 768px) {
-            .section-card { padding: 30px; border-radius: 30px; }
+            .section-card { padding: 30px; }
             h1 { font-size: 1.6rem; }
         }
     </style>
@@ -174,7 +189,7 @@
     <div class="hero-badge">Future of Transit Safety</div>
     <h1>Hardware-Based Yellow Line Breach Detection and Platform End Safety System</h1>
     <p style="color: #94a3b8; max-width: 700px; margin-top: 24px; font-size: 1.1rem;">
-        An autonomous, industrial-grade solution leveraging deterministic logic to protect commuters in real-time.
+        An autonomous solution leveraging deterministic logic to protect commuters in real-time.
     </p>
 </header>
 
@@ -185,23 +200,23 @@
         <div class="grid">
             <div class="feature-box">
                 <h3>Real-Time Operation</h3>
-                <p>Continuous platform monitoring with immediate detection and sub-second alert response times.</p>
+                <p>Immediate detection and alert response times for sub-second protection.</p>
             </div>
             <div class="feature-box">
-                <h3>Non-Contact Detection</h3>
-                <p>Sophisticated IR and ultrasonic sensor arrays eliminate the need for mechanical parts, ensuring zero wear and tear.</p>
+                <h3>Non-Contact Hardware Detection</h3>
+                <p>Uses specialized proximity and boundary sensors to ensure high industrial reliability.</p>
             </div>
             <div class="feature-box">
-                <h3>Automatic Oversight</h3>
-                <p>A fully autonomous system that maintains 24/7 vigilance without the need for human intervention.</p>
+                <h3>Continuous Monitoring</h3>
+                <p>The system operates automatically without the need for constant human supervision.</p>
             </div>
             <div class="feature-box">
-                <h3>Fail-Safe Architecture</h3>
-                <p>Isolated outputs and deterministic logic ensure safety triggers even during system power interruptions.</p>
+                <h3>Fail-Safe Output</h3>
+                <p>Opto-isolated relays ensure safety triggers even during power or system faults.</p>
             </div>
             <div class="feature-box">
-                <h3>Non-Intrusive Design</h3>
-                <p>Mechanical clamping interface allows for seamless installation on existing safety railings without civil modifications.</p>
+                <h3>Non-Intrusive Installation</h3>
+                <p>Mechanical clamping interface allows for installation without any civil modifications.</p>
             </div>
         </div>
     </section>
@@ -210,58 +225,83 @@
         <h2>Why We Are Different</h2>
         <div class="grid">
             <div class="feature-box" style="border-top: 4px solid var(--success);">
-                <h3>Proactive vs. Reactive</h3>
-                <p>Unlike traditional CCTV which relies on human observation, our system identifies breaches as they happen.</p>
+                <h3>Automatic vs. Manual CCTV</h3>
+                <p>Detects breaches automatically, removing the risk of human observation delays.</p>
             </div>
             <div class="feature-box" style="border-top: 4px solid var(--success);">
-                <h3>100% Hardware Stability</h3>
-                <p>Operates independently of internet connectivity or software vulnerabilities, ensuring maximum field reliability.</p>
+                <h3>Instant Actuation</h3>
+                <p>Generates immediate audio-visual alerts to secure the platform instantly.</p>
             </div>
             <div class="feature-box" style="border-top: 4px solid var(--success);">
-                <h3>Cost Efficiency</h3>
-                <p>An economical, high-impact solution that avoids expensive infrastructure overhauls or construction.</p>
+                <h3>Low Cost & High Reliability</h3>
+                <p>Economical hardware-based design that works without internet or software dependency.</p>
             </div>
         </div>
     </section>
 
-    
+    <section class="section-card">
+        <h2>Project Visualizations & Live Demos</h2>
+        <div class="video-grid">
+            
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/9XZerEaP8Lo" 
+                        title="Dashboard Demo Video" allowfullscreen></iframe>
+            </div>
+
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/ljjpuWzw0DQ" 
+                        title="Platform Danger Zone AI Demo" allowfullscreen></iframe>
+            </div>
+
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/Yh16liaSU74" 
+                        title="Automated Violation Detection System" allowfullscreen></iframe>
+            </div>
+
+        </div>
+    </section>
 
     <section class="section-card">
         <h2>Project Implementation Journey</h2>
         <div class="timeline">
             <div class="t-item">
                 <span class="t-date">October 2024</span>
-                <h3>Project Conception & Design</h3>
-                <p>Initial architectural mapping and development of deterministic logic for zone-specific monitoring.</p>
+                <h3>Project Conception & Architectural Mapping</h3>
+                <p>Development of the core hardware-based intrusion detection logic and spatial zone mapping.</p>
             </div>
             <div class="t-item">
                 <span class="t-date">November - December 2024</span>
-                <h3>System Refinement</h3>
-                <p>Hardware integration and successful lab-testing of electrically isolated actuation stages.</p>
+                <h3>System Refinement & Hardware Integration</h3>
+                <p>Successful lab-testing of electrically isolated actuation stages and sensing layer integration.</p>
             </div>
             <div class="t-item">
-                <span class="t-date">January - February 2025</span>
-                <h3>Technical Optimization</h3>
-                <p>Implementation of train-movement synchronization logic and mounting height calibration for maximum accuracy.</p>
+                <span class="t-date">January 2025</span>
+                <h3>Logic Optimization</h3>
+                <p>Refinement of beam-intensity monitoring and train-presence synchronization for zero-gap monitoring.</p>
+            </div>
+            <div class="t-item">
+                <span class="t-date">February 2025</span>
+                <h3>Installation & Height Calibration</h3>
+                <p>Finalized non-intrusive mechanical clamping and mounting height (600mm) for maximum passenger safety.</p>
             </div>
             <div class="t-item t-active">
                 <span class="t-date" style="color: var(--success);">Ongoing Testing</span>
                 <h3>Kolkata Metro Deployment</h3>
-                <p>Currently conducting real-time validation and situational awareness testing under active transit conditions.</p>
+                <p>Currently conducting real-time validation and performance monitoring under active station conditions.</p>
             </div>
         </div>
     </section>
 
     <section class="cta-section">
-        <h2>Inquire for Technical Deployment</h2>
-        <p style="opacity: 0.8; margin-top: 15px;">Seeking a technical summary or field performance reports?</p>
+        <h2>Inquire for Technical Summary</h2>
+        <p style="opacity: 0.8; margin-top: 15px;">Seeking deployment guidelines or field test data?</p>
         <a href="mailto:soham.pal2023@iem.edu.in" class="email-btn">soham.pal2023@iem.edu.in</a>
     </section>
 
 </div>
 
 <footer>
-    &copy; 2024 - 2026 RailGuard Innovation. Designed for the Future of Public Infrastructure.
+    &copy; 2024 - 2026 RailGuard Safety Initiative. Designed for the Future of Public Infrastructure.
 </footer>
 
 </body>
