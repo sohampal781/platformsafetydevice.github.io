@@ -3,176 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Safety Systems | Infrastructure Protection</title>
+    <title>RailGuard | Field-Proven Safety Systems</title>
     <style>
         :root {
-            --primary: #1a202c;
-            --secondary: #2d3748;
-            --accent: #4a90e2;
-            --bg: #f7fafc;
-            --text: #2d3748;
+            --primary: #0f172a;
+            --secondary: #334155;
+            --accent: #2563eb;
+            --success: #059669;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
         }
 
+        * { box-sizing: border-box; }
         body {
             margin: 0;
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--primary);
             line-height: 1.6;
         }
 
-        /* Hero Styling */
-        .hero {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
             padding: 80px 20px;
             text-align: center;
         }
 
-        .hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
-        .hero p { font-size: 1.2rem; opacity: 0.8; max-width: 800px; margin: auto; }
+        .hero h1 { font-size: 2.5rem; margin: 0; font-weight: 800; }
+        .hero p { font-size: 1.1rem; opacity: 0.9; margin-top: 15px; }
 
-        /* Container */
         .container { max-width: 1000px; margin: -40px auto 40px; padding: 0 20px; }
+        section { background: var(--white); border-radius: 12px; padding: 35px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        h2 { color: var(--primary); border-bottom: 3px solid var(--accent); display: inline-block; padding-bottom: 5px; margin-bottom: 30px; }
 
-        .card {
-            background: white;
-            padding: 35px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            margin-bottom: 25px;
-        }
-
-        h2 { color: var(--primary); border-bottom: 2px solid var(--accent); display: inline-block; margin-bottom: 20px; padding-bottom: 5px; }
-
-        /* Grid System */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .feature { padding: 20px; border: 1px solid #edf2f7; border-radius: 8px; background: #fff; }
-        .feature h3 { margin-top: 0; color: var(--accent); }
-
-        /* Table Styling */
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #edf2f7; }
-        th { background: #edf2f7; color: var(--primary); }
-
-        /* Generic Contact */
-        .contact-footer {
-            background: var(--primary);
-            color: white;
-            padding: 50px 20px;
-            text-align: center;
-        }
-
-        .btn {
+        /* Timeline Styling */
+        .timeline { border-left: 3px solid #e2e8f0; margin-left: 20px; padding-left: 30px; position: relative; }
+        .timeline-item { margin-bottom: 30px; position: relative; }
+        .timeline-item::before {
+            content: '';
+            width: 16px;
+            height: 16px;
             background: var(--accent);
-            color: white;
-            padding: 12px 25px;
-            text-decoration: none;
-            border-radius: 6px;
-            display: inline-block;
-            margin-top: 20px;
+            border: 4px solid var(--white);
+            border-radius: 50%;
+            position: absolute;
+            left: -39.5px;
+            top: 5px;
+            box-shadow: 0 0 0 3px #e2e8f0;
         }
+        .timeline-date { font-weight: 800; color: var(--accent); font-size: 0.9rem; text-transform: uppercase; }
+        .timeline-title { font-weight: 700; margin: 5px 0; font-size: 1.2rem; }
+        .timeline-desc { color: #64748b; font-size: 1rem; }
+        
+        /* Highlight for Ongoing Status */
+        .status-active::before { background: var(--success); box-shadow: 0 0 0 3px #d1fae5; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0px #05966966; } 70% { box-shadow: 0 0 0 10px #05966900; } 100% { box-shadow: 0 0 0 0px #05966900; } }
+
+        /* Grid for Specs */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .card-inner { padding: 20px; background: #f1f5f9; border-radius: 8px; }
+
+        .contact-box { background: var(--primary); color: white; padding: 40px; border-radius: 12px; text-align: center; }
+        .btn { display: inline-block; background: var(--accent); color: white; padding: 12px 30px; border-radius: 6px; text-decoration: none; margin-top: 20px; font-weight: 600; }
+
+        footer { text-align: center; padding: 30px; color: #64748b; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
-<div class="hero">
+<header class="hero">
     <h1>Autonomous Perimeter Safety Architecture</h1>
-    <p>A non-intrusive, hardware-based solution for real-time spatial boundary monitoring in high-traffic transit environments.</p>
-</div>
+    <p>Field-Proven Hardware-Based Detection for Metro Transit Infrastructure</p>
+</header>
 
 <div class="container">
 
-    <div class="card">
-        <h2>System Innovation</h2>
-        <p>This system replaces reactive monitoring with proactive, deterministic logic to eliminate human error in restricted zone management[cite: 81, 82, 85].</p>
-        <div class="grid">
-            <div class="feature">
-                <h3>Autonomous Detection</h3>
-                <p>Establishes a digital perimeter that identifies breaches with zero mechanical intervention[cite: 15, 45].</p>
+    <section>
+        <h2>Project Implementation Journey</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">October 2024</div>
+                <div class="timeline-title">Project Conception & R&D</div>
+                <div class="timeline-desc">Initiated research into non-intrusive safety layers for metro platforms. Developed core logic for deterministic intrusion detection.</div>
             </div>
-            <div class="feature">
-                <h3>Infrastructure-Neutral</h3>
-                <p>Engineered for installation on existing fixtures without requiring civil or structural modifications[cite: 46, 57].</p>
+
+            <div class="timeline-item">
+                <div class="timeline-date">November - December 2024</div>
+                <div class="timeline-title">Hardware Prototyping</div>
+                <div class="timeline-desc">Integration of distributed spatial sensors and dual-controller architecture. Successful internal testing of fail-safe relay actuation.</div>
             </div>
-            <div class="feature">
-                <h3>Operational Continuity</h3>
-                <p>Designed to operate reliably under extreme environmental conditions and high passenger density[cite: 42, 47].</p>
+
+            <div class="timeline-item">
+                <div class="timeline-date">January 2025</div>
+                <div class="timeline-title">System Refinement</div>
+                <div class="timeline-desc">Optimization of debounce logic and environmental noise filters to ensure zero-gap monitoring under high-density passenger flow.</div>
+            </div>
+
+            <div class="timeline-item status-active">
+                <div class="timeline-date" style="color:var(--success)">Currently Ongoing</div>
+                <div class="timeline-title">Live Field Testing: Kolkata Metro</div>
+                <div class="timeline-desc">Deploying the pilot system within active station zones to validate performance under real-world transit conditions. Monitoring system reliability and situational awareness improvements.</div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="card">
-        <h2>Functional Workflow</h2>
-        <p>Our approach utilizes a multi-layered signal processing architecture to maintain high-fidelity monitoring.</p>
-        
-        
-
+    <section>
+        <h2>Why Infrastructure Authorities Choose Us</h2>
         <div class="grid">
-            <div class="feature">
-                <h3>1. Spatial Analytics</h3>
-                <p>The system creates a continuous detection field parallel to designated safety boundaries using high-frequency sampling[cite: 17, 20].</p>
+            <div class="card-inner">
+                <h3>Scalable Zone Architecture</h3>
+                <p>Designed for rapid deployment across diverse station geometries with minimal setup time[cite: 48].</p>
             </div>
-            <div class="feature">
-                <h3>2. Contextual Logic</h3>
-                <p>An intelligent control layer cross-references environmental movement with transit cycles to manage active and standby states[cite: 26, 29].</p>
+            <div class="card-inner">
+                <h3>Non-Intrusive Integration</h3>
+                <p>Mechanical clamping ensures zero modification to platform civil structures or track beds[cite: 46, 61].</p>
             </div>
-            <div class="feature">
-                <h3>3. Isolated Actuation</h3>
-                <p>Confirmed triggers initiate electrically isolated alerts, ensuring the safety response is independent of the primary control logic[cite: 15, 38].</p>
+            <div class="card-inner">
+                <h3>Real-Time Response</h3>
+                <p>Deterministic hardware logic provides immediate alerts, eliminating the latency of manual observation[cite: 44, 82].</p>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="card">
+    <section>
         <h2>Technical Summary</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Subsystem</th>
-                    <th>Functional Component</th>
-                    <th>Role</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Perimeter Sensing</td>
-                    <td>Distributed Spatial Sensors</td>
-                    <td>Boundary Breach Identification [cite: 17, 19]</td>
-                </tr>
-                <tr>
-                    <td>Process Control</td>
-                    <td>Dual-Architecture Logic Hub</td>
-                    <td>Data Validation & Filtering </td>
-                </tr>
-                <tr>
-                    <td>Proximity Tracking</td>
-                    <td>Ranging Transducers</td>
-                    <td>Operational State Management [cite: 18, 29]</td>
-                </tr>
-                <tr>
-                    <td>Safety Output</td>
-                    <td>Galvanic Isolated Relays</td>
-                    <td>Fail-Safe Alert Activation [cite: 35, 38]</td>
-                </tr>
-            </tbody>
-        </table>
-        <p style="margin-top:15px; font-size:0.9rem;"><strong>System Impact:</strong> Reduces operational liability, improves passenger discipline, and minimizes service disruptions[cite: 51, 53].</p>
-    </div>
+        <p>The system utilizes an electrically isolated actuation stage to trigger alerts while maintaining an independent sensing and logic domain[cite: 15, 35, 41].</p>
+        
+        
 
-</div>
+        <div class="grid">
+            <div class="card-inner">
+                <strong>Sensing Subsystem:</strong><br>
+                High-frequency boundary monitoring paired with proximity-based state management[cite: 17, 18].
+            </div>
+            <div class="card-inner">
+                <strong>Logic Engine:</strong><br>
+                Rule-based priority mapping with temporal validation to eliminate false positives[cite: 23, 26].
+            </div>
+        </div>
+        <p style="margin-top:20px; font-weight: 600;">Current Phase: Active deployment validation in high-traffic metro environments.</p>
+    </section>
 
-<div class="contact-footer">
-    <h2>Inquire for Deployment</h2>
-    <p>For technical whitepapers, deployment guidelines, or prototype performance reports, please contact our implementation team.</p>
-    <p><strong>Email:</strong> technical.safety@example.com</p>
-    <a href="mailto:technical.safety@example.com" class="btn">Request Project Proposal</a>
+    <section class="contact-box">
+        <h2>Inquire for Deployment</h2>
+        <p>Seeking technical partnership or deployment guidelines for large-scale transit networks?</p>
+        <p><strong>Contact:</strong> project.inquiry@email.com</p>
+        <a href="mailto:project.inquiry@email.com" class="btn">Request Technical Summary</a>
+    </section>
+
 </div>
 
 <footer>
-    <p style="text-align:center; padding: 20px; color: #718096; font-size: 0.8rem;">
-        &copy; 2024 Advanced Infrastructure Safety Initiative. Developed in compliance with standard safety protocols[cite: 85, 111].
-    </p>
+    <p>&copy; 2024-2026 RailGuard Safety Initiative. All rights reserved.</p>
 </footer>
 
 </body>
