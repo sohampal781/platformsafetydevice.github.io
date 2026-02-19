@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RailGuard | Safety Innovation</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    <title>RailGuard | Safety Infrastructure Innovation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;800&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #6366f1;
             --success: #10b981;
+            --accent: #f59e0b;
             --bg: #020617;
-            --glass: rgba(255, 255, 255, 0.02);
-            --border: rgba(255, 255, 255, 0.1);
+            --glass: rgba(255, 255, 255, 0.015);
+            --glass-border: rgba(255, 255, 255, 0.08);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: default; }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -23,26 +24,30 @@
             overflow-x: hidden;
         }
 
-        /* Full Screen Left-to-Right Animated Glow */
-        .glow-overlay {
+        /* Kinetic Plasma Background */
+        .plasma-bg {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 200%;
-            height: 100%;
-            background: linear-gradient(90deg, 
-                rgba(99, 102, 241, 0.15) 0%, 
-                rgba(16, 185, 129, 0.1) 50%, 
-                rgba(99, 102, 241, 0.15) 100%);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(90deg, #020617, #0f172a, #020617);
+            z-index: -2;
+        }
+
+        .plasma-glow {
+            position: fixed;
+            top: 0; left: -50%; width: 200%; height: 100%;
+            background: radial-gradient(circle at center, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+                        radial-gradient(circle at 70% 30%, rgba(16, 185, 129, 0.1) 0%, transparent 40%);
             z-index: -1;
-            animation: sweep 10s linear infinite;
+            animation: moveGlow 15s linear infinite;
         }
 
-        @keyframes sweep {
-            0% { transform: translateX(-50%); }
-            100% { transform: translateX(0%); }
+        @keyframes moveGlow {
+            0% { transform: translateX(0) rotate(0deg); }
+            50% { transform: translateX(20%) rotate(5deg); }
+            100% { transform: translateX(0) rotate(0deg); }
         }
 
+        /* Typography & Layout */
         header {
             height: 100vh;
             display: flex;
@@ -55,101 +60,102 @@
 
         .hero-title {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(2.5rem, 7vw, 5.5rem);
-            line-height: 0.9;
+            font-size: clamp(2.5rem, 8vw, 5.5rem);
+            line-height: 0.85;
             letter-spacing: -4px;
-            background: linear-gradient(to bottom, #fff 40%, rgba(255,255,255,0.4));
+            background: linear-gradient(to bottom, #fff 50%, rgba(255,255,255,0.2));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 20px; }
 
         .section-card {
             background: var(--glass);
-            backdrop-filter: blur(40px);
-            border: 1px solid var(--border);
+            backdrop-filter: blur(50px);
+            border: 1px solid var(--glass-border);
             padding: 80px 60px;
-            border-radius: 50px;
-            margin-bottom: 80px;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+            border-radius: 60px;
+            margin-bottom: 60px;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.6);
         }
 
-        h2 { font-family: 'Space Grotesk', sans-serif; font-size: 3.5rem; letter-spacing: -2px; margin-bottom: 40px; color: var(--primary); }
+        h2 { font-family: 'Space Grotesk', sans-serif; font-size: 3.5rem; letter-spacing: -3px; margin-bottom: 50px; color: var(--primary); }
 
-        /* Innovative Grid */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 30px; }
+        /* Bento Grid */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
 
-        .feature-box {
+        .bento-item {
             background: rgba(255, 255, 255, 0.01);
-            padding: 40px;
-            border-radius: 35px;
-            border: 1px solid var(--border);
-            transition: 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+            padding: 45px;
+            border-radius: 40px;
+            border: 1px solid var(--glass-border);
+            transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .feature-box:hover {
+        .bento-item:hover {
             background: rgba(99, 102, 241, 0.1);
             border-color: var(--primary);
             transform: translateY(-20px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
         }
 
-        /* Timeline with Glow */
+        /* Video Gallery */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 35px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 0 50px rgba(99, 102, 241, 0.1);
+        }
+
+        /* Timeline Journey */
         .timeline { position: relative; padding-left: 60px; }
         .timeline::before { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 2px; background: linear-gradient(to bottom, var(--primary), var(--success)); }
-
         .t-item { margin-bottom: 80px; position: relative; }
         .t-item::before {
-            content: '';
-            position: absolute;
-            left: -69px; top: 0;
-            width: 20px; height: 20px;
-            background: var(--bg);
-            border: 4px solid var(--primary);
-            border-radius: 50%;
-            z-index: 10;
+            content: ''; position: absolute; left: -69px; top: 0;
+            width: 18px; height: 18px; background: var(--bg);
+            border: 4px solid var(--primary); border-radius: 50%; z-index: 10;
         }
+        .t-active::before { border-color: var(--success); box-shadow: 0 0 30px var(--success); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.4); } 100% { transform: scale(1); } }
 
-        .t-active::before { border-color: var(--success); box-shadow: 0 0 40px var(--success); animation: pulse 2s infinite; }
-
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 var(--success); } 70% { box-shadow: 0 0 0 20px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
-
-        /* Team Image Styling */
+        /* Professional Team Grid */
+        .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .team-member { text-align: center; }
         .team-img { 
-            width: 150px; height: 150px; border-radius: 50%; 
-            border: 4px solid var(--border); margin-bottom: 25px; 
-            object-fit: cover; transition: 0.8s; filter: grayscale(100%);
+            width: 130px; height: 130px; border-radius: 50%; 
+            border: 3px solid var(--glass-border); margin-bottom: 20px; 
+            object-fit: cover; transition: 0.7s; filter: brightness(0.7) contrast(1.2);
         }
-        .feature-box:hover .team-img { filter: grayscale(0%); transform: rotate(10deg); border-color: var(--primary); }
+        .bento-item:hover .team-img { filter: brightness(1); transform: rotate(-5deg) scale(1.1); border-color: var(--primary); }
 
         .cta-box {
             background: linear-gradient(135deg, var(--primary), #1e1b4b);
-            padding: 100px 40px;
-            border-radius: 60px;
-            text-align: center;
-            margin: 100px 0;
+            padding: 100px 40px; border-radius: 60px; text-align: center; margin: 100px 0;
         }
 
         .email-link {
-            font-size: 1.8rem; font-weight: 800; color: #fff; text-decoration: none;
-            display: inline-block; margin-top: 30px;
+            font-size: 2rem; font-weight: 800; color: #fff; text-decoration: none;
+            display: inline-block; margin-top: 30px; letter-spacing: -1px;
         }
 
-        .email-link:hover { color: var(--accent); transform: scale(1.1); }
+        footer { text-align: center; padding: 100px 0; color: #475569; letter-spacing: 10px; font-weight: 800; font-size: 0.7rem; }
 
-        footer { text-align: center; padding: 100px 0; color: #475569; letter-spacing: 5px; font-weight: 800; }
-
-        @media (max-width: 768px) {
-            .hero-title { font-size: 2.5rem; }
+        @media (max-width: 900px) {
+            .team-grid { grid-template-columns: 1fr; }
+            .hero-title { font-size: 3rem; }
             .section-card { padding: 40px 20px; }
         }
     </style>
 </head>
 <body>
 
-<div class="glow-overlay"></div>
+<div class="plasma-bg"></div>
+<div class="plasma-glow"></div>
 
 <header>
     <div class="hero-badge">Future of Transit Safety</div>
