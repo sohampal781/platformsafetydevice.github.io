@@ -1,370 +1,200 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Metro Platform Safety System</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RailGuard | Hardware-Based Metro Safety</title>
+    <style>
+        :root {
+            --primary: #1e3c72;
+            --secondary: #2a5298;
+            --accent: #f39c12;
+            --danger: #e74c3c;
+            --light: #f8f9fa;
+            --dark: #2c3e50;
+        }
 
-<style>
-body{
-    background:#111;
-    color:white;
-    font-family:Arial;
-    text-align:center;
-}
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--light);
+        }
 
-#cameraContainer{
-    position:relative;
-    width:640px;
-    height:480px;
-    margin:auto;
-}
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
 
-video, canvas{
-    position:absolute;
-    top:0;
-    left:0;
-}
+        .project-title { font-size: 2.5rem; margin: 0; font-weight: 800; }
+        .subtitle { font-size: 1.2rem; opacity: 0.9; margin-top: 10px; }
 
-canvas{ pointer-events:none; }
+        /* Container */
+        .container { max-width: 1100px; margin: auto; padding: 20px; }
 
-button{ padding:8px 12px; margin:5px; }
+        /* Section Styling */
+        section { margin: 40px 0; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        h2 { color: var(--primary); border-bottom: 3px solid var(--accent); display: inline-block; margin-bottom: 25px; padding-bottom: 5px; }
 
-.statusSafe{ color:lightgreen; }
-.statusBreach{ color:red; font-weight:bold; }
+        /* Grid for Features/Why Use */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card { padding: 20px; border-radius: 8px; border-left: 5px solid var(--primary); background: #fff; }
+        .card h3 { margin-top: 0; color: var(--secondary); }
 
-#fineTab{ display:none; }
-.record{
-    border:2px solid red;
-    margin:10px;
-    padding:10px;
-}
-</style>
+        /* Tech Specs Table */
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: var(--primary); color: white; }
+
+        /* Impact Section */
+        .impact-box { background: #eef2f7; border-radius: 10px; padding: 20px; margin-top: 20px; }
+
+        /* Contact Section */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .contact-card { background: #fff; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+
+        footer { text-align: center; padding: 20px; background: var(--dark); color: white; margin-top: 50px; }
+
+        @media (max-width: 768px) {
+            .contact-grid { grid-template-columns: 1fr; }
+            .project-title { font-size: 1.8rem; }
+        }
+    </style>
 </head>
-
 <body>
 
-<h2>Metro Virtual Yellow Line Monitoring</h2>
+<header>
+    <div class="project-title">RailGuard Safety System</div>
+    <div class="subtitle">Hardware-Based Yellow Line Breach Detection for Metro Rail Stations</div>
+    <p style="margin-top:20px; font-style: italic;">Developed at Institute Of Engineering & Management, Kolkata</p>
+</header>
 
-<button onclick="showTab('monitor')">Monitoring</button>
-<button onclick="showTab('fine')">Fine Tab</button>
+<div class="container">
 
-<div id="monitorTab">
+    <section id="why-use">
+        <h2>Why Use This System?</h2>
+        <p>Current Metro systems often rely on reactive CCTV monitoring or manual supervision. <strong>RailGuard</strong> provides a proactive, real-time solution to prevent accidents before they happen.</p>
+        <div class="grid">
+            <div class="card">
+                <h3>Eliminate Human Error</h3>
+                <p>Removes the dependency on human response time by using deterministic hardware logic for instant detection[cite: 82, 15].</p>
+            </div>
+            <div class="card">
+                <h3>Cost-Effective Safety</h3>
+                <p>Significant cost savings through lower manpower requirements and low power consumption[cite: 52].</p>
+            </div>
+            <div class="card">
+                <h3>Zero Civil Modification</h3>
+                <p>Installs using mechanical clamps on existing railings—no drilling or floor modification required[cite: 57, 61].</p>
+            </div>
+        </div>
+    </section>
 
-<div id="cameraContainer">
-    <video id="video" width="640" height="480" autoplay muted></video>
-    <canvas id="canvas" width="640" height="480"></canvas>
+    <section id="features">
+        <h2>System Features</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Sensing Layer</h3>
+                <p>Active IR through-beam sensors form a fixed virtual wall parallel to the yellow line[cite: 17].</p>
+            </div>
+            <div class="card">
+                <h3>Intelligent Logic</h3>
+                <p>Ultrasonic sensors monitor train movement to automatically deactivate the system during boarding and reactivate after departure[cite: 18, 29].</p>
+            </div>
+            <div class="card">
+                <h3>Fail-Safe Actuation</h3>
+                <p>Relay outputs default to a fail-safe state in case of power loss, ensuring continuous safety[cite: 38].</p>
+            </div>
+            <div class="card">
+                <h3>Real-Time Alerts</h3>
+                <p>Immediate Audio-Visual triggers (Buzzer + LED) and external system logging[cite: 36, 44].</p>
+            </div>
+        </div>
+    </section>
+
+    <section style="text-align:center;">
+        <h2>Operational Principle</h2>
+        <p>The system uses an IR transmitter/receiver pair to monitor obstructions in the restricted zone.</p>
+                <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">Fig 1: Detection Logic during Normal vs. Obstructed Operation [cite: 30, 32]</p>
+    </section>
+
+    <section id="specs">
+        <h2>Technical Specifications</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Component</th>
+                    <th>Description</th>
+                    <th>Qty</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Primary Controller</td>
+                    <td>Raspberry Pi 4 (8 GB RAM) </td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>Logic Controller</td>
+                    <td>Arduino Uno </td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>Intrusion Sensors</td>
+                    <td>Industrial IR Through-Beam Sets </td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>Proximity Sensors</td>
+                    <td>Ultrasonic Sensors (Train detection) </td>
+                    <td>4</td>
+                </tr>
+                <tr>
+                    <td>Isolation</td>
+                    <td>Opto-isolated Relay Modules </td>
+                    <td>10</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="impact-box">
+            <strong>Approximate Implementation Cost:</strong> ₹80,600 - ₹85,000 per platform[cite: 107, 106].
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Get In Touch</h2>
+        <div class="contact-grid">
+            <div class="contact-card">
+                <h3>Soham Pal (PI)</h3>
+                <p>Student, Dept. of Electrical Engineering [cite: 93, 94]</p>
+                <p><strong>Email:</strong> soham.pal2023@iem.edu.in [cite: 96]</p>
+                <p><strong>Mobile:</strong> +91 6290952326 [cite: 95]</p>
+            </div>
+            <div class="contact-card">
+                <h3>Prof. Heerok Banerjee (CO-PI)</h3>
+                <p>Professor, Dept. of CSE (AIML), CSBS [cite: 98, 99]</p>
+                <p><strong>Email:</strong> heerok.banerjee@iem.edu.in [cite: 101]</p>
+                <p><strong>Mobile:</strong> +91 8420966029 [cite: 100]</p>
+            </div>
+        </div>
+        <p style="text-align: center; margin-top: 30px; font-weight: bold; color: var(--primary);">
+            Institute Of Engineering & Management, Saltlake Sector V, Kolkata [cite: 5, 6]
+        </p>
+    </section>
+
 </div>
 
-<br>
-
-<label>Number of Curve Points:</label>
-<input type="number" id="numPoints" min="2" max="10" value="3">
-<button onclick="createSliders()">Create Points</button>
-
-<div id="sliders"></div>
-
-<br>
-
-<label>Safe Side:</label>
-<select id="safeSide">
-    <option value="left">Left Safe</option>
-    <option value="right">Right Safe</option>
-</select>
-
-<button onclick="lockSystem()">LOCK & START</button>
-
-<h3 id="status" class="statusSafe">Configuration Mode</h3>
-
-</div>
-
-<div id="fineTab">
-    <h2>Violation Records</h2>
-    <div id="fineContainer"></div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose"></script>
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils"></script>
+<footer>
+    <p>&copy; <span id="year"></span> RailGuard Safety Innovation Project. All Rights Reserved.</p>
+</footer>
 
 <script>
-window.onload = function(){
-
-const video = document.getElementById("video");
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-const statusText = document.getElementById("status");
-
-let curvePoints = [];
-let monitoring = false;
-let cooldown = false;
-let presenceStart = null;
-let requiredStayTime = 1500; // 1.5 seconds
-
-// Start camera
-navigator.mediaDevices.getUserMedia({video:true})
-.then(stream => video.srcObject = stream);
-
-// Tab switch
-window.showTab = function(tab){
-    document.getElementById("monitorTab").style.display =
-        tab==="monitor" ? "block" : "none";
-    document.getElementById("fineTab").style.display =
-        tab==="fine" ? "block" : "none";
-}
-
-// Create sliders
-window.createSliders = function(){
-
-    curvePoints = [];
-    const slidersDiv = document.getElementById("sliders");
-    slidersDiv.innerHTML = "";
-
-    let n = parseInt(document.getElementById("numPoints").value);
-
-    for(let i=0;i<n;i++){
-
-        let container = document.createElement("div");
-
-        let label = document.createElement("span");
-        label.innerText = "Point "+(i+1)+" X ";
-        container.appendChild(label);
-
-        let x = document.createElement("input");
-        x.type="range"; x.min=0; x.max=640;
-        x.value=100+i*100;
-        x.addEventListener("input", drawOverlay);
-        container.appendChild(x);
-
-        let labelY = document.createElement("span");
-        labelY.innerText=" Y ";
-        container.appendChild(labelY);
-
-        let y = document.createElement("input");
-        y.type="range"; y.min=0; y.max=480;
-        y.value=250;
-        y.addEventListener("input", drawOverlay);
-        container.appendChild(y);
-
-        slidersDiv.appendChild(container);
-        curvePoints.push({x,y});
-    }
-
-    drawOverlay();
-};
-
-// Lock system
-window.lockSystem = function(){
-    monitoring = true;
-    document.querySelectorAll("input").forEach(el=>el.disabled=true);
-    document.getElementById("safeSide").disabled=true;
-    statusText.innerText="Monitoring Active";
-}
-
-// Draw curve
-function drawOverlay(){
-
-    ctx.clearRect(0,0,640,480);
-
-    if(curvePoints.length<2) return;
-
-    ctx.beginPath();
-    ctx.strokeStyle="yellow";
-    ctx.lineWidth=4;
-
-    ctx.moveTo(curvePoints[0].x.value,
-               curvePoints[0].y.value);
-
-    for(let i=1;i<curvePoints.length;i++){
-        ctx.lineTo(curvePoints[i].x.value,
-                   curvePoints[i].y.value);
-    }
-
-    ctx.stroke();
-}
-function isUnsafe(px, py){
-
-    if(curvePoints.length < 2) return false;
-
-    let safeSide = document.getElementById("safeSide").value;
-
-    // Build polygon from curve + screen edge
-    let polygon = [];
-
-    // Add curve points
-    for(let p of curvePoints){
-        polygon.push([
-            parseInt(p.x.value),
-            parseInt(p.y.value)
-        ]);
-    }
-
-    if(safeSide === "left"){
-        polygon.push([0,480]);
-        polygon.push([0,0]);
-    } else {
-        polygon.push([640,480]);
-        polygon.push([640,0]);
-    }
-
-    return pointInPolygon([px,py], polygon);
-}
-function pointInPolygon(point, vs) {
-
-    let x = point[0], y = point[1];
-    let inside = false;
-
-    for (let i = 0, j = vs.length - 1; i < vs.length; j = i++) {
-
-        let xi = vs[i][0], yi = vs[i][1];
-        let xj = vs[j][0], yj = vs[j][1];
-
-        let intersect =
-            ((yi > y) != (yj > y)) &&
-            (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
-
-        if (intersect) inside = !inside;
-    }
-
-    return inside;
-}
-function captureViolation(){
-
-    if(cooldown) return;
-    cooldown = true;
-
-    let snapCanvas = document.createElement("canvas");
-    snapCanvas.width = 640;
-    snapCanvas.height = 480;
-
-    let snapCtx = snapCanvas.getContext("2d");
-
-    // Draw video
-    snapCtx.drawImage(video, 0, 0, 640, 480);
-
-    // Draw overlay line
-    if(curvePoints.length >= 2){
-
-        snapCtx.beginPath();
-        snapCtx.strokeStyle = "yellow";
-        snapCtx.lineWidth = 4;
-
-        snapCtx.moveTo(curvePoints[0].x.value,
-                       curvePoints[0].y.value);
-
-        for(let i=1;i<curvePoints.length;i++){
-            snapCtx.lineTo(curvePoints[i].x.value,
-                           curvePoints[i].y.value);
-        }
-
-        snapCtx.stroke();
-    }
-
-    let imgData = snapCanvas.toDataURL("image/png");
-    addFineRecord(imgData);
-    setTimeout(()=>cooldown=false,3000);
-}
-function addFineRecord(imgData){
-
-    let container = document.getElementById("fineContainer");
-
-    let record = document.createElement("div");
-    record.className = "record";
-
-    let img = document.createElement("img");
-    img.src = imgData;
-    img.width = 200;
-
-    let time = document.createElement("p");
-    time.innerText = "Time: " + new Date().toLocaleString();
-
-    let deleteBtn = document.createElement("button");
-    deleteBtn.innerText = "Delete";
-    deleteBtn.style.background = "darkred";
-    deleteBtn.style.color = "white";
-
-    deleteBtn.onclick = function(){
-        record.remove();
-    };
-
-    record.appendChild(img);
-    record.appendChild(time);
-    record.appendChild(deleteBtn);
-
-    container.prepend(record);
-
-    showTab("fine");
-}
-
-// -------- POSE SETUP --------
-const pose = new Pose({
-    locateFile: (file) =>
-        `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`
-});
-
-pose.setOptions({
-    modelComplexity: 0,
-    smoothLandmarks: true,
-    minDetectionConfidence: 0.5,
-    minTrackingConfidence: 0.5
-});
-pose.onResults(results => {
-
-    drawOverlay();
-
-    if(!monitoring) return;
-
-    if(results.poseLandmarks){
-
-        let leftHip = results.poseLandmarks[23];
-        let rightHip = results.poseLandmarks[24];
-
-        let px = ((leftHip.x + rightHip.x) / 2) * 640;
-        let py = ((leftHip.y + rightHip.y) / 2) * 480;
-
-        ctx.beginPath();
-        ctx.arc(px, py, 10, 0, 2*Math.PI);
-        ctx.fillStyle = "cyan";
-        ctx.fill();
-
-        let unsafe = isUnsafe(px, py);
-
-        if(unsafe){
-
-            statusText.innerText = "UNSAFE AREA OCCUPIED";
-            statusText.className = "statusBreach";
-
-            if(presenceStart === null){
-                presenceStart = Date.now();
-            }
-
-            // If stayed long enough → capture
-            if(Date.now() - presenceStart > requiredStayTime){
-                captureViolation();
-                presenceStart = null; // reset after capture
-            }
-
-        } else {
-
-            statusText.innerText = "SAFE";
-            statusText.className = "statusSafe";
-
-            presenceStart = null; // reset if person leaves area
-        }
-    }
-});
-
-// Attach camera to pose
-const camera = new Camera(video, {
-    onFrame: async () => {
-        await pose.send({ image: video });
-    },
-    width: 640,
-    height: 480
-});
-
-camera.start();
-createSliders();
-
-}
+    document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 
 </body>
