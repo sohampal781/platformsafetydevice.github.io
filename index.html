@@ -16,7 +16,7 @@
 
         body {
             margin: 0;
-            font-family: 'Segoe UI', Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg);
             color: var(--text);
             line-height: 1.6;
@@ -31,32 +31,33 @@
         }
 
         .hero h1 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             margin: 0 auto;
-            max-width: 900px;
+            max-width: 950px;
             line-height: 1.3;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .hero p {
             font-size: 1.1rem;
             margin-top: 15px;
             opacity: 0.9;
+            font-weight: 300;
         }
 
-        /* Container */
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: -30px auto 40px;
             padding: 0 20px;
         }
 
         .section-card {
             background: white;
-            padding: 30px;
+            padding: 40px;
             border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            margin-bottom: 25px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
         }
 
         h2 {
@@ -64,6 +65,7 @@
             border-left: 5px solid var(--accent);
             padding-left: 15px;
             margin-bottom: 25px;
+            font-size: 1.6rem;
         }
 
         /* Timeline Styling */
@@ -113,28 +115,62 @@
         /* Grid */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
         }
 
         .feature-box {
-            background: #f9f9f9;
+            background: #fff;
             padding: 20px;
             border-radius: 8px;
-            border-top: 4px solid var(--secondary);
+            border: 1px solid #edf2f7;
+            border-top: 4px solid var(--accent);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-box h3 {
+            margin-top: 0;
+            font-size: 1.15rem;
+            color: var(--primary);
+        }
+
+        .feature-box p {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 0;
+        }
+
+        .diff-box {
+            background: #f8fafc;
+            border-top: 4px solid var(--success);
         }
 
         .contact-footer {
             background: var(--primary);
             color: white;
-            padding: 40px;
+            padding: 50px 20px;
             border-radius: 12px;
             text-align: center;
         }
 
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
         footer {
             text-align: center;
-            padding: 20px;
+            padding: 30px;
             color: #777;
             font-size: 0.85rem;
         }
@@ -144,7 +180,7 @@
 
 <header class="hero">
     <h1>Hardware-Based Yellow Line Breach Detection and Platform End Safety System for Metro Rail Stations</h1>
-    <p>Advanced Infrastructure Safety & Real-Time Intrusion Prevention</p>
+    <p>Ensuring Commuter Safety through Autonomous Hardware-Driven Innovation</p>
 </header>
 
 <div class="container">
@@ -155,17 +191,17 @@
             <div class="t-item">
                 <div class="t-date">OCTOBER 2024</div>
                 <strong>Project Conception & Design</strong>
-                <p>Development of the continuous intrusion detection architecture using deterministic logic processing.</p>
+                <p>Initial architectural mapping and development of deterministic logic for intrusion detection.</p>
             </div>
             <div class="t-item">
                 <div class="t-date">NOVEMBER - DECEMBER 2024</div>
                 <strong>Prototype Development</strong>
-                <p>Integration of distributed sensing layers and fail-safe actuation logic for metro platforms.</p>
+                <p>Hardware integration and successful lab-testing of fail-safe actuation logic.</p>
             </div>
             <div class="t-item t-active">
                 <div class="t-date" style="color:var(--success)">ONGOING FIELD TESTING</div>
                 <strong>Kolkata Metro Deployment</strong>
-                <p>Currently conducting real-time validation and situational awareness testing under active metro station conditions.</p>
+                <p>Currently conducting real-time validation and performance monitoring under active station conditions in the Kolkata Metro network.</p>
             </div>
         </div>
     </section>
@@ -174,16 +210,24 @@
         <h2>System Characteristics</h2>
         <div class="grid">
             <div class="feature-box">
-                <h3>Scalable Architecture</h3>
-                <p>Designed for rapid deployment across large networks with a modular zone-specific configuration[cite: 48].</p>
+                <h3>Real-Time Operation</h3>
+                <p>The system continuously monitors the platform and provides immediate detection and alert.</p>
             </div>
             <div class="feature-box">
-                <h3>Non-Intrusive Integration</h3>
-                <p>Mechanical clamping interface allows for installation without any civil modifications to the platform structure[cite: 46, 61].</p>
+                <h3>Non-Contact Detection</h3>
+                <p>Uses IR and ultrasonic sensors, ensuring reliable operation without mechanical movement.</p>
             </div>
             <div class="feature-box">
-                <h3>Fail-Safe Reliability</h3>
-                <p>System logic defaults to a secure condition in the event of power loss or component fault[cite: 38].</p>
+                <h3>Automatic Monitoring</h3>
+                <p>The system operates automatically without requiring human supervision or intervention.</p>
+            </div>
+            <div class="feature-box">
+                <h3>Fail-Safe Output</h3>
+                <p>Opto-isolated relays ensure safe operation and activate alerts during fault conditions.</p>
+            </div>
+            <div class="feature-box">
+                <h3>Non-Intrusive Install</h3>
+                <p>The system can be installed on existing platform structures without any civil modification.</p>
             </div>
         </div>
     </section>
@@ -191,30 +235,42 @@
     
 
     <section class="section-card">
-        <h2>Project Impact</h2>
-        <p>The system offers a significant improvement in passenger and staff safety while reducing service disruptions caused by track intrusions[cite: 51].</p>
+        <h2>Why It Is Different from Existing Systems</h2>
         <div class="grid">
-            <div class="feature-box">
-                <strong>Safety Optimization:</strong><br>
-                Proactive detection reduces the risk of accidental falls and intentional track entry[cite: 12, 51].
+            <div class="feature-box diff-box">
+                <h3>Automatic Detection</h3>
+                <p>Unlike existing systems that depend on human CCTV observation, this system detects breaches automatically.</p>
             </div>
-            <div class="feature-box">
-                <strong>Resource Efficiency:</strong><br>
-                Lower operational requirements and power consumption compared to traditional manual monitoring[cite: 52].
+            <div class="feature-box diff-box">
+                <h3>Immediate Alert</h3>
+                <p>Provides instant audio-visual alerts, drastically reducing incident response time.</p>
+            </div>
+            <div class="feature-box diff-box">
+                <h3>Fully Hardware-Based</h3>
+                <p>Operates without internet, AI, or software dependency, ensuring maximum reliability.</p>
+            </div>
+            <div class="feature-box diff-box">
+                <h3>Autonomous Protection</h3>
+                <p>The system provides protection even when staff are not actively monitoring the area.</p>
+            </div>
+            <div class="feature-box diff-box">
+                <h3>Economical Implementation</h3>
+                <p>Requires no platform modification and is significantly more cost-effective than other safety systems.</p>
             </div>
         </div>
     </section>
 
     <section class="contact-footer">
         <h2>Technical Inquiry</h2>
-        <p>For deployment guidelines, technical whitepapers, or field test data, please contact the implementation team.</p>
-        <p><strong>Email:</strong> technical.inquiry@example.com</p>
+        <p>For deployment guidelines, technical specifications, or field test reports, contact our team.</p>
+        <p><strong>Email:</strong> project.inquiry@example.com</p>
+        <a href="mailto:project.inquiry@example.com" class="btn">Request Project Proposal</a>
     </section>
 
 </div>
 
 <footer>
-    &copy; 2024 - 2026 Platform Safety Initiative. All technical concepts based on validated metro safety requirements.
+    &copy; 2024 - 2026 Platform Safety Initiative. Designed for Metro Transit Infrastructure.
 </footer>
 
 </body>
