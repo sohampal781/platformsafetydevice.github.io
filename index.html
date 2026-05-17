@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SecureZone | Breach Detection & Safety Monitoring</title>
+    <title>RailGuard | Restricted Zone Breach Detection</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #020617;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.1);
-            --primary: #6366f1; /* Indigo */
-            --primary-glow: rgba(99, 102, 241, 0.3);
-            --accent: #f59e0b; /* Amber */
-            --text-main: #f8fafc;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.4);
+            --accent: #f59e0b;
+            --text-main: #f9fafb;
             --text-dim: #94a3b8;
         }
 
@@ -23,277 +23,194 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg);
             color: var(--text-main);
-            line-height: 1.6;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* Animated Background Gradients */
-        .blob {
+        /* Animated Ambient Background */
+        .glow-overlay {
             position: fixed;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #020617 100%);
             z-index: -1;
-            filter: blur(80px);
-            animation: move 20s infinite alternate;
-        }
-
-        @keyframes move {
-            from { transform: translate(-20%, -20%); }
-            to { transform: translate(100%, 80%); }
         }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-        /* Glassmorphism Reusable Class */
-        .glass {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        /* Reusable Glassmorphism */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        .glass:hover {
+        .glass-card:hover {
             transform: translateY(-10px);
-            border-color: rgba(99, 102, 241, 0.5);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px var(--primary-glow);
+            border-color: var(--primary);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 20px var(--primary-glow);
         }
 
         /* Hero Section */
         header {
-            padding: 100px 0 60px;
+            padding: 120px 0 80px;
             text-align: center;
         }
 
         .badge {
             display: inline-block;
-            padding: 6px 16px;
+            padding: 8px 20px;
             background: rgba(99, 102, 241, 0.1);
             border: 1px solid var(--primary);
             color: var(--primary);
             border-radius: 100px;
             font-weight: 700;
             font-size: 0.75rem;
-            letter-spacing: 1px;
-            margin-bottom: 24px;
+            letter-spacing: 2px;
             text-transform: uppercase;
+            margin-bottom: 30px;
         }
 
         h1 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-size: clamp(2.2rem, 6vw, 4rem);
             font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 24px;
-            background: linear-gradient(to bottom, #fff 0%, #94a3b8 100%);
+            margin-bottom: 25px;
+            background: linear-gradient(to right, #fff, #94a3b8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .subheading {
-            color: var(--text-dim);
-            max-width: 800px;
-            margin: 0 auto 50px;
-            font-size: 1.1rem;
-        }
-
-        /* Hero Selection Cards */
         .hero-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
             gap: 30px;
-            margin-top: 40px;
+            margin-top: 60px;
         }
 
-        .mode-card {
-            padding: 40px;
-            text-align: left;
-            position: relative;
-            overflow: hidden;
-        }
+        .mode-card { padding: 40px; text-align: left; }
+        .mode-icon { font-size: 2.5rem; margin-bottom: 20px; display: block; }
+        .mode-card ul { list-style: none; margin-top: 20px; }
+        .mode-card li { margin-bottom: 12px; color: var(--text-dim); display: flex; align-items: center; }
+        .mode-card li::before { content: "•"; color: var(--accent); font-weight: bold; width: 20px; }
 
-        .mode-card h2 { margin: 20px 0 15px; font-size: 1.5rem; }
-        .mode-card ul { list-style: none; color: var(--text-dim); }
-        .mode-card li { margin-bottom: 8px; display: flex; align-items: center; }
-        .mode-card li::before { content: "→"; color: var(--accent); margin-right: 10px; font-weight: bold; }
-
-        .icon-box {
-            width: 60px; height: 60px;
-            background: linear-gradient(135deg, var(--primary), #4338ca);
-            border-radius: 16px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem;
-            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
-        }
-
-        /* Section Headings */
-        .section-title {
-            text-align: center;
-            margin: 100px 0 50px;
-        }
-
-        .section-title h2 { font-size: 2.5rem; margin-bottom: 15px; }
-        .section-title p { color: var(--text-dim); }
+        /* General Sections */
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 2.5rem; color: var(--text-main); }
 
         /* Feature Grids */
         .feature-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            gap: 25px;
         }
 
-        .feature-card { padding: 30px; }
-        .feature-card h3 { margin-bottom: 12px; color: var(--text-main); }
-        .feature-card p { color: var(--text-dim); font-size: 0.95rem; }
+        .feature-box { padding: 35px; }
+        .feature-box h3 { color: var(--accent); margin-bottom: 15px; font-size: 1.3rem; }
+        .feature-box p { color: var(--text-dim); }
 
         /* Timeline */
-        .timeline {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            padding: 40px 0;
-        }
+        .timeline { position: relative; max-width: 900px; margin: 0 auto; padding-left: 40px; }
+        .timeline::before { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 2px; background: var(--primary); }
+        .t-item { position: relative; margin-bottom: 50px; }
+        .t-item::after { content: ''; position: absolute; left: -46px; top: 10px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg); border: 3px solid var(--accent); }
+        .t-date { color: var(--accent); font-weight: 800; font-size: 0.9rem; }
 
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%; width: 2px; height: 100%;
-            background: var(--border);
-            transform: translateX(-50%);
-        }
-
-        .timeline-item {
-            margin-bottom: 40px;
-            width: 50%;
-            position: relative;
-        }
-
-        .timeline-item:nth-child(odd) { padding-right: 40px; text-align: right; }
-        .timeline-item:nth-child(even) { padding-left: 40px; margin-left: 50%; text-align: left; }
-
-        .time-node {
-            position: absolute;
-            top: 0; left: 50%;
-            width: 20px; height: 20px;
-            background: var(--primary);
-            border: 4px solid var(--bg);
-            border-radius: 50%;
-            transform: translate(-50%, 0);
-            box-shadow: 0 0 15px var(--primary);
-        }
-
-        .time-content { padding: 20px; }
-        .time-date { color: var(--accent); font-weight: 800; font-size: 0.8rem; }
-
-        /* Team Section */
+        /* Team Grid */
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 30px;
         }
 
-        .team-card { padding: 30px; text-align: center; }
-        .team-img {
-            width: 120px; height: 120px;
+        .member-card { text-align: center; padding: 40px 20px; }
+        .member-img {
+            width: 160px; height: 160px;
             border-radius: 50%;
-            margin: 0 auto 20px;
-            border: 3px solid var(--primary);
-            padding: 5px;
-            background: var(--bg);
+            border: 4px solid var(--primary);
+            margin-bottom: 20px;
             object-fit: cover;
+            box-shadow: 0 0 20px var(--primary-glow);
         }
 
         .role-tag {
-            display: inline-block;
             background: var(--primary);
             font-size: 0.7rem;
-            padding: 2px 12px;
+            padding: 4px 12px;
             border-radius: 50px;
+            text-transform: uppercase;
+            font-weight: 800;
+            display: inline-block;
             margin-bottom: 10px;
         }
 
         /* Video Section */
-        .video-container {
-            width: 100%;
-            aspect-ratio: 16/9;
-            margin: 20px 0;
-            border: 1px solid var(--border);
-            border-radius: 24px;
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            border-radius: 20px;
         }
 
-        /* Applications Cloud */
-        .app-cloud {
-            display: flex;
-            wrap: wrap;
-            justify-content: center;
-            gap: 15px;
+        .video-wrapper iframe {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
         }
-
-        .app-tag {
-            padding: 12px 24px;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 50px;
-            color: var(--text-dim);
-            transition: 0.3s;
-        }
-
-        .app-tag:hover { color: white; border-color: var(--accent); background: rgba(245, 158, 11, 0.1); }
 
         /* CTA */
         .cta-box {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(0, 0, 0, 0) 100%);
-            padding: 80px 40px;
             text-align: center;
-            border-radius: 40px;
-            margin: 100px 0;
-            border: 1px solid var(--primary-glow);
+            padding: 80px 40px;
+            margin: 60px 0;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, transparent 100%);
         }
 
-        .btn {
+        .email-btn {
             display: inline-block;
-            padding: 18px 40px;
+            margin-top: 30px;
+            padding: 20px 45px;
             background: var(--primary);
             color: white;
             text-decoration: none;
-            border-radius: 12px;
             font-weight: 800;
-            margin-top: 30px;
-            box-shadow: 0 10px 20px var(--primary-glow);
+            border-radius: 100px;
+            box-shadow: 0 10px 30px var(--primary-glow);
             transition: 0.3s;
         }
 
-        .btn:hover { background: #4f46e5; transform: scale(1.05); }
+        .email-btn:hover { transform: scale(1.05); background: #4f46e5; }
 
-        footer { padding: 50px 0; text-align: center; border-top: 1px solid var(--border); color: var(--text-dim); font-size: 0.9rem; }
+        footer { padding: 60px 0; text-align: center; color: var(--text-dim); border-top: 1px solid var(--glass-border); }
 
-        /* Mobile Adjustments */
+        /* Responsive Fixes */
         @media (max-width: 768px) {
-            .timeline::before { left: 20px; }
-            .timeline-item { width: 100%; text-align: left !important; padding-left: 50px !important; }
-            .time-node { left: 20px; }
+            .video-grid { grid-template-columns: 1fr; }
             .hero-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <div class="blob"></div>
+    <div class="glow-overlay"></div>
 
     <div class="container">
-        <!-- HERO SECTION -->
+        <!-- HERO -->
         <header>
             <span class="badge">Adaptive Public Safety Technology</span>
-            <h1>Hardware-Based Restricted Zone Breach Detection & Safety Monitoring System</h1>
-            <p class="subheading">A scalable real-time safety infrastructure designed for high-stakes public environments and industrial zones.</p>
+            <h1>Hardware-Based Restricted Zone Breach Detection System</h1>
+            <p style="color: var(--text-dim); max-width: 800px; margin: 0 auto;">A scalable real-time safety infrastructure designed for railway systems, shopping malls, temples, airports, and industrial zones.</p>
             
             <div class="hero-grid">
-                <!-- CARD 1 -->
-                <div class="mode-card glass">
-                    <div class="icon-box">🚉</div>
+                <div class="mode-card glass-card">
+                    <span class="mode-icon">🚆</span>
                     <h2>Railway & Metro Safety</h2>
                     <ul>
                         <li>Yellow line breach detection</li>
@@ -302,177 +219,127 @@
                         <li>Emergency alert automation</li>
                     </ul>
                 </div>
-                <!-- CARD 2 -->
-                <div class="mode-card glass">
-                    <div class="icon-box">🏢</div>
-                    <h2>Public Infrastructure Safety</h2>
+                <div class="mode-card glass-card">
+                    <span class="mode-icon">🏛️</span>
+                    <h2>Public Infrastructure</h2>
                     <ul>
                         <li>Temple restricted area monitoring</li>
-                        <li>Shopping mall hazard-zone protection</li>
-                        <li>Industrial safety monitoring</li>
-                        <li>Airport security zone boundaries</li>
+                        <li>Shopping mall hazard protection</li>
+                        <li>Industrial safety boundaries</li>
+                        <li>Airport restricted zones</li>
                     </ul>
                 </div>
             </div>
         </header>
 
-        <!-- SECTION 2: ARCHITECTURE -->
+        <!-- ARCHITECTURE -->
         <section>
-            <div class="section-title">
-                <h2>Adaptive Deployment Architecture</h2>
-                <p>One core technology, unlimited safety applications.</p>
-            </div>
-            <div class="feature-grid">
-                <div class="feature-card glass">
-                    <h3 style="color:var(--accent)">Single Core Technology</h3>
-                    <p>The same robust hardware architecture scales across all deployment modes with specialized sensor logic.</p>
-                </div>
-                <div class="feature-card glass">
-                    <h3 style="color:var(--accent)">Multi-Env Compatibility</h3>
-                    <p>Optimized for transportation hubs, shopping complexes, industrial plants, and religious sites.</p>
-                </div>
-                <div class="feature-card glass">
-                    <h3 style="color:var(--accent)">Autonomous Monitoring</h3>
-                    <p>Continuous 24x7 real-time monitoring eliminates human error and dependency on manual observation.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 3: RAILWAY MODE -->
-        <section>
-            <div class="section-title">
-                <h2>Railway & Metro Safety Mode</h2>
-            </div>
-            <div class="feature-grid">
-                <div class="feature-card glass"><h3>Yellow Line Breach</h3><p>Instant detection of commuters crossing safety boundaries.</p></div>
-                <div class="feature-card glass"><h3>Platform Edge</h3><p>Monitoring critical gaps between train and platform.</p></div>
-                <div class="feature-card glass"><h3>Train Sync</h3><p>Adaptive logic that knows when a train is docked vs. moving.</p></div>
-                <div class="feature-card glass"><h3>Emergency Alert</h3><p>Direct integration with station PA and control rooms.</p></div>
-                <div class="feature-card glass"><h3>Passenger Fall Prevention</h3><p>Rapid response triggers for track-level emergencies.</p></div>
-                <div class="feature-card glass"><h3>Authority Notification</h3><p>Real-time data logging for security personnel.</p></div>
-            </div>
-        </section>
-
-        <!-- SECTION 5: CHARACTERISTICS -->
-        <section>
-            <div class="section-title">
+            <div class="section-header">
                 <h2>System Characteristics</h2>
             </div>
             <div class="feature-grid">
-                <div class="feature-card glass"><h3>Real-Time Operation</h3><p>Sub-millisecond detection and response latency.</p></div>
-                <div class="feature-card glass"><h3>Non-Contact Detection</h3><p>Advanced sensor arrays requiring no physical contact.</p></div>
-                <div class="feature-card glass"><h3>Fail-Safe Outputs</h3><p>Redundant circuits ensuring safety even during power fluctuations.</p></div>
-                <div class="feature-card glass"><h3>Non-Intrusive</h3><p>Quick installation without modifying existing infrastructure.</p></div>
+                <div class="feature-box glass-card">
+                    <h3>Single Core Tech</h3>
+                    <p>Same hardware architecture optimized for diverse deployment modes.</p>
+                </div>
+                <div class="feature-box glass-card">
+                    <h3>Non-Contact Detection</h3>
+                    <p>Advanced sensors ensure monitoring without physical interference.</p>
+                </div>
+                <div class="feature-box glass-card">
+                    <h3>Fail-Safe Output</h3>
+                    <p>Deterministic logic ensures safety triggers even during network downtime.</p>
+                </div>
             </div>
         </section>
 
-        <!-- SECTION 6: APPLICATIONS -->
+        <!-- VIDEO SECTION -->
         <section>
-            <div class="section-title">
-                <h2>Global Applications</h2>
+            <div class="section-header">
+                <h2>Project Visualizations</h2>
             </div>
-            <div class="app-cloud">
-                <span class="app-tag">Metro Stations</span>
-                <span class="app-tag">Railway Platforms</span>
-                <span class="app-tag">Shopping Malls</span>
-                <span class="app-tag">Temples</span>
-                <span class="app-tag">Airports</span>
-                <span class="app-tag">Industrial Plants</span>
-                <span class="app-tag">Warehouses</span>
-                <span class="app-tag">Stadiums</span>
+            <div class="video-grid">
+                <div class="video-wrapper glass-card">
+                    <iframe src="https://www.youtube.com/embed/Yh16liaSU74" title="Detection Demo" allowfullscreen></iframe>
+                </div>
+                <div class="video-wrapper glass-card">
+                    <iframe src="https://www.youtube.com/embed/k_facgAMG1s" title="Field Testing" allowfullscreen></iframe>
+                </div>
             </div>
         </section>
 
-        <!-- SECTION 7: TIMELINE -->
+        <!-- TIMELINE -->
         <section>
-            <div class="section-title">
-                <h2>Project Development Timeline</h2>
+            <div class="section-header">
+                <h2>Project Journey</h2>
             </div>
             <div class="timeline">
-                <div class="timeline-item">
-                    <div class="time-node"></div>
-                    <div class="time-content glass">
-                        <span class="time-date">OCTOBER 2024</span>
-                        <h3>Project Conception</h3>
-                        <p>Defining architectural logic for hardware-based detection.</p>
-                    </div>
+                <div class="t-item">
+                    <span class="t-date">October 2024</span>
+                    <h3>Project Conception</h3>
+                    <p>Initial architectural mapping and sensor logic development.</p>
                 </div>
-                <div class="timeline-item">
-                    <div class="time-node"></div>
-                    <div class="time-content glass">
-                        <span class="time-date">NOV-DEC 2024</span>
-                        <h3>Hardware Integration</h3>
-                        <p>Assembly of sensor arrays and core processing units.</p>
-                    </div>
+                <div class="t-item">
+                    <span class="t-date">Nov - Dec 2024</span>
+                    <h3>Hardware Integration</h3>
+                    <p>Assembly of isolated actuation stages and sensing layers.</p>
                 </div>
-                <div class="timeline-item">
-                    <div class="time-node"></div>
-                    <div class="time-content glass">
-                        <span class="time-date">JANUARY 2025</span>
-                        <h3>Logic Optimization</h3>
-                        <p>Field-testing detection algorithms for various environments.</p>
-                    </div>
+                <div class="t-item">
+                    <span class="t-date">January 2025</span>
+                    <h3>Logic Optimization</h3>
+                    <p>Refinement of beam-intensity and movement synchronization.</p>
                 </div>
-                <div class="timeline-item">
-                    <div class="time-node"></div>
-                    <div class="time-content glass">
-                        <span class="time-date">FEBRUARY 2025</span>
-                        <h3>Calibration</h3>
-                        <p>Final system tuning for real-world deployment.</p>
-                    </div>
+                <div class="t-item">
+                    <span class="t-date">February 2025</span>
+                    <h3>Final Calibration</h3>
+                    <p>System testing and deployment readiness validation.</p>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 8: TEAM -->
+        <!-- TEAM SECTION -->
         <section>
-            <div class="section-title">
-                <h2>Project Team</h2>
+            <div class="section-header">
+                <h2>Development Team</h2>
             </div>
             <div class="team-grid">
-                <div class="team-card glass">
-                    <img src="https://via.placeholder.com/150" class="team-img" alt="Lead">
+                <div class="member-card glass-card">
+                    <img src="4.jpg" class="member-img" alt="Soham Pal">
                     <span class="role-tag">Principal Investigator</span>
                     <h3>Soham Pal</h3>
-                    <p class="member-dept">EE Department</p>
+                    <p style="color: var(--text-dim)">3rd Year EE Student</p>
                 </div>
-                <div class="team-card glass">
-                    <img src="https://via.placeholder.com/150" class="team-img" alt="Faculty">
-                    <span class="role-tag">Faculty Advisor</span>
+                <div class="member-card glass-card">
+                    <img src="5.jpg" class="member-img" alt="Prof. Heerok Banarjee">
+                    <span class="role-tag">Co-PI</span>
                     <h3>Prof. Heerok Banarjee</h3>
-                    <p class="member-dept">CSE AIML Department</p>
+                    <p style="color: var(--text-dim)">Faculty - CSE AIML</p>
                 </div>
-                <div class="team-card glass">
-                    <img src="https://via.placeholder.com/150" class="team-img" alt="Hardware">
+                <div class="member-card glass-card">
+                    <img src="6.jpg" class="member-img" alt="Sougata Sengupta">
                     <span class="role-tag">Chief of Hardware</span>
                     <h3>Sougata Sengupta</h3>
-                    <p class="member-dept">EE Department</p>
+                    <p style="color: var(--text-dim)">3rd Year EE Student</p>
+                </div>
+                <div class="member-card glass-card">
+                    <img src="10.jpg" class="member-img" alt="Prof. Sujoy Banarjee">
+                    <span class="role-tag">Faculty Advisor</span>
+                    <h3>Prof. Sujoy Banarjee</h3>
+                    <p style="color: var(--text-dim)">Faculty - EE Dept</p>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 9: VIDEO -->
-        <section>
-            <div class="section-title">
-                <h2>System Demonstration</h2>
-            </div>
-            <div class="video-container glass">
-                <!-- Replace with actual YouTube ID -->
-                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
-            </div>
-        </section>
-
-        <!-- SECTION 10: CTA -->
-        <section class="cta-box">
+        <!-- FINAL CTA -->
+        <section class="cta-box glass-card">
             <h2>Inquire for Technical Summary</h2>
-            <p>Seeking deployment guidelines or field test data for your facility?</p>
-            <a href="mailto:contact@securezone.tech" class="btn">Request Deployment Data</a>
+            <p style="color: var(--text-dim); margin-top: 15px;">Seeking deployment guidelines or field test data?</p>
+            <a href="mailto:soham.pal2023@iem.edu.in" class="email-btn">Inquire: soham.pal2023@iem.edu.in</a>
         </section>
 
         <footer>
-            <p>&copy; 2026 SecureZone Technologies. All Rights Reserved. | Government-Grade Public Safety Platform</p>
+            <p>&copy; 2024 - 2026 RailGuard Project Initiative. Government-Grade Safety Infrastructure.</p>
         </footer>
     </div>
-
 </body>
 </html>
