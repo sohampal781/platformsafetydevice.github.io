@@ -57,49 +57,34 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px var(--primary-glow);
         }
 
-        header {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 100px 20px 80px;
-    position: relative;
+        /* Standalone Hero Banner Asset */
+.hero-banner-container {
+    width: 100%;
+    max-height: 550px; /* Limits excessive stretching on ultrawide monitors */
     overflow: hidden;
-    background-color: var(--bg);
+    border-radius: 24px;
+    border: 1px solid var(--border);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    margin-bottom: 40px;
 }
 
-/* Fixed Top Immersive Background Layer using 14.png */
-header::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
+.hero-banner-container img {
     width: 100%;
     height: 100%;
-    /* Gradient mask ensures text is legible and seamlessly fades out at the bottom */
-    background: linear-gradient(to bottom, 
-        rgba(2, 6, 23, 0.80) 0%, 
-        rgba(2, 6, 23, 0.35) 40%, 
-        rgba(2, 6, 23, 0.85) 85%,
-        rgba(2, 6, 23, 1.00) 100%
-    ), 
-    url('14.png') center top / cover no-repeat;
-    z-index: 1;
+    object-fit: cover;
+    display: block;
 }
 
-/* Force all text elements & grids to stay above the graphic background */
-header > * {
+/* Reset header back to a clean semantic layout stack */
+header {
+    padding: 40px 0 60px;
+    text-align: center;
     position: relative;
-    z-index: 2;
+    width: 100%;
 }
 
-/* Soft scale effect on the hero grid for enhanced depth */
 header .hero-grid {
     margin-top: 50px;
-    width: 100%;
-    max-width: 1100px;
 }
         .badge {
             display: inline-block; padding: 6px 16px;
@@ -235,6 +220,9 @@ header .hero-grid {
     <div class="container">
         <!-- HERO SECTION -->
         <header>
+            <div class="hero-banner-container">
+        <img src="14.png" alt="System Architecture Safety Network Visual">
+    </div>
             <span class="badge">Adaptive Public Safety Technology</span>
             <h1>Hardware-Based Restricted Zone Breach Detection & Safety Monitoring System</h1>
             <p class="subheading">A scalable real-time safety infrastructure designed for railway systems, shopping malls, temples, airports, industrial zones, and restricted public areas.</p>
