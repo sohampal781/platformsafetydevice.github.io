@@ -58,19 +58,19 @@
         }
 
         header {
-    min-height: 100vh; /* Increased to 100vh for a full-screen entry impact */
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 80px 20px;
+    padding: 100px 20px 80px;
     position: relative;
     overflow: hidden;
     background-color: var(--bg);
 }
 
-/* Fixed Top Immersive Background Layer */
+/* Fixed Top Immersive Background Layer using 14.png */
 header::before {
     content: '';
     position: absolute;
@@ -80,8 +80,8 @@ header::before {
     height: 100%;
     /* Gradient mask ensures text is legible and seamlessly fades out at the bottom */
     background: linear-gradient(to bottom, 
-        rgba(2, 6, 23, 0.75) 0%, 
-        rgba(2, 6, 23, 0.30) 40%, 
+        rgba(2, 6, 23, 0.80) 0%, 
+        rgba(2, 6, 23, 0.35) 40%, 
         rgba(2, 6, 23, 0.85) 85%,
         rgba(2, 6, 23, 1.00) 100%
     ), 
@@ -101,7 +101,6 @@ header .hero-grid {
     width: 100%;
     max-width: 1100px;
 }
-
         .badge {
             display: inline-block; padding: 6px 16px;
             background: rgba(99, 102, 241, 0.1);
